@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://cgj2eaw3tqc7f"]
+
+[ext_resource type="Script" path="res://assets/main_menu.gd" id="1_wafra"]
+[ext_resource type="Texture2D" uid="uid://ugd6rgyjotjd" path="res://icon.svg" id="2_f61vx"]
+[ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="3_8kerf"]
+[ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="4_ijpcr"]
+[ext_resource type="AudioStream" uid="uid://c63uklb30k8f1" path="res://assets/sounds/music/One Man Symphony - Wreckage (Free) - 07 Wreckage (Area Investigation 03) - Loops.mp3" id="5_71haw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkeft"]
+shader = ExtResource("4_ijpcr")
+shader_parameter/r_displacement = Vector2(2, 0)
+shader_parameter/g_displacement = Vector2(0, 0)
+shader_parameter/b_displacement = Vector2(-2, 0)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wafra")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 644.0
+offset_bottom = 361.0
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 75
+theme_override_constants/margin_right = 75
+theme_override_constants/margin_bottom = 45
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/MarginContainer"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(330, 176)
+scale = Vector2(6.15625, 3.75)
+texture = ExtResource("2_f61vx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_font_sizes/font_size = 50
+text = "The Diver"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="StartButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_font_sizes/font_size = 25
+text = "Start"
+flat = true
+alignment = 2
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_font_sizes/font_size = 25
+text = "Settings"
+flat = true
+alignment = 2
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_font_sizes/font_size = 25
+text = "Exit"
+flat = true
+alignment = 2
+
+[node name="CRT" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_qkeft")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_71haw")
+autoplay = true
+bus = &"LowPass"
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

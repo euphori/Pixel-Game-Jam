@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8oih3k4462w4"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_gc2q2"]
+[ext_resource type="Texture2D" uid="uid://ugd6rgyjotjd" path="res://icon.svg" id="1_gkflp"]
+[ext_resource type="AudioStream" uid="uid://btn732jyioli8" path="res://assets/sounds/sfx/2021-09-24_-_Jump_Scare_E_-_www.FesliyanStudios.com.mp3" id="3_pordr"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ld86r"]
+light_mode = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7eiwo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mipee"]
+radius = 54.0833
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tns8q"]
+radius = 9.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_gc2q2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_ld86r")
+scale = Vector2(0.179687, 0.179687)
+texture = ExtResource("1_gkflp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7eiwo")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("CircleShape2D_mipee")
+
+[node name="PlayerDetection2" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection2"]
+shape = SubResource("CircleShape2D_tns8q")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_pordr")
+volume_db = 10.0
+bus = &"LowPass"
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="area_entered" from="PlayerDetection2" to="." method="_on_player_detection_area_entered"]

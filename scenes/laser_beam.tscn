@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://56qb3ou1ov7h"]
+
+[ext_resource type="Script" path="res://LaserBeam.gd" id="1_2si3y"]
+[ext_resource type="Texture2D" uid="uid://dkluaa26vgq4e" path="res://assets/beam_start.png" id="2_2ophg"]
+[ext_resource type="Texture2D" uid="uid://clc3ow7rvgmsp" path="res://assets/beam.png" id="2_d6v5b"]
+
+[node name="LaserBeam" type="Node2D"]
+script = ExtResource("1_2si3y")
+
+[node name="Begin" type="Sprite2D" parent="."]
+modulate = Color(0.635294, 0.145098, 0.117647, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_2ophg")
+
+[node name="Beam" type="Sprite2D" parent="."]
+modulate = Color(0.635294, 0.145098, 0.117647, 1)
+texture = ExtResource("2_d6v5b")
+centered = false
+offset = Vector2(0, -2)
+region_enabled = true
+region_rect = Rect2(0, 0, 100, 4)
+
+[node name="End" type="Marker2D" parent="."]
+position = Vector2(100, 0)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(100, 0)
+collision_mask = 8

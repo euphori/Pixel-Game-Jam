@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c63uklb30k8f1"
+path="res://.godot/imported/One Man Symphony - Wreckage (Free) - 07 Wreckage (Area Investigation 03) - Loops.mp3-6797911e0cc45c13b91c6335e0df1433.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/music/One Man Symphony - Wreckage (Free) - 07 Wreckage (Area Investigation 03) - Loops.mp3"
+dest_files=["res://.godot/imported/One Man Symphony - Wreckage (Free) - 07 Wreckage (Area Investigation 03) - Loops.mp3-6797911e0cc45c13b91c6335e0df1433.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

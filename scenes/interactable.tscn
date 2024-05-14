@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://chidlm4wmcn07"]
+
+[ext_resource type="Script" path="res://scenes/Interactable.gd" id="1_2iybq"]
+[ext_resource type="Texture2D" uid="uid://bhrm88gfgt7qb" path="res://assets/crystals.png" id="2_yk38a"]
+[ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="3_c0aws"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vl4ln"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t5nec"]
+radius = 23.8537
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urxvj"]
+size = Vector2(16, 14)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1j8wc"]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3q4xk"]
+light_mode = 2
+
+[node name="Interactable" type="StaticBody2D"]
+material = SubResource("CanvasItemMaterial_vl4ln")
+script = ExtResource("1_2iybq")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("CircleShape2D_t5nec")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_urxvj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_1j8wc")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_yk38a")
+
+[node name="Label" type="Label" parent="."]
+material = SubResource("CanvasItemMaterial_3q4xk")
+offset_left = -9.0
+offset_top = -15.0
+offset_right = 61.0
+offset_bottom = 5.0
+scale = Vector2(0.25, 0.25)
+theme_override_fonts/font = ExtResource("3_c0aws")
+theme_override_font_sizes/font_size = 0
+text = "harvest"
+horizontal_alignment = 2
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
