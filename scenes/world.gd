@@ -1,7 +1,8 @@
 extends Node2D
 
 @onready var tilemap = $Tiles
-
+@onready var meter_label = $UI/CanvasLayer/MarginContainer/VBoxContainer/MeterLabel
+@onready var player = $Player
 
 
 func _ready():
@@ -11,4 +12,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	meter_label.text = str(abs(int($StartingLocation.global_position.y - player.global_position.y) / 25) ,"m")

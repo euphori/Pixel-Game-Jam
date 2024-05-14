@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://56qb3ou1ov7h"]
+[gd_scene load_steps=5 format=3 uid="uid://56qb3ou1ov7h"]
 
 [ext_resource type="Script" path="res://LaserBeam.gd" id="1_2si3y"]
 [ext_resource type="Texture2D" uid="uid://dkluaa26vgq4e" path="res://assets/beam_start.png" id="2_2ophg"]
 [ext_resource type="Texture2D" uid="uid://clc3ow7rvgmsp" path="res://assets/beam.png" id="2_d6v5b"]
+[ext_resource type="AudioStream" uid="uid://ca5lu4288oifv" path="res://assets/sounds/sfx/mining/laser-charge-175727.mp3" id="4_ard67"]
 
 [node name="LaserBeam" type="Node2D"]
+visible = false
 script = ExtResource("1_2si3y")
 
 [node name="Begin" type="Sprite2D" parent="."]
@@ -23,6 +25,21 @@ region_rect = Rect2(0, 0, 100, 4)
 [node name="End" type="Marker2D" parent="."]
 position = Vector2(100, 0)
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="End"]
+amount = 50
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+color = Color(0.635294, 0.145098, 0.117647, 1)
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(100, 0)
 collision_mask = 8
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ard67")
+bus = &"LowPass"
