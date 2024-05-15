@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl7l8fxtlh7u1"]
+[gd_scene load_steps=9 format=3 uid="uid://dl7l8fxtlh7u1"]
 
 [ext_resource type="PackedScene" uid="uid://g1pu4lgm81wp" path="res://areas/mineral_hurtbox.tscn" id="2_40qf6"]
 [ext_resource type="Texture2D" uid="uid://bhrm88gfgt7qb" path="res://assets/crystals.png" id="3_efjcp"]
+[ext_resource type="PackedScene" uid="uid://627nt1c8gtnj" path="res://areas/player_detection.tscn" id="3_yybpb"]
+[ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="4_xseur"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vl4ln"]
 
@@ -9,17 +11,60 @@
 script/source = "extends StaticBody2D
 
 var health = 100
+var player_near = false
+var player
 
+@export var type = \"red\"
+@export var color = {
+	\"red\": Color.ORANGE_RED,
+	\"blue\" : Color.LIGHT_BLUE,
+	\"green\" : Color.SEA_GREEN
+	} 
+
+var drop = preload(\"res://scenes/drop.tscn\")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Label.visible = false
+	$Sprite2D.modulate = color[type]
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if health <= 0:
-		queue_free()
+	
+	$Label.visible = player_near
+	
+	if Input.is_action_pressed(\"gather\") and player != null and player_near:
+		player.get_node(\"LaserBeam\").mineral_pos = global_position
+		player.get_node(\"LaserBeam\").gathering = true
+	if Input.is_action_just_released(\"gather\")  and player != null and player_near:
+		player.get_node(\"LaserBeam\").gathering = false
+	if player != null and !player_near:
+		player.get_node(\"LaserBeam\").gathering = false
+	if health == 0:
+		visible = false
+		drop_mineral()
+		
+
+
+func drop_mineral():
+	for i in 15:
+		await get_tree().create_timer(randf_range(0.025,.05)).timeout
+		var _drop = drop.instantiate()
+		_drop.color = color[type]
+		_drop.global_position = global_position
+		get_parent().add_child(_drop)
+	Global.inventory[type] += 1
+	Global.emit_signal(\"item_added\")
+	queue_free()
+
+func _on_player_detection_body_entered(body):
+	player = body
+	player_near = true
+
+
+func _on_player_detection_body_exited(body):
+	player_near = false
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_urxvj"]
@@ -27,11 +72,12 @@ size = Vector2(16, 14)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1j8wc"]
 
-[node name="Minerals" type="StaticBody2D"]
+[node name="Minerals" type="StaticBody2D" groups=["mineral"]]
 material = SubResource("CanvasItemMaterial_vl4ln")
 collision_layer = 8
 collision_mask = 32
 script = SubResource("GDScript_i254u")
+type = "green"
 
 [node name="MineralHurtbox" parent="." instance=ExtResource("2_40qf6")]
 collision_layer = 8
@@ -44,5 +90,20 @@ shape = SubResource("RectangleShape2D_urxvj")
 material = SubResource("CanvasItemMaterial_1j8wc")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_efjcp")
+
+[node name="PlayerDetection" parent="." instance=ExtResource("3_yybpb")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -13.0
+offset_right = 114.0
+offset_bottom = 7.0
+scale = Vector2(0.25, 0.25)
+theme_override_fonts/font = ExtResource("4_xseur")
+text = "Gather(left_mouse)"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 
 [editable path="MineralHurtbox"]

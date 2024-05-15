@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0f7f17yx6a17"]
+
+[ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="1_i7fje"]
+
+[node name="QuotaLabel1" type="Label"]
+theme_override_fonts/font = ExtResource("1_i7fje")
+text = "Blue 0/1"

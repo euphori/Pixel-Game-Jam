@@ -10,7 +10,8 @@ var player
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$PointLight2D.visible = false
-	$Sprite2D.visible = false
+	if remove_after_timeout:
+		$Sprite2D.visible = false
 	$Timer.start(timer_length)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

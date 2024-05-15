@@ -154,6 +154,10 @@ position = Vector2(301, 108)
 [node name="Minerals" parent="." instance=ExtResource("6_f3hpj")]
 position = Vector2(192, 120)
 
+[node name="Minerals2" parent="." instance=ExtResource("6_f3hpj")]
+position = Vector2(361, 154)
+type = "red"
+
 [node name="AudioManager" type="Node" parent="."]
 script = ExtResource("4_55vh8")
 
@@ -196,30 +200,40 @@ theme_override_constants/margin_bottom = 25
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="QuotaList" type="VBoxContainer" parent="UI/CanvasLayer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="RequiredMatLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="RequiredMatLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/QuotaList"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_8p36n")
-text = "1 x BLUE
-2 x RED"
+text = "Qouta:
+"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 alignment = 2
 
-[node name="MeterLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MeterLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_8p36n")
 text = "0m"
 horizontal_alignment = 2
 
-[node name="Label2" type="Label" parent="UI/CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="OxygenProgressBar" type="ProgressBar" parent="UI/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer2"]
+modulate = Color(0.176471, 0.431373, 0.607843, 1)
+custom_minimum_size = Vector2(130, 15)
 layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("6_8p36n")
-text = "Sensor(Space)"
-horizontal_alignment = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_s20e7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7k2jp")
+value = 100.0
+show_percentage = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -247,8 +261,13 @@ material = SubResource("ShaderMaterial_c0buh")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 42.0
+offset_top = -1.0
+offset_right = 42.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(-29, 118)
 mouse_filter = 2
 
 [connection signal="timeout" from="EnvironmentMonsterSound/Timer" to="EnvironmentMonsterSound" method="_on_timer_timeout"]

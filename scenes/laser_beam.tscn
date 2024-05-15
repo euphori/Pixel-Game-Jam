@@ -6,21 +6,21 @@
 [ext_resource type="AudioStream" uid="uid://ca5lu4288oifv" path="res://assets/sounds/sfx/mining/laser-charge-175727.mp3" id="4_ard67"]
 
 [node name="LaserBeam" type="Node2D"]
-visible = false
 script = ExtResource("1_2si3y")
+enabled = true
 
 [node name="Begin" type="Sprite2D" parent="."]
 modulate = Color(0.635294, 0.145098, 0.117647, 1)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_2ophg")
 
 [node name="Beam" type="Sprite2D" parent="."]
 modulate = Color(0.635294, 0.145098, 0.117647, 1)
 texture = ExtResource("2_d6v5b")
 centered = false
-offset = Vector2(0, -2)
+offset = Vector2(0, -0.5)
 region_enabled = true
-region_rect = Rect2(0, 0, 100, 4)
+region_rect = Rect2(0, 0, 100, 1)
 
 [node name="End" type="Marker2D" parent="."]
 position = Vector2(100, 0)
