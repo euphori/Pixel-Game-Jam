@@ -1,4 +1,6 @@
+
 extends CharacterBody2D
+
 
 
 const SPEED = 100.0
@@ -34,7 +36,6 @@ func update_context_map(player_position, current_position):
 	#populate interest array using vector dot product
 	for i in range(8):
 		interest_array[i] = vector_to_player.dot(arr[i])
-
 	for i in range(8):
 		context_map[i] = interest_array[i] - danger_array[i]
 		if i == 0:
@@ -48,12 +49,11 @@ func update_context_map(player_position, current_position):
 
 #godot functions
 func _physics_process(delta):
-	if Input.is_action_just_pressed("sonar") and is_player_near:
-		print("X")
+	if Input.is_action_just_pressed("sonar") and is_player_near and !played_jumpscare:
 		$AudioStreamPlayer2D.play()
-
+	
 	if player:
-		print("Player Spotted")
+		#print("Player Spotted")
 		update_context_map(player.position, position)
 		#determines sharpness of turn
 		var rounded_turn = 2.2

@@ -1,0 +1,279 @@
+[gd_scene load_steps=6 format=3 uid="uid://bg56wmvqk8h4j"]
+
+[ext_resource type="Script" path="res://HomeScreen.gd" id="1_l0v3e"]
+[ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="2_5wsn3"]
+[ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="3_blqmu"]
+[ext_resource type="Texture2D" uid="uid://clc3ow7rvgmsp" path="res://assets/beam.png" id="4_ffi38"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_355br"]
+shader = ExtResource("3_blqmu")
+shader_parameter/r_displacement = Vector2(0.5, 0)
+shader_parameter/g_displacement = Vector2(0, 0)
+shader_parameter/b_displacement = Vector2(-0.5, 0)
+
+[node name="HomeScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_l0v3e")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 175
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 175
+theme_override_constants/margin_bottom = 25
+
+[node name="ResultScreen" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/ResultScreen"]
+layout_mode = 2
+alignment = 1
+
+[node name="MeterLabel" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Run Results"
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/ResultScreen"]
+layout_mode = 2
+
+[node name="Time" type="HBoxContainer" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Time"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Total Time"
+horizontal_alignment = 2
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Time"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "0:00"
+horizontal_alignment = 2
+
+[node name="Mineral" type="HBoxContainer" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Red"
+horizontal_alignment = 2
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "1"
+horizontal_alignment = 2
+
+[node name="Mineral2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Blue"
+horizontal_alignment = 2
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral2"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "1"
+horizontal_alignment = 2
+
+[node name="Mineral3" type="HBoxContainer" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Green"
+horizontal_alignment = 2
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral3"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "1"
+horizontal_alignment = 2
+
+[node name="Quota" type="HBoxContainer" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Quota"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Quota"
+horizontal_alignment = 2
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Quota"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Completed"
+horizontal_alignment = 2
+
+[node name="Earned" type="HBoxContainer" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Earned"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Gold Earned"
+horizontal_alignment = 2
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Earned"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "100"
+horizontal_alignment = 2
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/MarginContainer/ResultScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wsn3")
+theme_override_font_sizes/font_size = 25
+text = "Continue"
+flat = true
+alignment = 2
+
+[node name="UpgradeScreen" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/UpgradeScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Pick One"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/UpgradeScreen"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/MarginContainer/UpgradeScreen/HBoxContainer"]
+custom_minimum_size = Vector2(125, 175)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture_normal = ExtResource("4_ffi38")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/UpgradeScreen/HBoxContainer/TextureButton"]
+layout_mode = 0
+offset_right = 124.0
+offset_bottom = 175.0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Upgrade #1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/MarginContainer/UpgradeScreen/HBoxContainer"]
+custom_minimum_size = Vector2(125, 175)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture_normal = ExtResource("4_ffi38")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/UpgradeScreen/HBoxContainer/TextureButton2"]
+layout_mode = 0
+offset_right = 124.0
+offset_bottom = 175.0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Upgrade #2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/MarginContainer/UpgradeScreen/HBoxContainer"]
+custom_minimum_size = Vector2(125, 175)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture_normal = ExtResource("4_ffi38")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/UpgradeScreen/HBoxContainer/TextureButton3"]
+layout_mode = 0
+offset_right = 124.0
+offset_bottom = 174.0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_5wsn3")
+text = "Upgrade #3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ViewUpgradeButton" type="Button" parent="CanvasLayer/MarginContainer/UpgradeScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wsn3")
+theme_override_font_sizes/font_size = 15
+text = "View Upgrades"
+flat = true
+alignment = 2
+
+[node name="SkipButton" type="Button" parent="CanvasLayer/MarginContainer/UpgradeScreen"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wsn3")
+theme_override_font_sizes/font_size = 15
+text = "Skip"
+flat = true
+alignment = 2
+
+[node name="CRT" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_355br")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 42.0
+offset_top = -1.0
+offset_right = 42.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-29, 118)
+mouse_filter = 2
+
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(321, 183.5)
+scale = Vector2(81.25, 46.875)
+texture = ExtResource("4_ffi38")
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/ResultScreen/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/UpgradeScreen/SkipButton" to="." method="_on_skip_button_pressed"]

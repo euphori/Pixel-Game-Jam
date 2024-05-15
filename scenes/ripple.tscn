@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxkw1p1k27j1o"]
+
+[ext_resource type="Texture2D" uid="uid://cetc6rnqpnih0" path="res://assets/circle.png" id="1_rdv6u"]
+[ext_resource type="Script" path="res://scenes/ripple.gd" id="2_1silu"]
+
+[node name="Ripple" type="Sprite2D"]
+z_index = -1
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_rdv6u")
+script = ExtResource("2_1silu")

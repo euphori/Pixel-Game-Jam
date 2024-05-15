@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://56qb3ou1ov7h"]
+[gd_scene load_steps=7 format=3 uid="uid://56qb3ou1ov7h"]
 
 [ext_resource type="Script" path="res://LaserBeam.gd" id="1_2si3y"]
 [ext_resource type="Texture2D" uid="uid://dkluaa26vgq4e" path="res://assets/beam_start.png" id="2_2ophg"]
 [ext_resource type="Texture2D" uid="uid://clc3ow7rvgmsp" path="res://assets/beam.png" id="2_d6v5b"]
+[ext_resource type="Texture2D" uid="uid://cmwkkslwri3dt" path="res://assets/light2.png" id="4_3r8lu"]
 [ext_resource type="AudioStream" uid="uid://ca5lu4288oifv" path="res://assets/sounds/sfx/mining/laser-charge-175727.mp3" id="4_ard67"]
+
+[sub_resource type="Environment" id="Environment_unndg"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 4.0
+glow_strength = 1.38
+glow_blend_mode = 0
+glow_hdr_scale = 1.0
 
 [node name="LaserBeam" type="Node2D"]
 script = ExtResource("1_2si3y")
@@ -35,6 +44,15 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 20.0
 color = Color(0.635294, 0.145098, 0.117647, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="End"]
+environment = SubResource("Environment_unndg")
+
+[node name="PointLight2D" type="PointLight2D" parent="End"]
+scale = Vector2(0.05, 0.05)
+color = Color(0.858824, 0.196078, 0.156863, 1)
+energy = 0.5
+texture = ExtResource("4_3r8lu")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(100, 0)

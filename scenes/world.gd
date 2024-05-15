@@ -11,6 +11,7 @@ var quota = {
 	"red" : 1,
 	"green" : 1
 }
+var player_near_exit = false
 
 var quota_colors = []
 
@@ -27,6 +28,9 @@ func _ready():
 	update_quota()
 	
 
+func _input(event):
+	if event.is_action_pressed("interact") and player_near_exit:
+		get_tree().change_scene_to_file("res://scenes/home_screen.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -37,3 +41,7 @@ func _process(delta):
 func update_quota():
 	for label in quota_colors:
 		label.text = str(label.name , " ", Global.inventory[label.name],"/",quota[label.name])
+
+
+func _on_exit_body_entered(body):
+	player_near_exit = true
