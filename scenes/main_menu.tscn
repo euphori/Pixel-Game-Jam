@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cgj2eaw3tqc7f"]
+[gd_scene load_steps=11 format=3 uid="uid://cgj2eaw3tqc7f"]
 
 [ext_resource type="Script" path="res://assets/main_menu.gd" id="1_wafra"]
 [ext_resource type="Texture2D" uid="uid://bu4q50ks347k4" path="res://assets/UI/0f63801b54e9393c8ebec2708e6d06e1.jpg" id="2_7tpo5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="4_ijpcr"]
 [ext_resource type="Texture2D" uid="uid://yxohbbsat1cm" path="res://assets/UI/text_field.png" id="4_iqcgn"]
 [ext_resource type="AudioStream" uid="uid://c63uklb30k8f1" path="res://assets/sounds/music/One Man Symphony - Wreckage (Free) - 07 Wreckage (Area Investigation 03) - Loops.mp3" id="5_71haw"]
+[ext_resource type="FontFile" uid="uid://eonv58ncp6tt" path="res://assets/fonts/retro-pixel-arcade.ttf" id="6_cnlcs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wlrm4"]
 
@@ -87,7 +88,7 @@ size_flags_horizontal = 4
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_fonts/font = ExtResource("6_cnlcs")
 theme_override_font_sizes/font_size = 50
 text = "The Diver"
 

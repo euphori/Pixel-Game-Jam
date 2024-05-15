@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ep83e8kl3eul"]
+[gd_scene load_steps=6 format=3 uid="uid://ep83e8kl3eul"]
 
 [ext_resource type="Script" path="res://Drop.gd" id="1_5lq7c"]
 [ext_resource type="Texture2D" uid="uid://clc3ow7rvgmsp" path="res://assets/beam.png" id="2_kbqih"]
 [ext_resource type="PackedScene" uid="uid://627nt1c8gtnj" path="res://areas/player_detection.tscn" id="3_uacf8"]
+[ext_resource type="AudioStream" uid="uid://b82gn8l5l8ige" path="res://assets/sounds/sfx/mining/phone-pick-up-46796.mp3" id="4_pbwb2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmopx"]
 size = Vector2(2, 2)
@@ -22,6 +23,10 @@ shape = SubResource("RectangleShape2D_kmopx")
 disabled = true
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="PickupAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_pbwb2")
+bus = &"LowPass"
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

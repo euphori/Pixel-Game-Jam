@@ -10,6 +10,7 @@ var start_pos
 var max_distance = 25
 var min_distance = 1
 var can_siphon = false
+var picked_up = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Timer.start(0.5)
@@ -31,10 +32,19 @@ func _process(delta):
 		velocity = dir * speed
 		
 	if player != null and int(global_position.distance_to(player.global_position)) <= 0:
-		
-		queue_free()
+		pick_up()
 	move_and_slide()
 
+
+func pick_up():
+	if !picked_up:
+		$PickupAudio.play()
+		
+		picked_up = true
+		visible = false
+		await get_tree().create_timer(1).timeout
+		queue_free()
+	
 
 func _on_player_detection_body_entered(body):
 	player_near = true

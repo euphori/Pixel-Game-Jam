@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dl7l8fxtlh7u1"]
+[gd_scene load_steps=10 format=3 uid="uid://dl7l8fxtlh7u1"]
 
 [ext_resource type="PackedScene" uid="uid://g1pu4lgm81wp" path="res://areas/mineral_hurtbox.tscn" id="2_40qf6"]
 [ext_resource type="Texture2D" uid="uid://bhrm88gfgt7qb" path="res://assets/crystals.png" id="3_efjcp"]
 [ext_resource type="PackedScene" uid="uid://627nt1c8gtnj" path="res://areas/player_detection.tscn" id="3_yybpb"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="4_xseur"]
+[ext_resource type="AudioStream" uid="uid://bdgqj4tqacm6h" path="res://assets/sounds/sfx/mining/dropping-rocks-5996.mp3" id="5_p6i7w"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vl4ln"]
 
@@ -13,6 +14,7 @@ script/source = "extends StaticBody2D
 var health = 100
 var player_near = false
 var player
+var sfx_playing = false
 
 @export var type = \"red\"
 @export var color = {
@@ -35,13 +37,21 @@ func _process(delta):
 	$Label.visible = player_near
 	
 	if Input.is_action_pressed(\"gather\") and player != null and player_near:
+		if !sfx_playing:
+			$AudioStreamPlayer2D.play()
+			sfx_playing = true
 		player.get_node(\"LaserBeam\").mineral_pos = global_position
 		player.get_node(\"LaserBeam\").gathering = true
 	if Input.is_action_just_released(\"gather\")  and player != null and player_near:
 		player.get_node(\"LaserBeam\").gathering = false
+		$AudioStreamPlayer2D.stop()
+		sfx_playing = false
 	if player != null and !player_near:
 		player.get_node(\"LaserBeam\").gathering = false
-	if health == 0:
+		$AudioStreamPlayer2D.stop()
+		sfx_playing = false
+	
+	if health == 0 :
 		visible = false
 		drop_mineral()
 		
@@ -102,6 +112,10 @@ scale = Vector2(0.25, 0.25)
 theme_override_fonts/font = ExtResource("4_xseur")
 text = "Gather(left_mouse)"
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_p6i7w")
+bus = &"LowPass"
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]

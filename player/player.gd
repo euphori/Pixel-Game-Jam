@@ -10,7 +10,7 @@ var remote_sonar_charge = 3
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sonar = preload("res://scenes/sonar_light.tscn")
 
-@onready var cd_bar = $"../UI/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/ProgressBar"
+@onready var cd_bar = $"../UI/CanvasLayer/MarginContainer/VBoxContainer2/ProgressBar"
 @onready var remote_charge_label = $"../UI/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/RemoteChargeLabel"
 
 func _ready():

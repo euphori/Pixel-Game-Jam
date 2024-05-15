@@ -5,6 +5,11 @@ extends Node2D
 @onready var player = $Player
 @onready var oxygen_bar = $UI/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer2/OxygenProgressBar
 @onready var quota_list = $UI/CanvasLayer/MarginContainer/HBoxContainer/QuotaList
+@onready var meter_arrow = $UI/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/MeterArrow
+
+
+
+
 var quota_label = preload("res://scenes/quota_label.tscn")
 
 var quota = {
@@ -12,18 +17,19 @@ var quota = {
 	"green" : 1
 }
 var player_near_exit = false
-
+var curr_depth 
 var quota_colors = []
 
 func _ready():
+	
 	tilemap.material.light_mode = 2
-	for i in quota:
-		if quota[i] > 0:
-			var _quota_label = quota_label.instantiate()
-			quota_list.add_child(_quota_label)
-			quota_colors.append(_quota_label)
-			_quota_label.name = i
-			_quota_label.text = i
+	#for i in quota:
+		#if quota[i] > 0:
+			#var _quota_label = quota_label.instantiate()
+			#quota_list.add_child(_quota_label)
+			#quota_colors.append(_quota_label)
+			#_quota_label.name = i
+			#_quota_label.text = i
 	Global.connect("item_added" ,update_quota )
 	update_quota()
 	
@@ -34,8 +40,10 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	meter_label.text = str(abs(int($StartingLocation.global_position.y - player.global_position.y) / 15) ,"m")
-	oxygen_bar.value -= 0.4 * delta
+	curr_depth = abs(int($StartingLocation.global_position.y - player.global_position.y) / 10)
+	#print(curr_depth)
+	meter_arrow.position.y = max(1,32 * curr_depth / 50)
+	#oxygen_bar.value -= 0.4 * delta
 	
 
 func update_quota():
