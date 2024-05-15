@@ -19,6 +19,31 @@ radius = 9.0
 collision_layer = 4
 script = ExtResource("1_gc2q2")
 
+[node name="InterestDetection" type="Node2D" parent="."]
+
+[node name="InterestDown" type="RayCast2D" parent="InterestDetection"]
+
+[node name="InterestUp" type="RayCast2D" parent="InterestDetection"]
+rotation = 3.14159
+
+[node name="InterestLeft" type="RayCast2D" parent="InterestDetection"]
+rotation = 1.5708
+
+[node name="InterestRight" type="RayCast2D" parent="InterestDetection"]
+rotation = -1.5708
+
+[node name="InterestDownRight" type="RayCast2D" parent="InterestDetection"]
+rotation = -0.785398
+
+[node name="InterestDownLeft" type="RayCast2D" parent="InterestDetection"]
+rotation = 0.785398
+
+[node name="InterestUpperLeft" type="RayCast2D" parent="InterestDetection"]
+rotation = 2.35619
+
+[node name="InterestUpperRight" type="RayCast2D" parent="InterestDetection"]
+rotation = -2.35619
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_ld86r")
 scale = Vector2(0.179687, 0.179687)
