@@ -56,9 +56,9 @@ func _physics_process(delta):
 		#print("Player Spotted")
 		update_context_map(player.position, position)
 		#determines sharpness of turn
-		var rounded_turn = 2.2
+		var sharp_turn = 2.2
 		var steering_force = arr[best_direction_index] - velocity
-		velocity = velocity + ((steering_force * rounded_turn) * delta)
+		velocity = velocity + ((steering_force * sharp_turn) * delta)
 		position += velocity
 		
 

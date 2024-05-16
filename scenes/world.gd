@@ -31,8 +31,6 @@ func _ready():
 			#_quota_label.name = i
 			#_quota_label.text = i
 	Global.connect("item_added" ,update_quota )
-	update_quota()
-	
 
 func _input(event):
 	if event.is_action_pressed("interact") and player_near_exit:
@@ -46,10 +44,17 @@ func _process(delta):
 	#oxygen_bar.value -= 0.4 * delta
 	
 
-func update_quota():
+func update_quota(data):
+	if data == "green":
+		#why does this add 2?
+		Global.inventory["green"] += 1
+	elif data == "red":
+		#why does this add 2?
+		Global.inventory["red"] += 1
+		
+	print("Inventory: ", Global.inventory)
 	for label in quota_colors:
 		label.text = str(label.name , " ", Global.inventory[label.name],"/",quota[label.name])
-
 
 func _on_exit_body_entered(body):
 	player_near_exit = true
