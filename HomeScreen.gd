@@ -1,7 +1,7 @@
 extends Control
 
-@onready var result_screen = $CanvasLayer/MarginContainer/ResultScreen
-@onready var upgrade_screen = $CanvasLayer/MarginContainer/UpgradeScreen
+@onready var result_screen = $CanvasLayer/ResultContainer
+@onready var upgrade_screen = $CanvasLayer/UpgradeContainer
 
 
 func _ready():
@@ -19,5 +19,6 @@ func _on_continue_button_pressed():
 	upgrade_screen.visible = true
 
 
-func _on_skip_button_pressed():
+
+func _on_upgrade_continue_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
