@@ -8,6 +8,9 @@ var player_max_hp = 100
 
 var curr_difficulty = 3
 
+var max_depth = 0
+var time_start = 0
+var time_end = 0
 
 var inventory = {
 	"red" : 0,
@@ -43,4 +46,12 @@ func generate_quota():
 	return quota
 		
 		
-		
+func reset_run_stats():
+	inventory = {
+	"red" : 0,
+	"blue" : 0,
+	"green" : 0
+	}
+	max_depth = 0
+	time_start = 0
+	time_end = 0

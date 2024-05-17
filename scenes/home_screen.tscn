@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bg56wmvqk8h4j"]
+[gd_scene load_steps=14 format=3 uid="uid://bg56wmvqk8h4j"]
 
 [ext_resource type="Script" path="res://HomeScreen.gd" id="1_l0v3e"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="2_5wsn3"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bl3s7mdotqwfx" path="res://assets/oxygen_icon.png" id="7_jisu6"]
 [ext_resource type="Texture2D" uid="uid://dwla1y4meiyr1" path="res://assets/speed_icon.png" id="8_ean4d"]
 [ext_resource type="Texture2D" uid="uid://5es7o1ubpwfa" path="res://assets/diamond.png" id="9_kg4p2"]
+[ext_resource type="Script" path="res://scenes/ResultScreen.gd" id="10_q8m8g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_355br"]
 shader = ExtResource("3_blqmu")
@@ -28,6 +29,7 @@ script = ExtResource("1_l0v3e")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UpgradeContainer" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -180,6 +182,7 @@ theme_override_constants/margin_bottom = 25
 [node name="ResultScreen" type="VBoxContainer" parent="CanvasLayer/ResultContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
+script = ExtResource("10_q8m8g")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen"]
 layout_mode = 2
@@ -188,7 +191,7 @@ alignment = 1
 [node name="MeterLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "Run Results"
+text = "Dive Results"
 horizontal_alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen"]
@@ -200,10 +203,10 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Time"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "Total Time"
+text = "Time elapsed"
 horizontal_alignment = 2
 
-[node name="ResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Time"]
+[node name="TimeResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Time"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_fonts/font = ExtResource("2_dhl3i")
@@ -219,59 +222,11 @@ theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Max depth"
 horizontal_alignment = 2
 
-[node name="ResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/MaxDepth"]
+[node name="MaxDepthLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/MaxDepth"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "150m"
-horizontal_alignment = 2
-
-[node name="Mineral" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Mineral"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "Red"
-horizontal_alignment = 2
-
-[node name="ResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Mineral"]
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "1"
-horizontal_alignment = 2
-
-[node name="Mineral2" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Mineral2"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "Blue"
-horizontal_alignment = 2
-
-[node name="ResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Mineral2"]
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "1"
-horizontal_alignment = 2
-
-[node name="Mineral3" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Mineral3"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "Green"
-horizontal_alignment = 2
-
-[node name="ResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Mineral3"]
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "1"
 horizontal_alignment = 2
 
 [node name="Quota" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
@@ -283,11 +238,66 @@ theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Quota"
 horizontal_alignment = 2
 
-[node name="ResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Quota"]
+[node name="QuotaResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Quota"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Completed"
+horizontal_alignment = 2
+
+[node name="ExtraLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Extra Minerals:"
+horizontal_alignment = 2
+
+[node name="RedMineral" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/RedMineral"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Red"
+horizontal_alignment = 2
+
+[node name="ExtraRedLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/RedMineral"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "1"
+horizontal_alignment = 2
+
+[node name="BlueMineral" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/BlueMineral"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Blue"
+horizontal_alignment = 2
+
+[node name="ExtraBlueLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/BlueMineral"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "1"
+horizontal_alignment = 2
+
+[node name="GreenMineral" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/GreenMineral"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Green"
+horizontal_alignment = 2
+
+[node name="ExtraGreenLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/GreenMineral"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "1"
 horizontal_alignment = 2
 
 [node name="Earned" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
@@ -299,7 +309,7 @@ theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Gold Earned"
 horizontal_alignment = 2
 
-[node name="ResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Earned"]
+[node name="GoldEarnedLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Earned"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_fonts/font = ExtResource("2_dhl3i")

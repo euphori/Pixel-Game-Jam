@@ -20,7 +20,10 @@ var curr_depth
 var quota_colors = []
 
 func _ready():
+	Global.reset_run_stats()
 	quota = Global.generate_quota()
+	Global.time_start = Time.get_unix_time_from_datetime_string(Time.get_datetime_string_from_system())
+	
 	
 	tilemap.material.light_mode = 2
 	for i in quota:
@@ -36,6 +39,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("interact") and player_near_exit:
+		Global.time_end = Time.get_unix_time_from_datetime_string(Time.get_datetime_string_from_system())
 		get_tree().change_scene_to_file("res://scenes/home_screen.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,6 +47,8 @@ func _process(delta):
 	curr_depth = abs(int($StartingLocation.global_position.y - player.global_position.y) / 10)
 	#print(curr_depth)
 	meter_arrow.position.y = max(1,32 * curr_depth / 50)
+	if curr_depth > Global.max_depth:
+		Global.max_depth = curr_depth
 	oxygen -= 0.4 * delta
 	oxygen_label.text = str("Oxygen: " , int(oxygen), "%")
 	if oxygen <= 25 and !warning_animation_player.current_animation == null:
