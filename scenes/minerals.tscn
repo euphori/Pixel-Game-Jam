@@ -65,7 +65,7 @@ func drop_mineral():
 		_drop.global_position = global_position
 		get_parent().add_child(_drop)
 	Global.inventory[type] += 1
-	Global.emit_signal(\"item_added\", type)
+	Global.emit_signal(\"item_added\")
 	queue_free()
 
 func _on_player_detection_body_entered(body):

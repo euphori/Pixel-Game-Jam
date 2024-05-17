@@ -76,7 +76,12 @@ func _on_player_detection_body_exited(body):
 
 
 func _on_player_detection_area_entered(area):
+	$WarningSprite.visible = false
 	if !played_jumpscare:
 		$AudioStreamPlayer2D.play()
 		played_jumpscare = true
 	
+
+
+func _on_player_detection_area_exited(area):
+	$WarningSprite.visible = true

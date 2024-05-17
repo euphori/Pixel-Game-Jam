@@ -5,16 +5,27 @@ const SPEED = 75.0
 const JUMP_VELOCITY = -400.0
 
 var remote_sonar_charge = 3
+var flag_charge = 5
+var health = 100
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sonar = preload("res://scenes/sonar_light.tscn")
+var flag = preload("res://scenes/flag.tscn")
 
 @onready var cd_bar = $"../UI/CanvasLayer/MarginContainer/VBoxContainer2/ProgressBar"
-@onready var remote_charge_label = $"../UI/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/RemoteChargeLabel"
+@onready var remote_charge_label = $"../UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/RemoteSonarLabel"
+@onready var flag_charge_label = $"../UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/FlagLabel"
 
 func _ready():
 	pass
+
+
+func _input(event):
+	if event.is_action_pressed("flag"):
+		if flag_charge > 0:
+			place_flag()
+
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -37,8 +48,14 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.y = move_toward(velocity.y, 0, SPEED)
-
-
+	
+	if abs(velocity.x) > 0:
+		$AnimationPlayer.play("side")
+	elif velocity.y > 0:
+		$AnimationPlayer.play("up")
+	elif velocity == Vector2.ZERO:
+		$AnimationPlayer.play("up")
+	
 	move_and_slide()
 
 
@@ -54,10 +71,17 @@ func scan_area(is_remote):
 		cd_bar.value = 0
 	else:
 		_sonar.remove_after_timeout = false
-		remote_charge_label.text = str("Remote Sensor: ", remote_sonar_charge)
+		remote_charge_label.text = str("Remote Sonar: ", remote_sonar_charge, "x")
 	get_parent().add_child(_sonar) 
 	_sonar.get_node("AnimationPlayer").play("trigger_sonar")
 
 
+func place_flag():
+	var _flag = flag.instantiate()
+	_flag.global_position = global_position
+	_flag.get_node("AnimationPlayer").play("bob")
+	get_parent().add_child(_flag)
+	flag_charge -= 1
+	flag_charge_label.text = str("Flag: " , flag_charge, "x")
 
 

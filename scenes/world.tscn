@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://drvxqutv2afxl"]
+[gd_scene load_steps=47 format=3 uid="uid://drvxqutv2afxl"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_7qbpn"]
 [ext_resource type="PackedScene" uid="uid://dfby6rujiyds" path="res://player/player.tscn" id="2_0cvto"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://dmen0uick0vjw" path="res://assets/UI/arrow.png" id="13_8w4ov"]
 [ext_resource type="Script" path="res://scenes/SubViewport.gd" id="13_ym7hw"]
 [ext_resource type="FontFile" uid="uid://4rp8ixlmsfu4" path="res://assets/fonts/PixelTandysoft-0rJG.ttf" id="16_k8tbx"]
+[ext_resource type="Texture2D" uid="uid://dkluaa26vgq4e" path="res://assets/beam_start.png" id="16_tsrry"]
+[ext_resource type="AudioStream" uid="uid://bi5q61h6fekpo" path="res://assets/sounds/sfx/emergency-alarm-with-reverb-29431.mp3" id="21_r0p2b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kgwwu"]
 radius = 43.1045
@@ -573,6 +575,44 @@ shader_parameter/r_displacement = Vector2(0.5, 0)
 shader_parameter/g_displacement = Vector2(0, 0)
 shader_parameter/b_displacement = Vector2(-0.5, 0)
 
+[sub_resource type="Animation" id="Animation_3knst"]
+resource_name = "oxygen_warning"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/MarginContainer/VBoxContainer2/Panel/OxygenWarningLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_og4r1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/MarginContainer/VBoxContainer2/Panel/OxygenWarningLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n46ue"]
+_data = {
+"RESET": SubResource("Animation_og4r1"),
+"oxygen_warning": SubResource("Animation_3knst")
+}
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_7qbpn")
 
@@ -689,6 +729,21 @@ layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 2
 
+[node name="Panel" type="Panel" parent="UI/CanvasLayer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="OxygenWarningLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/VBoxContainer2/Panel"]
+layout_mode = 0
+offset_left = 261.0
+offset_top = -294.0
+offset_right = 355.0
+offset_bottom = -272.0
+theme_override_colors/font_color = Color(0.858824, 0.180392, 0.180392, 1)
+theme_override_fonts/font = ExtResource("16_k8tbx")
+theme_override_font_sizes/font_size = 16
+text = "OXYGEN LOW
+"
+
 [node name="MeterLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -712,23 +767,136 @@ show_percentage = false
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer/MarginContainer"]
 layout_mode = 2
 
-[node name="QuotaList" type="VBoxContainer" parent="UI/CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="SystemInfo" type="VBoxContainer" parent="UI/CanvasLayer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="RequiredMatLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/QuotaList"]
+[node name="Label" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_k8tbx")
 theme_override_font_sizes/font_size = 12
 text = "System Information
 "
 
-[node name="RequiredMatLabel2" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/QuotaList"]
+[node name="OxygenLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_k8tbx")
 theme_override_font_sizes/font_size = 10
 text = "Oxygen: 90%
-Health: 100%
-Remote Sonar: 3x"
+"
+
+[node name="HealthLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("16_k8tbx")
+theme_override_font_sizes/font_size = 10
+text = "Health: 100%
+"
+
+[node name="RemoteSonarLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("16_k8tbx")
+theme_override_font_sizes/font_size = 10
+text = "Remote Sonar (r): 3x
+"
+
+[node name="FlagLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("16_k8tbx")
+theme_override_font_sizes/font_size = 10
+text = "Flags (f): 10x
+"
+
+[node name="Quota" type="VBoxContainer" parent="UI/CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Label" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("16_k8tbx")
+theme_override_font_sizes/font_size = 12
+text = "Mineral qouta
+"
+
+[node name="RedLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("16_k8tbx")
+theme_override_font_sizes/font_size = 10
+text = "1/1 - Red
+"
+horizontal_alignment = 2
+
+[node name="GreenLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("16_k8tbx")
+theme_override_font_sizes/font_size = 10
+text = "1/1 - Green
+"
+horizontal_alignment = 2
+
+[node name="BlueLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("16_k8tbx")
+theme_override_font_sizes/font_size = 10
+text = "1/1 - Blue
+"
+horizontal_alignment = 2
+
+[node name="RedProgress" type="ProgressBar" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
+visible = false
+modulate = Color(0.760784, 0.0509804, 0.168627, 1)
+custom_minimum_size = Vector2(100, 8)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_8p36n")
+theme_override_styles/background = SubResource("StyleBoxFlat_s20e7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7k2jp")
+show_percentage = false
+
+[node name="GreenProgress" type="ProgressBar" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
+visible = false
+modulate = Color(0, 0.482353, 0.360784, 1)
+custom_minimum_size = Vector2(100, 8)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_8p36n")
+theme_override_styles/background = SubResource("StyleBoxFlat_s20e7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7k2jp")
+show_percentage = false
+
+[node name="BlueProgress" type="ProgressBar" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
+visible = false
+modulate = Color(0.176471, 0.431373, 0.607843, 1)
+custom_minimum_size = Vector2(100, 8)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_8p36n")
+theme_override_styles/background = SubResource("StyleBoxFlat_s20e7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7k2jp")
+show_percentage = false
+
+[node name="Panel" type="Panel" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota/Panel"]
+modulate = Color(0.176471, 0.431373, 0.607843, 1)
+position = Vector2(-7, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_tsrry")
+
+[node name="Sprite2D2" type="Sprite2D" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota/Panel"]
+modulate = Color(0, 0.482353, 0.360784, 1)
+position = Vector2(-7, -20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_tsrry")
+
+[node name="Sprite2D3" type="Sprite2D" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota/Panel"]
+modulate = Color(0.760784, 0.0509804, 0.168627, 1)
+position = Vector2(-7, -32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_tsrry")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="UI/CanvasLayer/MarginContainer"]
 layout_mode = 2
@@ -900,6 +1068,15 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(-29, 118)
 mouse_filter = 2
+
+[node name="WarningAnimationPlayer" type="AnimationPlayer" parent="UI"]
+libraries = {
+"": SubResource("AnimationLibrary_n46ue")
+}
+
+[node name="WarningSound" type="AudioStreamPlayer" parent="UI"]
+stream = ExtResource("21_r0p2b")
+bus = &"LowPass"
 
 [connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
 [connection signal="timeout" from="EnvironmentMonsterSound/Timer" to="EnvironmentMonsterSound" method="_on_timer_timeout"]

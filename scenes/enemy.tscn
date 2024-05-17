@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8oih3k4462w4"]
+[gd_scene load_steps=8 format=3 uid="uid://c8oih3k4462w4"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_gc2q2"]
 [ext_resource type="Texture2D" uid="uid://ugd6rgyjotjd" path="res://icon.svg" id="1_gkflp"]
 [ext_resource type="AudioStream" uid="uid://btn732jyioli8" path="res://assets/sounds/sfx/2021-09-24_-_Jump_Scare_E_-_www.FesliyanStudios.com.mp3" id="3_pordr"]
+[ext_resource type="Texture2D" uid="uid://6iaubvtwjvxt" path="res://assets/warning_icon.png" id="4_mnb1e"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ld86r"]
 light_mode = 2
@@ -36,6 +37,11 @@ stream = ExtResource("3_pordr")
 volume_db = 10.0
 bus = &"LowPass"
 
+[node name="WarningSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_mnb1e")
+
 [connection signal="area_entered" from="PlayerDetection" to="." method="_on_player_detection_area_entered"]
+[connection signal="area_exited" from="PlayerDetection" to="." method="_on_player_detection_area_exited"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
