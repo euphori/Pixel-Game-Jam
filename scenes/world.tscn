@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://drvxqutv2afxl"]
+[gd_scene load_steps=48 format=3 uid="uid://drvxqutv2afxl"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_7qbpn"]
 [ext_resource type="PackedScene" uid="uid://dfby6rujiyds" path="res://player/player.tscn" id="2_0cvto"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://iepe40bg243m" path="res://assets/placeholder_tiles.png" id="6_ybjkt"]
 [ext_resource type="Script" path="res://scenes/EnvMonsterSound.gd" id="7_s06vd"]
 [ext_resource type="AudioStream" uid="uid://b5sm3255g4nww" path="res://assets/sounds/sfx/monster-screech-90961.mp3" id="8_uuoaj"]
+[ext_resource type="Script" path="res://scenes/MineralSpawner.gd" id="9_ewyp0"]
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="9_htnd5"]
 [ext_resource type="Texture2D" uid="uid://dv8svak3q8kuy" path="res://assets/UI/ruler.png" id="13_2pbm7"]
 [ext_resource type="Texture2D" uid="uid://cmg3v7t101egc" path="res://assets/UI/border.png" id="13_4ennn"]
@@ -657,13 +658,32 @@ position = Vector2(40, 117)
 position = Vector2(141, 105)
 
 [node name="Enemy" parent="." instance=ExtResource("3_gp852")]
-position = Vector2(301, 108)
+position = Vector2(347, 558)
 
-[node name="Minerals" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(192, 120)
+[node name="MineralSpawner" type="Node2D" parent="."]
+position = Vector2(264, 151)
+script = ExtResource("9_ewyp0")
 
-[node name="Minerals2" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(361, 154)
+[node name="Minerals" parent="MineralSpawner" instance=ExtResource("6_f3hpj")]
+
+[node name="Minerals2" parent="MineralSpawner" instance=ExtResource("6_f3hpj")]
+position = Vector2(-4, 143)
+type = "red"
+
+[node name="Minerals3" parent="MineralSpawner" instance=ExtResource("6_f3hpj")]
+position = Vector2(238, 16)
+type = "red"
+
+[node name="Minerals4" parent="MineralSpawner" instance=ExtResource("6_f3hpj")]
+position = Vector2(250, 192)
+type = "red"
+
+[node name="Minerals5" parent="MineralSpawner" instance=ExtResource("6_f3hpj")]
+position = Vector2(172, 385)
+type = "red"
+
+[node name="Minerals6" parent="MineralSpawner" instance=ExtResource("6_f3hpj")]
+position = Vector2(-114, 482)
 type = "red"
 
 [node name="AudioManager" type="Node" parent="."]
@@ -815,30 +835,6 @@ theme_override_fonts/font = ExtResource("16_k8tbx")
 theme_override_font_sizes/font_size = 12
 text = "Mineral qouta
 "
-
-[node name="RedLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("16_k8tbx")
-theme_override_font_sizes/font_size = 10
-text = "1/1 - Red
-"
-horizontal_alignment = 2
-
-[node name="GreenLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("16_k8tbx")
-theme_override_font_sizes/font_size = 10
-text = "1/1 - Green
-"
-horizontal_alignment = 2
-
-[node name="BlueLabel" type="Label" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("16_k8tbx")
-theme_override_font_sizes/font_size = 10
-text = "1/1 - Blue
-"
-horizontal_alignment = 2
 
 [node name="RedProgress" type="ProgressBar" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
 visible = false

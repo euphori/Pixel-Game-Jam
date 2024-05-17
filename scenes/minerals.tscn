@@ -19,18 +19,33 @@ var sfx_playing = false
 @export var type = \"red\"
 @export var color = {
 	\"red\": Color.ORANGE_RED,
-	\"blue\" : Color.LIGHT_BLUE,
+	\"blue\" : Color.BLUE,
 	\"green\" : Color.SEA_GREEN
 	} 
+
+var mineral_rarity_weight = {
+	\"red\" : 10,
+	\"blue\" : 20,
+	\"green\" : 70
+}
+
 
 var drop = preload(\"res://scenes/drop.tscn\")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Label.visible = false
-	$Sprite2D.modulate = color[type]
-
-
+	if position.y > 200:
+		mineral_rarity_weight[\"blue\"] += 20
+		mineral_rarity_weight[\"green\"] -= 20
+	elif position.y >=400:
+		mineral_rarity_weight[\"blue\"] += 30
+		mineral_rarity_weight[\"green\"] -= 30
+		mineral_rarity_weight[\"red\"] += 20
+	elif position.y >= 600:
+		mineral_rarity_weight[\"red\"] += 40
+		mineral_rarity_weight[\"blue\"] -= 10
+		mineral_rarity_weight[\"green\"] -= 30
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -56,6 +71,8 @@ func _process(delta):
 		drop_mineral()
 		
 
+func update_visual():
+	$Sprite2D.modulate = color[type]
 
 func drop_mineral():
 	for i in 15:
@@ -63,7 +80,7 @@ func drop_mineral():
 		var _drop = drop.instantiate()
 		_drop.color = color[type]
 		_drop.global_position = global_position
-		get_parent().add_child(_drop)
+		get_tree().get_root().add_child(_drop)
 	Global.inventory[type] += 1
 	Global.emit_signal(\"item_added\")
 	queue_free()

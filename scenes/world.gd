@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var tilemap = $Tiles
 @onready var player = $Player
-@onready var quota_list = $UI/CanvasLayer/MarginContainer/HBoxContainer/QuotaList
+@onready var quota_list = $UI/CanvasLayer/MarginContainer/HBoxContainer/Quota
 @onready var meter_arrow = $UI/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/MeterArrow
 @onready var oxygen_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/OxygenLabel
 @onready var health_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/HealthLabel
@@ -14,26 +14,25 @@ extends Node2D
 var oxygen
 var quota_label = preload("res://scenes/quota_label.tscn")
 
-var quota = {
-	"red" : 1,
-	"green" : 1
-}
+var quota 
 var player_near_exit = false
 var curr_depth 
 var quota_colors = []
 
 func _ready():
+	quota = Global.generate_quota()
 	
 	tilemap.material.light_mode = 2
-	#for i in quota:
-		#if quota[i] > 0:
-			#var _quota_label = quota_label.instantiate()
-			#quota_list.add_child(_quota_label)
-			#quota_colors.append(_quota_label)
-			#_quota_label.name = i
-			#_quota_label.text = i
+	for i in quota:
+		if quota[i] > 0:
+			var _quota_label = quota_label.instantiate()
+			quota_list.add_child(_quota_label)
+			quota_colors.append(_quota_label)
+			_quota_label.name = i
+			_quota_label.text = i
 	Global.connect("item_added" ,update_quota )
 	oxygen = Global.player_max_oxygen
+	update_quota()
 
 func _input(event):
 	if event.is_action_pressed("interact") and player_near_exit:
@@ -55,17 +54,17 @@ func _process(delta):
 		$UI/CanvasLayer/MarginContainer/VBoxContainer2/Panel/OxygenWarningLabel.visible = false
 	
 
-func update_quota(data):
-	if data == "green":
-		#why does this add 2?
-		Global.inventory["green"] += 1
-	elif data == "red":
-		#why does this add 2?
-		Global.inventory["red"] += 1
-		
+func update_quota():
+	#if data == "green":
+		##why does this add 2?
+		#Global.inventory["green"] += 1
+	#elif data == "red":
+		##why does this add 2?
+		#Global.inventory["red"] += 1
+		#
 	print("Inventory: ", Global.inventory)
 	for label in quota_colors:
-		label.text = str(label.name , " ", Global.inventory[label.name],"/",quota[label.name])
+		label.text = str( Global.inventory[label.name],"/",quota[label.name], " ", label.name)
 
 func _on_exit_body_entered(body):
 	player_near_exit = true

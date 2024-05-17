@@ -5,7 +5,7 @@ const SPEED = 75.0
 const JUMP_VELOCITY = -400.0
 
 var remote_sonar_charge = 3
-var flag_charge = 5
+var flag_charge = 10
 var health = 100
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -71,7 +71,7 @@ func scan_area(is_remote):
 		cd_bar.value = 0
 	else:
 		_sonar.remove_after_timeout = false
-		remote_charge_label.text = str("Remote Sonar: ", remote_sonar_charge, "x")
+		remote_charge_label.text = str("Remote Sonar (R): ", remote_sonar_charge, "x")
 	get_parent().add_child(_sonar) 
 	_sonar.get_node("AnimationPlayer").play("trigger_sonar")
 
@@ -82,6 +82,6 @@ func place_flag():
 	_flag.get_node("AnimationPlayer").play("bob")
 	get_parent().add_child(_flag)
 	flag_charge -= 1
-	flag_charge_label.text = str("Flag: " , flag_charge, "x")
+	flag_charge_label.text = str("Flag (F): " , flag_charge, "x")
 
 
