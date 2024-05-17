@@ -81,6 +81,7 @@ func place_flag():
 	_flag.global_position = global_position
 	_flag.get_node("AnimationPlayer").play("bob")
 	get_parent().add_child(_flag)
+	Global.emit_signal("flag_placed")
 	flag_charge -= 1
 	flag_charge_label.text = str("Flag (F): " , flag_charge, "x")
 

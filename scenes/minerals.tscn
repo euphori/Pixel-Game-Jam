@@ -15,6 +15,7 @@ var health = 100
 var player_near = false
 var player
 var sfx_playing = false
+var minimap_icon = \"mineral\"
 
 @export var type = \"red\"
 @export var color = {
@@ -46,6 +47,9 @@ func _ready():
 		mineral_rarity_weight[\"red\"] += 40
 		mineral_rarity_weight[\"blue\"] -= 10
 		mineral_rarity_weight[\"green\"] -= 30
+	generate_type()
+		
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -82,8 +86,26 @@ func drop_mineral():
 		_drop.global_position = global_position
 		get_tree().get_root().add_child(_drop)
 	Global.inventory[type] += 1
+	remove_from_group(\"minimap_objects\")
 	Global.emit_signal(\"item_added\")
 	queue_free()
+	
+
+
+func generate_type():
+	var sum_of_weight = 0
+	for i in mineral_rarity_weight:
+		sum_of_weight += mineral_rarity_weight[i]
+	var rng = randi_range(0,sum_of_weight)
+	for i in mineral_rarity_weight:
+		if rng < mineral_rarity_weight[i]:
+			type = i
+			update_visual()
+			break
+		rng -= mineral_rarity_weight[i]
+
+
+
 
 func _on_player_detection_body_entered(body):
 	player = body
@@ -99,7 +121,7 @@ size = Vector2(16, 14)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1j8wc"]
 
-[node name="Minerals" type="StaticBody2D" groups=["mineral"]]
+[node name="Minerals" type="StaticBody2D" groups=["mineral", "minimap_objects"]]
 material = SubResource("CanvasItemMaterial_vl4ln")
 collision_layer = 8
 collision_mask = 32

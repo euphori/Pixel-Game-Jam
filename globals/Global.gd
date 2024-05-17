@@ -21,6 +21,7 @@ var money = 100
 var curr_quota
 
 signal item_added
+signal flag_placed
 
 
 

@@ -90,7 +90,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_w77hf"]
 radius = 119.004
 
-[node name="Flag" type="Node2D"]
+[node name="Flag" type="Node2D" groups=["minimap_objects"]]
 script = ExtResource("1_xouwy")
 
 [node name="FlagSprite" type="Sprite2D" parent="."]
