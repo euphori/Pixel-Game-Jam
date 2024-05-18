@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://qaraon7lidi4"]
 
 [ext_resource type="Texture2D" uid="uid://cmwkkslwri3dt" path="res://assets/light2.png" id="1_tklcf"]
-[ext_resource type="Script" path="res://assets/sonar_light.gd" id="2_jxkxd"]
-[ext_resource type="AudioStream" uid="uid://brrat321grc2o" path="res://assets/sounds/sfx/sonar-radar-metal-detector-beep-signal-27502.mp3" id="3_550w1"]
-[ext_resource type="AudioStream" uid="uid://bdoh5xtsmxkxb" path="res://assets/sounds/sfx/beep.mp3" id="4_imohx"]
+[ext_resource type="Script" path="res://scripts/sonar_light.gd" id="2_uqvhf"]
+[ext_resource type="AudioStream" uid="uid://brrat321grc2o" path="res://assets/sounds/sfx/tech/sonar-radar-metal-detector-beep-signal-27502.mp3" id="3_550w1"]
 [ext_resource type="Texture2D" uid="uid://dkluaa26vgq4e" path="res://assets/beam_start.png" id="5_0rqhc"]
+[ext_resource type="AudioStream" uid="uid://bdoh5xtsmxkxb" path="res://assets/sounds/sfx/tech/beep.mp3" id="5_4t5fy"]
 
 [sub_resource type="Animation" id="Animation_vebdv"]
 length = 0.001
@@ -149,7 +149,7 @@ tracks/1/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("4_imohx")
+"stream": ExtResource("5_4t5fy")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -179,7 +179,7 @@ shadow_enabled = true
 texture = ExtResource("1_tklcf")
 offset = Vector2(4, 0)
 texture_scale = 0.05
-script = ExtResource("2_jxkxd")
+script = ExtResource("2_uqvhf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

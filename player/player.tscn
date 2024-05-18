@@ -1,12 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfby6rujiyds"]
+[gd_scene load_steps=12 format=3 uid="uid://dfby6rujiyds"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_kynpq"]
 [ext_resource type="Texture2D" uid="uid://cmwkkslwri3dt" path="res://assets/light2.png" id="3_8d317"]
 [ext_resource type="PackedScene" uid="uid://56qb3ou1ov7h" path="res://scenes/laser_beam.tscn" id="4_ixwjd"]
-[ext_resource type="Texture2D" uid="uid://cad1frmpb08ud" path="res://assets/character-Sheet.png" id="4_liqnu"]
+[ext_resource type="Texture2D" uid="uid://cad1frmpb08ud" path="res://assets/characters/character-Sheet.png" id="4_liqnu"]
+[ext_resource type="AudioStream" uid="uid://f1vljlfg6get" path="res://assets/sounds/sfx/tech/236145_betty_alone_computerized_BettyAloneComputer PE213801 (mp3cut.net).mp3" id="5_p7e08"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ugt5"]
 size = Vector2(8, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7w7ve"]
+size = Vector2(16, 30)
 
 [sub_resource type="Animation" id="Animation_6l3vp"]
 length = 0.001
@@ -21,6 +25,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerHurtbox/CollisionShape2D:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_7w7ve")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerHurtbox/CollisionShape2D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 30)]
 }
 
 [sub_resource type="Animation" id="Animation_8a5y7"]
@@ -39,6 +67,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [9, 11, 12, 13, 14, 15, 16, 17, 18]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerHurtbox/CollisionShape2D:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_7w7ve")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerHurtbox/CollisionShape2D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(31, 18)]
+}
 
 [sub_resource type="Animation" id="Animation_2kurw"]
 resource_name = "up"
@@ -55,6 +107,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerHurtbox/CollisionShape2D:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_7w7ve")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerHurtbox/CollisionShape2D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 30)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qjucy"]
@@ -95,3 +171,17 @@ libraries = {
 "": SubResource("AnimationLibrary_qjucy")
 }
 speed_scale = 0.5
+
+[node name="CautionAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_p7e08")
+bus = &"LowPass"
+
+[node name="PlayerHurtbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
+position = Vector2(-1.5, -3)
+shape = SubResource("RectangleShape2D_7w7ve")
+
+[connection signal="area_entered" from="PlayerHurtbox" to="." method="_on_player_hurtbox_area_entered"]

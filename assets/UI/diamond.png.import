@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6iaubvtwjvxt"
-path="res://.godot/imported/warning_icon.png-a67b64588ed144d9c82a91d8cee2db7b.ctex"
+uid="uid://5es7o1ubpwfa"
+path="res://.godot/imported/diamond.png-daa3e29e12aa9d94fa73cbe64a37f905.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/warning_icon.png"
-dest_files=["res://.godot/imported/warning_icon.png-a67b64588ed144d9c82a91d8cee2db7b.ctex"]
+source_file="res://assets/UI/diamond.png"
+dest_files=["res://.godot/imported/diamond.png-daa3e29e12aa9d94fa73cbe64a37f905.ctex"]
 
 [params]
 

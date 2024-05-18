@@ -12,10 +12,16 @@ var health = 100
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sonar = preload("res://scenes/sonar_light.tscn")
 var flag = preload("res://scenes/flag.tscn")
+var caution_played = false
 
 @onready var cd_bar = $"../UI/CanvasLayer/MarginContainer/VBoxContainer2/ProgressBar"
 @onready var remote_charge_label = $"../UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/RemoteSonarLabel"
 @onready var flag_charge_label = $"../UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/FlagLabel"
+@onready var health_label = $"../UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/HealthLabel"
+@onready var glitch = $"../UI/CanvasLayer/Glitch"
+
+
+
 
 func _ready():
 	pass
@@ -86,3 +92,12 @@ func place_flag():
 	flag_charge_label.text = str("Flag (F): " , flag_charge, "x")
 
 
+
+
+func _on_player_hurtbox_area_entered(area):
+	
+	health -= randi_range(15,25)
+	if health <= 25:
+		caution_played = false
+		glitch.visible = true
+	health_label.text = str("Health: " , health,"%")

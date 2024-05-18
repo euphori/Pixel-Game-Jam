@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhrm88gfgt7qb"
-path="res://.godot/imported/crystals.png-a9bff631ee30f47b225584350f0679c4.ctex"
+uid="uid://0auy5pqc1kd6"
+path="res://.godot/imported/flag_icon.png-364e2cf17fa1de13c8d546ffe5060bb9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/crystals.png"
-dest_files=["res://.godot/imported/crystals.png-a9bff631ee30f47b225584350f0679c4.ctex"]
+source_file="res://assets/UI/flag_icon.png"
+dest_files=["res://.godot/imported/flag_icon.png-364e2cf17fa1de13c8d546ffe5060bb9.ctex"]
 
 [params]
 

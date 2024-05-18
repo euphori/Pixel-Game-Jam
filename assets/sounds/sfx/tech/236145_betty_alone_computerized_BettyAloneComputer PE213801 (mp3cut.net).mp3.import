@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://f1vljlfg6get"
+path="res://.godot/imported/236145_betty_alone_computerized_BettyAloneComputer PE213801 (mp3cut.net).mp3-5495ab329e8ac161ffcbc2d1fabedf85.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/sfx/tech/236145_betty_alone_computerized_BettyAloneComputer PE213801 (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/236145_betty_alone_computerized_BettyAloneComputer PE213801 (mp3cut.net).mp3-5495ab329e8ac161ffcbc2d1fabedf85.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

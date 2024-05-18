@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iepe40bg243m"
-path="res://.godot/imported/placeholder_tiles.png-97cea9c12c3cc7b088a2948ff547195d.ctex"
+uid="uid://cauaqrpmknd6a"
+path="res://.godot/imported/sea monster-Sheet.png-7aa91528c6eef0e68bad864fafacddbf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholder_tiles.png"
-dest_files=["res://.godot/imported/placeholder_tiles.png-97cea9c12c3cc7b088a2948ff547195d.ctex"]
+source_file="res://assets/characters/sea monster-Sheet.png"
+dest_files=["res://.godot/imported/sea monster-Sheet.png-7aa91528c6eef0e68bad864fafacddbf.ctex"]
 
 [params]
 

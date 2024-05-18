@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2cirhdn06ain"
-path="res://.godot/imported/remote_sensor_icon.png-470c61d045bf6655de9f105d4347071c.ctex"
+uid="uid://cfbixr1fbucue"
+path="res://.godot/imported/grid.png-e7654c0f44295335cd46e5d237a86b8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/remote_sensor_icon.png"
-dest_files=["res://.godot/imported/remote_sensor_icon.png-470c61d045bf6655de9f105d4347071c.ctex"]
+source_file="res://assets/UI/grid.png"
+dest_files=["res://.godot/imported/grid.png-e7654c0f44295335cd46e5d237a86b8c.ctex"]
 
 [params]
 

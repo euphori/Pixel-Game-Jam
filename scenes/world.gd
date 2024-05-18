@@ -7,7 +7,9 @@ extends Node2D
 @onready var oxygen_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/OxygenLabel
 @onready var health_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/HealthLabel
 @onready var remote_sonar_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/RemoteSonarLabel
-@onready var warning_animation_player = $UI/WarningAnimationPlayer
+@onready var oxygen_warning_player = $UI/OxygenWarningPlayer
+@onready var health_warning_player = $UI/HealthWarningPlayer
+
 
 
 
@@ -49,15 +51,20 @@ func _process(delta):
 	meter_arrow.position.y = max(1,32 * curr_depth / 50)
 	if curr_depth > Global.max_depth:
 		Global.max_depth = curr_depth
-	oxygen -= 0.4 * delta
+	oxygen -= .4 * delta
 	oxygen_label.text = str("Oxygen: " , int(oxygen), "%")
-	if oxygen <= 25 and !warning_animation_player.current_animation == null:
-		warning_animation_player.play("oxygen_warning")
-	elif oxygen <= 0:
-		pass
-	else:
-		warning_animation_player.stop()
-		$UI/CanvasLayer/MarginContainer/VBoxContainer2/Panel/OxygenWarningLabel.visible = false
+	if oxygen <= 25 and !oxygen_warning_player.is_playing():
+		print("X")
+		oxygen_warning_player.play("oxygen_warning")
+		if !player.caution_played:
+			player.get_node("CautionAudio").play()
+			player.caution_played = true
+	if player.health <= 25 and !health_warning_player.is_playing():
+		health_warning_player.play("health_warning")
+		if !player.caution_played:
+			player.get_node("CautionAudio").play()
+			player.caution_played = true
+	
 	
 
 func update_quota():

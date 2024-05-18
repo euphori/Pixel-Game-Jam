@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5es7o1ubpwfa"
-path="res://.godot/imported/diamond.png-16d6cb5c688d6ff6d16413f5dc98f66e.ctex"
+uid="uid://2cirhdn06ain"
+path="res://.godot/imported/remote_sensor_icon.png-e6f12a825845df00b3de71816b9b042f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/diamond.png"
-dest_files=["res://.godot/imported/diamond.png-16d6cb5c688d6ff6d16413f5dc98f66e.ctex"]
+source_file="res://assets/UI/remote_sensor_icon.png"
+dest_files=["res://.godot/imported/remote_sensor_icon.png-e6f12a825845df00b3de71816b9b042f.ctex"]
 
 [params]
 

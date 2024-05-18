@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://djflocc8q887b"]
 
 [ext_resource type="Script" path="res://scenes/mini_map.gd" id="1_bfuym"]
-[ext_resource type="Texture2D" uid="uid://bdx3ibqbeq74i" path="res://assets/square.png" id="1_n8y3u"]
-[ext_resource type="Texture2D" uid="uid://bew0puae2enmg" path="res://assets/player_tag.png" id="3_etvi2"]
-[ext_resource type="Texture2D" uid="uid://0auy5pqc1kd6" path="res://assets/flag_icon.png" id="3_qllth"]
-[ext_resource type="Texture2D" uid="uid://ct4o0hsvvg1d" path="res://assets/mineral_tag.png" id="4_281uw"]
+[ext_resource type="Texture2D" uid="uid://bdx3ibqbeq74i" path="res://assets/UI/square.png" id="1_n8y3u"]
+[ext_resource type="Texture2D" uid="uid://bew0puae2enmg" path="res://assets/UI/player_tag.png" id="3_etvi2"]
+[ext_resource type="Texture2D" uid="uid://0auy5pqc1kd6" path="res://assets/UI/flag_icon.png" id="3_qllth"]
+[ext_resource type="Texture2D" uid="uid://ct4o0hsvvg1d" path="res://assets/UI/mineral_tag.png" id="4_281uw"]
 
 [node name="MiniMap" type="MarginContainer"]
 offset_right = 128.0
@@ -30,6 +30,5 @@ texture = ExtResource("1_n8y3u")
 layout_mode = 2
 
 [node name="PlayerTag" type="Sprite2D" parent="MarginContainer"]
-visible = false
 position = Vector2(64, 34)
 texture = ExtResource("3_etvi2")

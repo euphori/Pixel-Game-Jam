@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dl7l8fxtlh7u1"]
 
 [ext_resource type="PackedScene" uid="uid://g1pu4lgm81wp" path="res://areas/mineral_hurtbox.tscn" id="2_40qf6"]
-[ext_resource type="Texture2D" uid="uid://bhrm88gfgt7qb" path="res://assets/crystals.png" id="3_efjcp"]
+[ext_resource type="Texture2D" uid="uid://bhrm88gfgt7qb" path="res://assets/environment/crystals.png" id="3_efjcp"]
 [ext_resource type="PackedScene" uid="uid://627nt1c8gtnj" path="res://areas/player_detection.tscn" id="3_yybpb"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="4_xseur"]
 [ext_resource type="AudioStream" uid="uid://bdgqj4tqacm6h" path="res://assets/sounds/sfx/mining/dropping-rocks-5996.mp3" id="5_p6i7w"]

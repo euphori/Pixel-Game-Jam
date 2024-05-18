@@ -6,11 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://cmg3v7t101egc" path="res://assets/UI/border.png" id="2_wvsig"]
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="3_blqmu"]
 [ext_resource type="Texture2D" uid="uid://clc3ow7rvgmsp" path="res://assets/beam.png" id="4_ffi38"]
-[ext_resource type="Texture2D" uid="uid://da1y6q4rq7mpu" path="res://assets/sensor_icon.png" id="5_j7xpm"]
-[ext_resource type="Texture2D" uid="uid://2cirhdn06ain" path="res://assets/remote_sensor_icon.png" id="6_2aw6j"]
-[ext_resource type="Texture2D" uid="uid://bl3s7mdotqwfx" path="res://assets/oxygen_icon.png" id="7_jisu6"]
-[ext_resource type="Texture2D" uid="uid://dwla1y4meiyr1" path="res://assets/speed_icon.png" id="8_ean4d"]
-[ext_resource type="Texture2D" uid="uid://5es7o1ubpwfa" path="res://assets/diamond.png" id="9_kg4p2"]
+[ext_resource type="Texture2D" uid="uid://da1y6q4rq7mpu" path="res://assets/UI/sensor_icon.png" id="5_j7xpm"]
+[ext_resource type="Texture2D" uid="uid://2cirhdn06ain" path="res://assets/UI/remote_sensor_icon.png" id="6_2aw6j"]
+[ext_resource type="Texture2D" uid="uid://bl3s7mdotqwfx" path="res://assets/UI/oxygen_icon.png" id="7_jisu6"]
+[ext_resource type="Texture2D" uid="uid://dwla1y4meiyr1" path="res://assets/UI/speed_icon.png" id="8_ean4d"]
+[ext_resource type="Texture2D" uid="uid://5es7o1ubpwfa" path="res://assets/UI/diamond.png" id="9_kg4p2"]
 [ext_resource type="Script" path="res://scenes/ResultScreen.gd" id="10_q8m8g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_355br"]
@@ -29,7 +29,6 @@ script = ExtResource("1_l0v3e")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UpgradeContainer" type="MarginContainer" parent="CanvasLayer"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -59,70 +58,330 @@ position = Vector2(18, 18)
 rotation = -1.5708
 texture = ExtResource("2_wvsig")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UpgradeContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UpgradeContainer"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/separation = 25
 
-[node name="QuotaList" type="VBoxContainer" parent="CanvasLayer/UpgradeContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="RequiredMatLabel" type="Label" parent="CanvasLayer/UpgradeContainer/HBoxContainer/QuotaList"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dhl3i")
-theme_override_font_sizes/font_size = 12
-text = "System Information
-"
-
-[node name="RequiredMatLabel2" type="Label" parent="CanvasLayer/UpgradeContainer/HBoxContainer/QuotaList"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dhl3i")
-theme_override_font_sizes/font_size = 10
-text = "Oxygen: 90%
-Health: 100%
-Remote Sonar: 3x"
-
-[node name="RequiredMatLabel4" type="Label" parent="CanvasLayer/UpgradeContainer/HBoxContainer/QuotaList"]
-layout_mode = 2
-size_flags_vertical = 6
-theme_override_fonts/font = ExtResource("2_dhl3i")
-theme_override_font_sizes/font_size = 10
-text = "Oxygen: 90%
-Health: 100%
-Remote Sonar: 3x"
-
-[node name="RequiredMatLabel4" type="Label" parent="CanvasLayer/UpgradeContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 6
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_dhl3i")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 text = "Upgrades
 "
 
-[node name="RequiredMatLabel5" type="Label" parent="CanvasLayer/UpgradeContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Upgrade" type="VBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="UpgradeBox" type="TextureRect" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_ffi38")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade"]
+layout_mode = 2
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Panel"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(50, -114)
+scale = Vector2(2, 2)
+texture = ExtResource("6_2aw6j")
+
+[node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Panel"]
+offset_top = -76.0
+offset_right = 100.0
+offset_bottom = -56.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 12
-text = "MONEY: $100
-"
+text = "Remote Sonar"
+horizontal_alignment = 1
 
-[node name="UpgradeContinueButton" type="Button" parent="CanvasLayer/UpgradeContainer/HBoxContainer"]
+[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Panel"]
+offset_top = -56.0
+offset_right = 100.0
+offset_bottom = -4.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 10
+text = "increases
+charge 3 > 4"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Upgrage"
+
+[node name="Cost" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_5wsn3")
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 12
-text = "Continue"
-flat = true
-alignment = 2
+text = "250G"
+horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="CanvasLayer/UpgradeContainer/HBoxContainer"]
+[node name="Upgrade2" type="VBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="TextureButton" parent="CanvasLayer/UpgradeContainer/HBoxContainer/Panel"]
+[node name="UpgradeBox" type="TextureRect" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_ffi38")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2"]
+layout_mode = 2
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/Panel"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(50, -114)
+scale = Vector2(2, 2)
+texture = ExtResource("6_2aw6j")
+
+[node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/Panel"]
+offset_top = -76.0
+offset_right = 100.0
+offset_bottom = -56.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "Remote Sonar"
+horizontal_alignment = 1
+
+[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/Panel"]
+offset_top = -56.0
+offset_right = 100.0
+offset_bottom = -4.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 10
+text = "increases
+charge 3 > 4"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Upgrage"
+
+[node name="Cost" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "250G"
+horizontal_alignment = 1
+
+[node name="Upgrade3" type="VBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="UpgradeBox" type="TextureRect" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_ffi38")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3"]
+layout_mode = 2
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/Panel"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(50, -114)
+scale = Vector2(2, 2)
+texture = ExtResource("6_2aw6j")
+
+[node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/Panel"]
+offset_top = -76.0
+offset_right = 100.0
+offset_bottom = -56.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "Remote Sonar"
+horizontal_alignment = 1
+
+[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/Panel"]
+offset_top = -56.0
+offset_right = 100.0
+offset_bottom = -4.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 10
+text = "increases
+charge 3 > 4"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Upgrage"
+
+[node name="Cost" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "250G"
+horizontal_alignment = 1
+
+[node name="Upgrade4" type="VBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="UpgradeBox" type="TextureRect" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_ffi38")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4"]
+layout_mode = 2
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4/Panel"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(50, -114)
+scale = Vector2(2, 2)
+texture = ExtResource("6_2aw6j")
+
+[node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4/Panel"]
+offset_top = -76.0
+offset_right = 100.0
+offset_bottom = -56.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "Remote Sonar"
+horizontal_alignment = 1
+
+[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4/Panel"]
+offset_top = -56.0
+offset_right = 100.0
+offset_bottom = -4.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 10
+text = "increases
+charge 3 > 4"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Upgrage"
+
+[node name="Cost" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "250G"
+horizontal_alignment = 1
+
+[node name="Upgrade5" type="VBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="UpgradeBox" type="TextureRect" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_ffi38")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5"]
+layout_mode = 2
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Panel"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(50, -114)
+scale = Vector2(2, 2)
+texture = ExtResource("6_2aw6j")
+
+[node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Panel"]
+offset_top = -76.0
+offset_right = 100.0
+offset_bottom = -56.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "Remote Sonar"
+horizontal_alignment = 1
+
+[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Panel"]
+offset_top = -56.0
+offset_right = 100.0
+offset_bottom = -4.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 10
+text = "increases
+charge 3 > 4"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Upgrage"
+
+[node name="Cost" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "250G"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/Panel"]
 layout_mode = 2
 offset_left = -321.0
 offset_top = 195.0
@@ -131,7 +390,7 @@ offset_bottom = 533.0
 scale = Vector2(2, 2)
 texture_normal = ExtResource("5_j7xpm")
 
-[node name="Button2" type="TextureButton" parent="CanvasLayer/UpgradeContainer/HBoxContainer/Panel"]
+[node name="Button2" type="TextureButton" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/Panel"]
 layout_mode = 2
 offset_left = -362.0
 offset_top = 156.0
@@ -140,7 +399,7 @@ offset_bottom = 494.0
 scale = Vector2(2, 2)
 texture_normal = ExtResource("6_2aw6j")
 
-[node name="Button3" type="TextureButton" parent="CanvasLayer/UpgradeContainer/HBoxContainer/Panel"]
+[node name="Button3" type="TextureButton" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/Panel"]
 layout_mode = 2
 offset_left = -362.0
 offset_top = 77.0
@@ -149,7 +408,7 @@ offset_bottom = 415.0
 scale = Vector2(2, 2)
 texture_normal = ExtResource("7_jisu6")
 
-[node name="Button4" type="TextureButton" parent="CanvasLayer/UpgradeContainer/HBoxContainer/Panel"]
+[node name="Button4" type="TextureButton" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/Panel"]
 layout_mode = 2
 offset_left = -283.0
 offset_top = 77.0
@@ -158,17 +417,44 @@ offset_bottom = 415.0
 scale = Vector2(2, 2)
 texture_normal = ExtResource("8_ean4d")
 
-[node name="Upgrade3" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/HBoxContainer"]
+[node name="Upgrade3" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer"]
+visible = false
 position = Vector2(369, 188)
 scale = Vector2(2, 2)
 texture = ExtResource("9_kg4p2")
 
-[node name="Upgrade4" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/HBoxContainer"]
+[node name="Upgrade4" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer"]
+visible = false
 position = Vector2(328, 148)
 scale = Vector2(2, 2)
 texture = ExtResource("9_kg4p2")
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/UpgradeContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="MoneyLabel" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "Money
+"
+
+[node name="UpgradeContinueButton" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "Continue"
+flat = true
+alignment = 2
+
 [node name="ResultContainer" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -346,5 +632,5 @@ position = Vector2(321, 181.5)
 scale = Vector2(81.25, 46.875)
 texture = ExtResource("4_ffi38")
 
-[connection signal="pressed" from="CanvasLayer/UpgradeContainer/HBoxContainer/UpgradeContinueButton" to="." method="_on_upgrade_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer2/UpgradeContinueButton" to="." method="_on_upgrade_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ResultContainer/ResultScreen/ContinueButton" to="." method="_on_continue_button_pressed"]

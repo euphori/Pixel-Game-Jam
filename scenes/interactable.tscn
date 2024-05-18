@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://chidlm4wmcn07"]
 
 [ext_resource type="Script" path="res://scenes/Interactable.gd" id="1_2iybq"]
-[ext_resource type="Texture2D" uid="uid://bhrm88gfgt7qb" path="res://assets/crystals.png" id="2_yk38a"]
+[ext_resource type="Texture2D" uid="uid://bhrm88gfgt7qb" path="res://assets/environment/crystals.png" id="2_yk38a"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="3_c0aws"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vl4ln"]

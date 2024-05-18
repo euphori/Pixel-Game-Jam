@@ -50,17 +50,25 @@ func update_context_map(player_position, current_position):
 #godot functions
 func _physics_process(delta):
 	if Input.is_action_just_pressed("sonar") and is_player_near and !played_jumpscare:
-		$AudioStreamPlayer2D.play()
+		$ScreechAudio.play()
 	
 	if player:
 		#print("Player Spotted")
+		
+		if abs(global_position.distance_to(player.global_position)) <= 40:
+			$AnimationPlayer.play("bite")
+		if velocity.x > 0:
+			$Sprite2D.flip_h =false
+		else:
+			$Sprite2D.flip_h = true
 		update_context_map(player.position, position)
 		#determines sharpness of turn
 		var sharp_turn = 2.2
 		var steering_force = arr[best_direction_index] - velocity
 		velocity = velocity + ((steering_force * sharp_turn) * delta)
 		position += velocity
-		
+		if velocity > Vector2.ZERO:
+			$AnimationPlayer.play("swim")
 
 
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cgj2eaw3tqc7f"]
 
-[ext_resource type="Script" path="res://assets/main_menu.gd" id="1_wafra"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_wafra"]
 [ext_resource type="Texture2D" uid="uid://bu4q50ks347k4" path="res://assets/UI/0f63801b54e9393c8ebec2708e6d06e1.jpg" id="2_7tpo5"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="3_8kerf"]
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="4_ijpcr"]

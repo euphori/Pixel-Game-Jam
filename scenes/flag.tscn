@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://b5rh4p4nf2pxg"]
 
-[ext_resource type="Texture2D" uid="uid://qndukq7xkdkp" path="res://assets/flag.png" id="1_ph8jo"]
+[ext_resource type="Texture2D" uid="uid://qndukq7xkdkp" path="res://assets/UI/flag.png" id="1_ph8jo"]
 [ext_resource type="Script" path="res://scenes/flag.gd" id="1_xouwy"]
-[ext_resource type="Texture2D" uid="uid://0auy5pqc1kd6" path="res://assets/flag_icon.png" id="2_7g67m"]
+[ext_resource type="Texture2D" uid="uid://0auy5pqc1kd6" path="res://assets/UI/flag_icon.png" id="2_7g67m"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_uly1m"]
 light_mode = 2
