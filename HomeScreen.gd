@@ -12,7 +12,7 @@ func _ready():
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral2/ResultLabel.text = str(Global.inventory["blue"]/2)
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral3/ResultLabel.text = str(Global.inventory["green"]/2)
 	update_upgrades()
-	$CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer2/MoneyLabel.text = str("MONEY: ", Global.money)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,7 +45,7 @@ func update_upgrades():
 	
 	$CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Panel/Description.text = "Charge {value} > {next_value}".format(Global.stats["flag_count"])
 	$CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Cost.text = "{up_price}G".format(Global.stats["flag_count"])
-
+	$CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer2/MoneyLabel.text = str("MONEY: ", Global.money)
 
 func _on_up_sonar_button_pressed():
 	if Global.money >= Global.stats["remote_sonar"]["up_price"]:
@@ -61,6 +61,7 @@ func _on_up_sonar_button_pressed():
 func _on_up_oxygen_button_pressed():
 	if Global.money >= Global.stats["oxygen"]["up_price"]:
 		Global.money -= Global.stats["oxygen"]["up_price"]
+		Global.stats["oxygen"]["up_price"] += 250
 		Global.stats["oxygen"]["value"] += 10
 		Global.stats["oxygen"]["next_value"] += 10
 		update_upgrades()
@@ -68,6 +69,7 @@ func _on_up_oxygen_button_pressed():
 func _on_up_speed_button_pressed():
 	if Global.money >= Global.stats["speed_coefficient"]["up_price"]:
 		Global.money -= Global.stats["speed_coefficient"]["up_price"]
+		Global.stats["speed_coefficient"]["up_price"] += 250
 		Global.stats["speed_coefficient"]["value"] += 5
 		Global.stats["speed_coefficient"]["next_value"] += 5
 		update_upgrades()
@@ -75,6 +77,7 @@ func _on_up_speed_button_pressed():
 func _on_up_health_button_pressed():
 	if Global.money >= Global.stats["hp"]["up_price"]:
 		Global.money -= Global.stats["hp"]["up_price"]
+		Global.stats["hp"]["up_price"] += 250
 		Global.stats["hp"]["value"] += 10
 		Global.stats["hp"]["next_value"] += 10
 		update_upgrades()
@@ -82,6 +85,7 @@ func _on_up_health_button_pressed():
 func _on_up_flag_button_pressed():
 	if Global.money >= Global.stats["flag_count"]["up_price"]:
 		Global.money -= Global.stats["flag_count"]["up_price"]
+		Global.stats["flag_count"]["up_price"] += 250
 		Global.stats["flag_count"]["value"] += 1
 		Global.stats["flag_count"]["next_value"] += 1
 		update_upgrades()

@@ -26,7 +26,8 @@ var caution_played = false
 
 
 func _ready():
-	pass
+	remote_charge_label.text = str("Remote Sonar (r): ", remote_sonar_charge, "x")
+	flag_charge_label.text = str("Flags (f): ", flag_charge, "x")
 
 
 func _input(event):
@@ -52,8 +53,8 @@ func _physics_process(delta):
 			$Sprite2D.flip_h = false
 		else:
 			$Sprite2D.flip_h = true
-		velocity.x = xdirection * (SPEED * (1 + speed_coefficient))
-		velocity.y = ydirection * (SPEED * (1 + speed_coefficient))
+		velocity.x = xdirection * (SPEED + speed_coefficient)
+		velocity.y = ydirection * (SPEED + speed_coefficient)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.y = move_toward(velocity.y, 0, SPEED)

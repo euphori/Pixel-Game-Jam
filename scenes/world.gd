@@ -7,6 +7,7 @@ extends Node2D
 @onready var oxygen_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/OxygenLabel
 @onready var health_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/HealthLabel
 @onready var remote_sonar_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/RemoteSonarLabel
+@onready var flag_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/FlagLabel
 @onready var oxygen_warning_player = $UI/OxygenWarningPlayer
 @onready var health_warning_player = $UI/HealthWarningPlayer
 
