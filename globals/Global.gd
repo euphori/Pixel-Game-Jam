@@ -4,6 +4,10 @@ extends Node
 #region player stats
 var player_max_oxygen = 100
 var player_max_hp = 100
+
+
+
+
 #endregion
 
 var curr_difficulty = 3
