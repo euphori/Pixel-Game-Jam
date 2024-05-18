@@ -44,12 +44,14 @@ var time_start = 0
 var time_end = 0
 
 var inventory = {
-	"red" : 0,
+	"white" : 0,
+	"green" : 0,
 	"blue" : 0,
-	"green" : 0
+	"orange" : 0,
+	"purple" : 0
 }
 
-var money = 0
+var money = 1000
 var curr_quota
 
 signal item_added
@@ -62,9 +64,11 @@ func generate_quota():
 	var mineral_value = [4,2,1]
 	#amount of minerals given to the quota
 	var quota = {
-		"red": 0,
-		"blue": 0,
-		"green" : 0
+		"white" : 0,
+		"green" : 0,
+		"blue" : 0,
+		"orange" : 0,
+		"purple" : 0
 	}
 	# algo that decides randomly what color to require based on diffculty
 	var diff_val = curr_difficulty
@@ -82,9 +86,11 @@ func generate_quota():
 		
 func reset_run_stats():
 	inventory = {
-	"red" : 0,
+	"white" : 0,
+	"green" : 0,
 	"blue" : 0,
-	"green" : 0
+	"orange" : 0,
+	"purple" : 0
 	}
 	max_depth = 0
 	time_start = 0

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://l2bqcw10gecr"
+path="res://.godot/imported/One Man Symphony - Wreckage (Free) - 09 Isolation (Exploration Theme 02) - Loops.mp3-ed389cb0ffb2d9c787321f366d53fd54.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/music/One Man Symphony - Wreckage (Free) - 09 Isolation (Exploration Theme 02) - Loops.mp3"
+dest_files=["res://.godot/imported/One Man Symphony - Wreckage (Free) - 09 Isolation (Exploration Theme 02) - Loops.mp3-ed389cb0ffb2d9c787321f366d53fd54.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

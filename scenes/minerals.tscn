@@ -17,17 +17,31 @@ var player
 var sfx_playing = false
 var minimap_icon = \"mineral\"
 
-@export var type = \"red\"
+var type
 @export var color = {
-	\"red\": Color.ORANGE_RED,
+	\"white\" : Color.WHITE_SMOKE,
+	\"green\" : Color.GREEN,
 	\"blue\" : Color.BLUE,
-	\"green\" : Color.SEA_GREEN
+	\"orange\" : Color.ORANGE,
+	\"purple\" : Color.PURPLE
+	
 	} 
 
+var mineral_sprites = {
+	\"blue\" : preload(\"res://assets/environment/minerals/blue.png\"),
+	\"green\" : preload(\"res://assets/environment/minerals/green.png\"),
+	\"orange\" : preload(\"res://assets/environment/minerals/orange.png\"),
+	\"purple\" : preload(\"res://assets/environment/minerals/purple.png\"),
+	\"white\" : preload(\"res://assets/environment/minerals/white.png\"),
+	
+}
+
 var mineral_rarity_weight = {
-	\"red\" : 10,
-	\"blue\" : 20,
-	\"green\" : 70
+	\"white\" : 65,
+	\"green\" : 60,
+	\"blue\" : 40,
+	\"orange\" : 10,
+	\"purple\" : 25
 }
 
 
@@ -36,20 +50,26 @@ var drop = preload(\"res://scenes/drop.tscn\")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Label.visible = false
+	
 	if position.y > 200:
-		mineral_rarity_weight[\"blue\"] += 20
-		mineral_rarity_weight[\"green\"] -= 20
+		mineral_rarity_weight[\"blue\"] += 10
 	elif position.y >=400:
-		mineral_rarity_weight[\"blue\"] += 30
-		mineral_rarity_weight[\"green\"] -= 30
-		mineral_rarity_weight[\"red\"] += 20
+		mineral_rarity_weight[\"blue\"] += 20
+		mineral_rarity_weight[\"green\"] -= 10
+		mineral_rarity_weight[\"purple\"] += 10
 	elif position.y >= 600:
-		mineral_rarity_weight[\"red\"] += 40
+		mineral_rarity_weight[\"purple\"] += 20
+		mineral_rarity_weight[\"orange\"] += 5
 		mineral_rarity_weight[\"blue\"] -= 10
 		mineral_rarity_weight[\"green\"] -= 30
+	elif position.y >= 800:
+		mineral_rarity_weight[\"orange\"] += 25
+		mineral_rarity_weight[\"blue\"] -= 10
+		mineral_rarity_weight[\"green\"] -= 30
+		mineral_rarity_weight[\"white\"] -= 30
 	generate_type()
-		
-	
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -76,8 +96,8 @@ func _process(delta):
 		
 
 func update_visual():
-	$Sprite2D.modulate = color[type]
-
+	$Sprite2D.texture = mineral_sprites[type]
+	
 func drop_mineral():
 	for i in 15:
 		await get_tree().create_timer(randf_range(0.025,.05)).timeout
@@ -126,7 +146,6 @@ material = SubResource("CanvasItemMaterial_vl4ln")
 collision_layer = 8
 collision_mask = 32
 script = SubResource("GDScript_i254u")
-type = "green"
 
 [node name="MineralHurtbox" parent="." instance=ExtResource("2_40qf6")]
 collision_layer = 8

@@ -11,6 +11,7 @@ extends Node2D
 @onready var oxygen_warning_player = $UI/OxygenWarningPlayer
 @onready var health_warning_player = $UI/HealthWarningPlayer
 
+@onready var death_screen = $UI/CanvasLayer/DeathScreen
 
 
 
@@ -21,6 +22,7 @@ var quota
 var player_near_exit = false
 var curr_depth 
 var quota_colors = []
+var player_dead = false
 
 func _ready():
 	Global.reset_run_stats()
@@ -52,7 +54,7 @@ func _process(delta):
 	meter_arrow.position.y = max(1,32 * curr_depth / 50)
 	if curr_depth > Global.max_depth:
 		Global.max_depth = curr_depth
-	oxygen -= .4 * delta
+	oxygen -= .40 * delta
 	oxygen_label.text = str("Oxygen: " , int(oxygen), "%")
 	if oxygen <= 25 and !oxygen_warning_player.is_playing():
 		print("X")
@@ -65,7 +67,10 @@ func _process(delta):
 		if !player.caution_played:
 			player.get_node("CautionAudio").play()
 			player.caution_played = true
-	
+	if oxygen <= 0 and !player_dead or player.health <= 0 and !player_dead:
+		player_dead = true
+		death_screen.visible = true
+		death_screen.get_node("AnimationPlayer").play("death")
 	
 
 func update_quota():
@@ -82,3 +87,11 @@ func update_quota():
 
 func _on_exit_body_entered(body):
 	player_near_exit = true
+
+
+func _on_death_continue_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/home_screen.tscn")
+
+
+func _on_death_menu_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

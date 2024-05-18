@@ -1,7 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://bg56wmvqk8h4j"]
+[gd_scene load_steps=25 format=3 uid="uid://bg56wmvqk8h4j"]
 
 [ext_resource type="Script" path="res://HomeScreen.gd" id="1_l0v3e"]
-[ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="2_5wsn3"]
 [ext_resource type="FontFile" uid="uid://4rp8ixlmsfu4" path="res://assets/fonts/PixelTandysoft-0rJG.ttf" id="2_dhl3i"]
 [ext_resource type="Texture2D" uid="uid://cmg3v7t101egc" path="res://assets/UI/border.png" id="2_wvsig"]
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="3_blqmu"]
@@ -13,6 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://dwla1y4meiyr1" path="res://assets/UI/speed_icon.png" id="8_ean4d"]
 [ext_resource type="Texture2D" uid="uid://5es7o1ubpwfa" path="res://assets/UI/diamond.png" id="9_kg4p2"]
 [ext_resource type="Script" path="res://scenes/ResultScreen.gd" id="10_q8m8g"]
+[ext_resource type="Texture2D" uid="uid://1qsjdkltd8h" path="res://assets/environment/minerals/white.png" id="12_ue8t5"]
+[ext_resource type="Texture2D" uid="uid://wjbtne6ijj6v" path="res://assets/environment/minerals/blue.png" id="13_01qcq"]
+[ext_resource type="Texture2D" uid="uid://6iaubvtwjvxt" path="res://assets/UI/warning_icon.png" id="13_i77vc"]
+[ext_resource type="Texture2D" uid="uid://bsd1cjp725rov" path="res://assets/environment/minerals/green.png" id="14_ghcqo"]
+[ext_resource type="Texture2D" uid="uid://4kt454o55a7r" path="res://assets/environment/minerals/purple.png" id="15_0jxx0"]
+[ext_resource type="Texture2D" uid="uid://bkw7abpevcw6k" path="res://assets/environment/minerals/orange.png" id="16_nf257"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_viu07"]
 atlas = ExtResource("5_5nak2")
@@ -514,48 +519,51 @@ horizontal_alignment = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen"]
 layout_mode = 2
 
-[node name="Time" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+[node name="TimeContainer" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Time"]
+[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/TimeContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Time elapsed"
 horizontal_alignment = 2
 
-[node name="TimeResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Time"]
+[node name="TimeResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/TimeContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "0:00"
 horizontal_alignment = 2
 
-[node name="MaxDepth" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+[node name="MaxDepthContainer" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/MaxDepth"]
+[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/MaxDepthContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Max depth"
 horizontal_alignment = 2
 
-[node name="MaxDepthLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/MaxDepth"]
+[node name="MaxDepthLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/MaxDepthContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "150m"
 horizontal_alignment = 2
 
-[node name="Quota" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+[node name="QuotaContainer" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Quota"]
+[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/QuotaContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Quota"
 horizontal_alignment = 2
 
-[node name="QuotaResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Quota"]
+[node name="QuotaResultLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/QuotaContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_fonts/font = ExtResource("2_dhl3i")
@@ -563,70 +571,57 @@ text = "Completed"
 horizontal_alignment = 2
 
 [node name="ExtraLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Extra Minerals:"
 horizontal_alignment = 2
 
-[node name="RedMineral" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+[node name="ExtraMinerals" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/RedMineral"]
+[node name="MineralContainer" type="GridContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/ExtraMinerals"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "Red"
-horizontal_alignment = 2
+columns = 14
 
-[node name="ExtraRedLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/RedMineral"]
+[node name="WhiteIcon" type="TextureRect" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/ExtraMinerals/MineralContainer"]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 10
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "1"
-horizontal_alignment = 2
+texture = ExtResource("12_ue8t5")
 
-[node name="BlueMineral" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+[node name="BlueIcon" type="TextureRect" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/ExtraMinerals/MineralContainer"]
+visible = false
 layout_mode = 2
+texture = ExtResource("13_01qcq")
 
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/BlueMineral"]
+[node name="GreenIcon" type="TextureRect" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/ExtraMinerals/MineralContainer"]
+visible = false
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "Blue"
-horizontal_alignment = 2
+texture = ExtResource("14_ghcqo")
 
-[node name="ExtraBlueLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/BlueMineral"]
+[node name="PurpleIcon" type="TextureRect" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/ExtraMinerals/MineralContainer"]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 10
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "1"
-horizontal_alignment = 2
+texture = ExtResource("15_0jxx0")
 
-[node name="GreenMineral" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+[node name="OrangeIcon" type="TextureRect" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/ExtraMinerals/MineralContainer"]
+visible = false
 layout_mode = 2
+texture = ExtResource("16_nf257")
 
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/GreenMineral"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "Green"
-horizontal_alignment = 2
-
-[node name="ExtraGreenLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/GreenMineral"]
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_fonts/font = ExtResource("2_dhl3i")
-text = "1"
-horizontal_alignment = 2
-
-[node name="Earned" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+[node name="EarnedContainer" type="HBoxContainer" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer"]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Earned"]
+[node name="Label" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/EarnedContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Gold Earned"
 horizontal_alignment = 2
 
-[node name="GoldEarnedLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/Earned"]
+[node name="GoldEarnedLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/EarnedContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_fonts/font = ExtResource("2_dhl3i")
@@ -634,12 +629,183 @@ text = "100"
 horizontal_alignment = 2
 
 [node name="ContinueButton" type="Button" parent="CanvasLayer/ResultContainer/ResultScreen"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_5wsn3")
+theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 25
 text = "Continue"
+flat = true
+alignment = 2
+
+[node name="Menu" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="CanvasLayer/Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 24
+text = "mission"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Menu/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Mission1" type="VBoxContainer" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="UpgradeBox" type="TextureRect" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission1"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_ffi38")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission1"]
+layout_mode = 2
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission1/Panel"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(50, -114)
+scale = Vector2(2, 2)
+texture = ExtResource("5_j7xpm")
+
+[node name="Title" type="Label" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission1/Panel"]
+layout_mode = 0
+offset_top = -76.0
+offset_right = 100.0
+offset_bottom = -56.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "main map"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission1/Panel"]
+layout_mode = 0
+offset_top = -56.0
+offset_right = 100.0
+offset_bottom = -4.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 10
+text = "designed level
+(recommended)"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="PlayMainButton" type="Button" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Start"
+
+[node name="Mission2" type="VBoxContainer" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="UpgradeBox" type="TextureRect" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission2"]
+custom_minimum_size = Vector2(100, 150)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_ffi38")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission2"]
+layout_mode = 2
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission2/Panel"]
+position = Vector2(50, -111)
+scale = Vector2(2, 2)
+texture = ExtResource("13_i77vc")
+
+[node name="Title" type="Label" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission2/Panel"]
+layout_mode = 0
+offset_top = -76.0
+offset_right = 100.0
+offset_bottom = -56.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 12
+text = "Exploration"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission2/Panel"]
+layout_mode = 0
+offset_top = -55.0
+offset_right = 100.0
+offset_bottom = -4.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 10
+text = "randomly generated map (WIP)"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="PlayExplorationButton" type="Button" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_dhl3i")
+text = "Start"
+
+[node name="Upgrade3" type="Sprite2D" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer"]
+visible = false
+position = Vector2(369, 188)
+scale = Vector2(2, 2)
+texture = ExtResource("9_kg4p2")
+
+[node name="Upgrade4" type="Sprite2D" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer"]
+visible = false
+position = Vector2(328, 148)
+scale = Vector2(2, 2)
+texture = ExtResource("9_kg4p2")
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="BrowseShopButton" type="Button" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 18
+text = "Browse Shop"
+flat = true
+alignment = 2
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Menu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 18
+text = "exIT"
 flat = true
 alignment = 2
 
@@ -663,6 +829,10 @@ position = Vector2(321, 181.5)
 scale = Vector2(81.25, 46.875)
 texture = ExtResource("4_ffi38")
 
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+
 [connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/UpSonarButton" to="." method="_on_up_sonar_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/UpOxygenButton" to="." method="_on_up_oxygen_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/UpSpeedButton" to="." method="_on_up_speed_button_pressed"]
@@ -670,3 +840,6 @@ texture = ExtResource("4_ffi38")
 [connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/UpFlagButton" to="." method="_on_up_flag_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer2/UpgradeContinueButton" to="." method="_on_upgrade_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ResultContainer/ResultScreen/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission1/PlayMainButton" to="." method="_on_play_main_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/HBoxContainer2/BrowseShopButton" to="." method="_on_browse_shop_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/HBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]

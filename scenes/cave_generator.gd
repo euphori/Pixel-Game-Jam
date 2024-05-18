@@ -7,7 +7,6 @@ var tile_map : TileMap
 var noise : Noise
 
 
-
 func _ready():
 	noise = noise_height_texture.noise
 	tile_map = get_parent()
@@ -26,6 +25,7 @@ func generate_world():
 			var noise_val = noise.get_noise_2d(x,y)
 			if noise_val > 0.0:
 				cells.append(Vector2(x,y))
+
 	
 	tile_map.set_cells_terrain_connect(0,cells,0, 0)
 

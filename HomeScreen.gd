@@ -2,12 +2,21 @@ extends Control
 
 @onready var result_screen = $CanvasLayer/ResultContainer
 @onready var upgrade_screen = $CanvasLayer/UpgradeContainer
+@onready var menu = $CanvasLayer/Menu
 
+var purchase_sound = preload("res://assets/sounds/sfx/coin-donation-2-180438.mp3")
+var bgm = [
+	preload("res://assets/sounds/music/One Man Symphony - Wreckage (Free) - 04 A Different Kind Of Journey (Main Theme).mp3"),
+	preload("res://assets/sounds/music/One Man Symphony - Wreckage (Free) - 08 Setting Out To Take A Step Forward (Exploration Theme 01).mp3"),
+	preload("res://assets/sounds/music/One Man Symphony - Wreckage (Free) - 09 Isolation (Exploration Theme 02) - Loops.mp3")
+	]
 
 func _ready():
 	result_screen.visible = true
 	upgrade_screen.visible = false
-	
+	menu.visible = false
+	$BGM.stream = bgm[randi_range(0,2)]
+	$BGM.play()
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral/ResultLabel.text = str(Global.inventory["red"]/2)
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral2/ResultLabel.text = str(Global.inventory["blue"]/2)
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral3/ResultLabel.text = str(Global.inventory["green"]/2)
@@ -22,15 +31,20 @@ func _process(delta):
 
 func _on_continue_button_pressed():
 	result_screen.visible = false
-	upgrade_screen.visible = true
-
+	upgrade_screen.visible = false
+	menu.visible = true
 
 
 func _on_upgrade_continue_button_pressed():
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	result_screen.visible = false
+	upgrade_screen.visible = false
+	menu.visible = true
 
 
 func update_upgrades():
+	if upgrade_screen.visible:
+		$SFX.stream = purchase_sound
+		$SFX.play()
 	$CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Panel/Description.text = "Increases \nCharge {charge} > {next_charge}\nRange {range}% > {next_range}%".format(Global.stats["remote_sonar"])
 	$CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Cost.text = "{up_price}G".format(Global.stats["remote_sonar"])
 	
@@ -89,3 +103,17 @@ func _on_up_flag_button_pressed():
 		Global.stats["flag_count"]["value"] += 1
 		Global.stats["flag_count"]["next_value"] += 1
 		update_upgrades()
+
+
+func _on_play_main_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/world.tscn")
+
+
+func _on_browse_shop_button_pressed():
+	result_screen.visible = false
+	upgrade_screen.visible = true
+	menu.visible = false
+
+
+func _on_exit_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
