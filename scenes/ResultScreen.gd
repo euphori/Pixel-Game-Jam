@@ -31,8 +31,6 @@ func _ready():
 	gold_earned_label.text = str(gold_earned)
 	Global.money += gold_earned if quota_completed else 0
 	
-	#cheat
-	Global.money += 1000000
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
