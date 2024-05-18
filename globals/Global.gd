@@ -37,6 +37,7 @@ var stats = {
 
 #endregion
 
+var curr_mode = "main"
 var curr_difficulty = 3
 
 var max_depth = 0

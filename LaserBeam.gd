@@ -23,6 +23,7 @@ func _process(delta):
 	if !enabled: return
 	else:
 		if gathering:
+	
 			visible = true
 			if !sound_playing:
 				$AudioStreamPlayer2D.play()
@@ -31,11 +32,13 @@ func _process(delta):
 			var max_cast_to = global_position.direction_to(mineral_pos) * MAX_LENGTH
 			ray_cast.target_position = max_cast_to
 			if ray_cast.is_colliding():
+
 				#print(ray_cast.get_collider().is_in_group("mineral"))
 				end.global_position = ray_cast.get_collision_point()
 				if is_instance_valid(ray_cast.get_collider()):
 					ray_cast.get_collider().health -= damage
 			else:
+
 				gathering = false
 				#end.global_position = ray_cast.target_position
 				

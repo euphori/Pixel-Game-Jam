@@ -10,6 +10,7 @@ extends Node2D
 @onready var flag_label = $UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/FlagLabel
 @onready var oxygen_warning_player = $UI/OxygenWarningPlayer
 @onready var health_warning_player = $UI/HealthWarningPlayer
+@onready var cave_generator = $ProcGenTiles/CaveGenerator
 
 @onready var death_screen = $UI/CanvasLayer/DeathScreen
 
@@ -25,12 +26,12 @@ var quota_colors = []
 var player_dead = false
 
 func _ready():
+	load_world()
 	Global.reset_run_stats()
 	quota = Global.generate_quota()
 	Global.time_start = Time.get_unix_time_from_datetime_string(Time.get_datetime_string_from_system())
-	
-	
-	#tilemap.material.light_mode = 2
+
+	tilemap.material.light_mode = 2
 	for i in quota:
 		if quota[i] > 0:
 			var _quota_label = quota_label.instantiate()
@@ -85,6 +86,16 @@ func update_quota():
 	for label in quota_colors:
 		label.text = str( Global.inventory[label.name],"/",quota[label.name], " ", label.name)
 
+
+func load_world():
+	if Global.curr_mode == "explore":
+		tilemap.clear()
+		cave_generator.generate_world()
+	else:
+		cave_generator.tile_map.clear()
+
+
+
 func _on_exit_body_entered(body):
 	player_near_exit = true
 
@@ -95,3 +106,7 @@ func _on_death_continue_button_pressed():
 
 func _on_death_menu_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+func _on_exit_body_exited(body):
+	player_near_exit = false

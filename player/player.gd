@@ -22,7 +22,7 @@ var caution_played = false
 @onready var health_label = $"../UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/HealthLabel"
 @onready var glitch = $"../UI/CanvasLayer/Glitch"
 
-
+var hurt_sound = preload("res://assets/sounds/sfx/grunt1-84540.mp3")
 
 
 func _ready():
@@ -105,4 +105,7 @@ func _on_player_hurtbox_area_entered(area):
 	if health <= 25:
 		caution_played = false
 		glitch.visible = true
+	$SFX.stream = hurt_sound
+	$SFX.play()
+	$BloodParticles.emitting = true
 	health_label.text = str("Health: " , health,"%")

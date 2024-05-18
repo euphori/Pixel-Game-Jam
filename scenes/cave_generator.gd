@@ -10,7 +10,7 @@ var noise : Noise
 func _ready():
 	noise = noise_height_texture.noise
 	tile_map = get_parent()
-	generate_world()
+	#generate_world()
 	
 
 func clear():

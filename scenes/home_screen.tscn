@@ -491,6 +491,7 @@ flat = true
 alignment = 2
 
 [node name="ResultContainer" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -640,7 +641,6 @@ flat = true
 alignment = 2
 
 [node name="Menu" type="MarginContainer" parent="CanvasLayer"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -841,5 +841,6 @@ texture = ExtResource("4_ffi38")
 [connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer2/UpgradeContinueButton" to="." method="_on_upgrade_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ResultContainer/ResultScreen/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission1/PlayMainButton" to="." method="_on_play_main_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Mission2/PlayExplorationButton" to="." method="_on_play_exploration_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/HBoxContainer2/BrowseShopButton" to="." method="_on_browse_shop_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/HBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]

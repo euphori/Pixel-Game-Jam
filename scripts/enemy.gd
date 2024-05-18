@@ -12,7 +12,7 @@ var player
 var is_player_near = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var played_jumpscare = false
+var can_jumpscare = false
 
 #direction vector array
 #corresponds to up,       upper right,         right,    downward right,      down,     downward left,     left,         upper left
@@ -28,6 +28,15 @@ var danger_array = [0,0,0,0,0,0,0,0]
 var context_map = [0,0,0,0,0,0,0,0]
 var best_direction_index = 0
 
+
+
+enum States{
+	LURK,
+	CHASE,
+	INACTIVE,
+	HIDE
+}
+var state = States.INACTIVE
 #custom functions
 func update_context_map(player_position, current_position):
 	#function normalizes vector automatically
@@ -49,27 +58,35 @@ func update_context_map(player_position, current_position):
 
 #godot functions
 func _physics_process(delta):
-	if Input.is_action_just_pressed("sonar") and is_player_near and !played_jumpscare:
+	if Input.is_action_just_pressed("sonar") and is_player_near and !can_jumpscare:
+		#state = States.LURK
 		$ScreechAudio.play()
+		$ScreechCD.start(30)
 	
 	if player:
 		#print("Player Spotted")
-		
-		if abs(global_position.distance_to(player.global_position)) <= 40:
-			$AnimationPlayer.play("bite")
-		if velocity.x > 0:
-			$Sprite2D.flip_h =false
-		else:
-			$Sprite2D.flip_h = true
-		update_context_map(player.position, position)
-		#determines sharpness of turn
-		var sharp_turn = 2.2
-		var steering_force = arr[best_direction_index] - velocity
-		velocity = velocity + ((steering_force * sharp_turn) * delta)
-		position += velocity
-		if velocity > Vector2.ZERO:
-			$AnimationPlayer.play("swim")
-
+		if state == States.CHASE:
+			if abs(global_position.distance_to(player.global_position)) <= 40:
+				$AnimationPlayer.play("bite")
+				await $AnimationPlayer.animation_finished
+				state = States.LURK
+			if velocity.x > 0:
+				$Sprite2D.flip_h =false
+			else:
+				$Sprite2D.flip_h = true
+			update_context_map(player.position, position)
+			#determines sharpness of turn
+			var sharp_turn = 2.2
+			var steering_force = arr[best_direction_index] - velocity
+			velocity = velocity + ((steering_force * sharp_turn) * delta)
+			position += velocity
+			if velocity > Vector2.ZERO:
+				$AnimationPlayer.play("swim")
+	if state == States.LURK:
+		var dir = global_position - player.global_position 
+		if abs(global_position.distance_to(player.global_position)) <= 150:
+			velocity = dir * SPEED * delta
+		move_and_slide()
 
 
 
@@ -80,16 +97,25 @@ func _on_player_detection_body_entered(body):
 
 func _on_player_detection_body_exited(body):
 	is_player_near = false
-	player = null
 
 
 func _on_player_detection_area_entered(area):
+	print("X")
 	$WarningSprite.visible = false
-	if !played_jumpscare:
-		$AudioStreamPlayer2D.play()
-		played_jumpscare = true
+	state = States.CHASE
+	if !can_jumpscare:
+		$ScreechAudio.play()
+		can_jumpscare = true
 	
 
 
 func _on_player_detection_area_exited(area):
 	$WarningSprite.visible = true
+
+
+func _on_screech_cd_timeout():
+	can_jumpscare = false
+
+
+func _on_enemy_hitbox_area_entered(area):
+	pass

@@ -42,7 +42,6 @@ func _ready():
 	time_result_label.text = str(str(minutes).pad_zeros(2), ":",str(seconds).pad_zeros(2))
 	max_depth_label.text = str(Global.max_depth, "m")
 
-	quota_result_label.text = "completed" if quota_completed else "failed"
 	gold_earned_label.text = str(gold_earned)
 	Global.money += gold_earned if quota_completed else 0
 	initialize_screen()
@@ -100,8 +99,9 @@ func initialize_screen():
 	await show_container()
 	max_depth_container.visible = true
 	await show_container()
-	quota_container.visible = true
 	check_quota()
+	quota_result_label.text = "completed" if quota_completed else "failed"
+	quota_container.visible = true
 	await show_container()
 	$VBoxContainer/ExtraLabel.visible = true
 	extra_minerals.visible = true

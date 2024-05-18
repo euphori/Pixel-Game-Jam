@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl7l8fxtlh7u1"]
+[gd_scene load_steps=11 format=3 uid="uid://dl7l8fxtlh7u1"]
 
+[ext_resource type="Texture2D" uid="uid://bkw7abpevcw6k" path="res://assets/environment/minerals/orange.png" id="2_7i8rn"]
 [ext_resource type="PackedScene" uid="uid://g1pu4lgm81wp" path="res://areas/mineral_hurtbox.tscn" id="2_40qf6"]
-[ext_resource type="Texture2D" uid="uid://bhrm88gfgt7qb" path="res://assets/environment/crystals.png" id="3_efjcp"]
 [ext_resource type="PackedScene" uid="uid://627nt1c8gtnj" path="res://areas/player_detection.tscn" id="3_yybpb"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="4_xseur"]
 [ext_resource type="AudioStream" uid="uid://bdgqj4tqacm6h" path="res://assets/sounds/sfx/mining/dropping-rocks-5996.mp3" id="5_p6i7w"]
+[ext_resource type="Texture2D" uid="uid://bc3g2w6bba1v3" path="res://assets/UI/crystal icon.png" id="6_64utw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vl4ln"]
 
@@ -16,7 +17,7 @@ var player_near = false
 var player
 var sfx_playing = false
 var minimap_icon = \"mineral\"
-
+var detected = false
 var type
 @export var color = {
 	\"white\" : Color.WHITE_SMOKE,
@@ -44,6 +45,13 @@ var mineral_rarity_weight = {
 	\"purple\" : 25
 }
 
+var drop_ammount = {
+	\"white\" : 15,
+	\"green\" : 15,
+	\"blue\" : 20,
+	\"orange\" : 50,
+	\"purple\" : 25
+}
 
 var drop = preload(\"res://scenes/drop.tscn\")
 
@@ -55,19 +63,20 @@ func _ready():
 		mineral_rarity_weight[\"blue\"] += 10
 	elif position.y >=400:
 		mineral_rarity_weight[\"blue\"] += 20
-		mineral_rarity_weight[\"green\"] -= 10
 		mineral_rarity_weight[\"purple\"] += 10
 	elif position.y >= 600:
 		mineral_rarity_weight[\"purple\"] += 20
 		mineral_rarity_weight[\"orange\"] += 5
 		mineral_rarity_weight[\"blue\"] -= 10
 		mineral_rarity_weight[\"green\"] -= 30
-	elif position.y >= 800:
+	elif position.y >= 700:
 		mineral_rarity_weight[\"orange\"] += 25
 		mineral_rarity_weight[\"blue\"] -= 10
 		mineral_rarity_weight[\"green\"] -= 30
 		mineral_rarity_weight[\"white\"] -= 30
 	generate_type()
+	if type == \"orange\":
+		$Sprite2D.scale = Vector2(2,2)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,17 +85,17 @@ func _process(delta):
 	$Label.visible = player_near
 	
 	if Input.is_action_pressed(\"gather\") and player != null and player_near:
+		player.get_node(\"LaserBeam\").gathering = true
 		if !sfx_playing:
 			$AudioStreamPlayer2D.play()
 			sfx_playing = true
-		player.get_node(\"LaserBeam\").mineral_pos = global_position
-		player.get_node(\"LaserBeam\").gathering = true
-	if Input.is_action_just_released(\"gather\")  and player != null and player_near:
+		player.get_node(\"LaserBeam\").mineral_pos = global_position 
+	if Input.is_action_just_released(\"gather\") and player != null and player_near:
 		player.get_node(\"LaserBeam\").gathering = false
 		$AudioStreamPlayer2D.stop()
 		sfx_playing = false
 	if player != null and !player_near:
-		player.get_node(\"LaserBeam\").gathering = false
+		#player.get_node(\"LaserBeam\").gathering = false
 		$AudioStreamPlayer2D.stop()
 		sfx_playing = false
 	
@@ -97,6 +106,7 @@ func _process(delta):
 
 func update_visual():
 	$Sprite2D.texture = mineral_sprites[type]
+	$Tag.modulate = color[type]
 	
 func drop_mineral():
 	for i in 15:
@@ -134,12 +144,25 @@ func _on_player_detection_body_entered(body):
 
 func _on_player_detection_body_exited(body):
 	player_near = false
+	player.get_node(\"LaserBeam\").gathering = false
+
+
+
+func _on_player_detection_area_entered(area):
+	detected = true
+	$Tag.visible = false
+
+
+func _on_player_detection_area_exited(area):
+	if detected:
+		$Tag.visible = true
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_urxvj"]
 size = Vector2(16, 14)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1j8wc"]
+light_mode = 2
 
 [node name="Minerals" type="StaticBody2D" groups=["mineral", "minimap_objects"]]
 material = SubResource("CanvasItemMaterial_vl4ln")
@@ -156,8 +179,7 @@ shape = SubResource("RectangleShape2D_urxvj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_1j8wc")
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_efjcp")
+texture = ExtResource("2_7i8rn")
 
 [node name="PlayerDetection" parent="." instance=ExtResource("3_yybpb")]
 
@@ -175,6 +197,13 @@ horizontal_alignment = 1
 stream = ExtResource("5_p6i7w")
 bus = &"LowPass"
 
+[node name="Tag" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.270588, 0.619608, 0.811765, 1)
+texture = ExtResource("6_64utw")
+
+[connection signal="area_entered" from="PlayerDetection" to="." method="_on_player_detection_area_entered"]
+[connection signal="area_exited" from="PlayerDetection" to="." method="_on_player_detection_area_exited"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 
