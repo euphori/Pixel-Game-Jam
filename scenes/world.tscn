@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://drvxqutv2afxl"]
+[gd_scene load_steps=41 format=3 uid="uid://drvxqutv2afxl"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_7qbpn"]
 [ext_resource type="PackedScene" uid="uid://dfby6rujiyds" path="res://player/player.tscn" id="2_0cvto"]
@@ -26,6 +26,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kgwwu"]
 radius = 43.1045
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kotqg"]
+light_mode = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nb8bb"]
 noise = ExtResource("7_v3xas")
@@ -271,6 +274,7 @@ text = "Leave (f)"
 horizontal_alignment = 1
 
 [node name="ProcGenTiles" type="TileMap" parent="."]
+material = SubResource("CanvasItemMaterial_kotqg")
 position = Vector2(-350, -367)
 tile_set = ExtResource("5_unjsp")
 format = 2
@@ -298,7 +302,7 @@ position = Vector2(130, 190)
 position = Vector2(132, 190)
 
 [node name="Enemy" parent="." instance=ExtResource("3_gp852")]
-position = Vector2(337, 250)
+position = Vector2(558, 1092)
 
 [node name="Enemy2" parent="." instance=ExtResource("3_gp852")]
 position = Vector2(970, 973)

@@ -109,7 +109,7 @@ func update_visual():
 	$Tag.modulate = color[type]
 	
 func drop_mineral():
-	for i in 15:
+	for i in drop_ammount[type]:
 		await get_tree().create_timer(randf_range(0.025,.05)).timeout
 		var _drop = drop.instantiate()
 		_drop.color = color[type]
