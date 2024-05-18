@@ -1,0 +1,201 @@
+[gd_scene load_steps=16 format=3 uid="uid://x48jbvsi6fw8"]
+
+[ext_resource type="TileSet" uid="uid://cca7qhhrgivpt" path="res://resources/tileset.tres" id="1_fj622"]
+[ext_resource type="PackedScene" uid="uid://ll64vi85def2" path="res://scenes/cave_generator.tscn" id="2_78w7g"]
+[ext_resource type="Script" path="res://player/player.gd" id="3_02fnp"]
+[ext_resource type="FastNoiseLite" uid="uid://0u4mw4v5ym3q" path="res://resources/noise.tres" id="3_4383e"]
+[ext_resource type="Texture2D" uid="uid://cmwkkslwri3dt" path="res://assets/light2.png" id="4_q30bq"]
+[ext_resource type="PackedScene" uid="uid://56qb3ou1ov7h" path="res://scenes/laser_beam.tscn" id="5_vmd1a"]
+[ext_resource type="Texture2D" uid="uid://cad1frmpb08ud" path="res://assets/characters/character-Sheet.png" id="6_5l1x7"]
+[ext_resource type="AudioStream" uid="uid://f1vljlfg6get" path="res://assets/sounds/sfx/tech/236145_betty_alone_computerized_BettyAloneComputer PE213801 (mp3cut.net).mp3" id="7_cgkqk"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fvmnn"]
+noise = ExtResource("3_4383e")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ugt5"]
+size = Vector2(8, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7w7ve"]
+size = Vector2(16, 30)
+
+[sub_resource type="Animation" id="Animation_6l3vp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerHurtbox/CollisionShape2D:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_7w7ve")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerHurtbox/CollisionShape2D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 30)]
+}
+
+[sub_resource type="Animation" id="Animation_8a5y7"]
+resource_name = "side"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 11, 12, 13, 14, 15, 16, 17, 18]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerHurtbox/CollisionShape2D:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_7w7ve")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerHurtbox/CollisionShape2D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(31, 18)]
+}
+
+[sub_resource type="Animation" id="Animation_2kurw"]
+resource_name = "up"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerHurtbox/CollisionShape2D:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_7w7ve")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerHurtbox/CollisionShape2D:shape:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 30)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qjucy"]
+_data = {
+"RESET": SubResource("Animation_6l3vp"),
+"side": SubResource("Animation_8a5y7"),
+"up": SubResource("Animation_2kurw")
+}
+
+[node name="SampleWorld" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_fj622")
+format = 2
+
+[node name="CaveGenerator" parent="TileMap" instance=ExtResource("2_78w7g")]
+noise_height_texture = SubResource("NoiseTexture2D_fvmnn")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+collision_layer = 2
+script = ExtResource("3_02fnp")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Player"]
+color = Color(0.364706, 0.364706, 0.364706, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_8ugt5")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+visible = false
+energy = 0.05
+texture = ExtResource("4_q30bq")
+texture_scale = 0.05
+
+[node name="LaserBeam" parent="Player" instance=ExtResource("5_vmd1a")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("6_5l1x7")
+hframes = 19
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_qjucy")
+}
+speed_scale = 0.5
+
+[node name="CautionAudio" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("7_cgkqk")
+bus = &"LowPass"
+
+[node name="PlayerHurtbox" type="Area2D" parent="Player"]
+collision_layer = 128
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerHurtbox"]
+position = Vector2(-1.5, -3)
+shape = SubResource("RectangleShape2D_7w7ve")
+
+[connection signal="area_entered" from="Player/PlayerHurtbox" to="Player" method="_on_player_hurtbox_area_entered"]

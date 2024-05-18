@@ -38,8 +38,9 @@ func _input(event):
 
 func _physics_process(delta):
 	# Add the gravity.
-	if cd_bar.value < 100:
-		cd_bar.value += 50 * delta
+	if get_parent().name != "SampleWorld":
+		if cd_bar.value < 100:
+			cd_bar.value += 50 * delta
 	if Input.is_action_just_pressed("sonar") and cd_bar.value >= 100:
 		
 		scan_area(false)

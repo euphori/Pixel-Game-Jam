@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ll64vi85def2"]
+
+[ext_resource type="Script" path="res://scenes/cave_generator.gd" id="1_b1t4w"]
+
+[node name="CaveGenerator" type="Node"]
+script = ExtResource("1_b1t4w")

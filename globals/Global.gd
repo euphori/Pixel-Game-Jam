@@ -76,6 +76,7 @@ func generate_quota():
 			quota[quota.keys()[rng]] += 1
 	
 	curr_quota = quota
+	#print(curr_quota)
 	return quota
 		
 		
