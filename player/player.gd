@@ -4,9 +4,11 @@ extends CharacterBody2D
 const SPEED = 75.0
 const JUMP_VELOCITY = -400.0
 
-var remote_sonar_charge = 3
-var flag_charge = 10
-var health = 100
+@onready var remote_sonar_charge = Global.stats["remote_sonar"]["charge"]
+@onready var flag_charge = Global.stats["flag_count"]["value"]
+@onready var health = Global.stats["hp"]["value"]
+@onready var speed_coefficient = Global.stats["speed_coefficient"]["value"]
+@onready var max_oxygen = Global.stats["oxygen"]["value"]
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -38,6 +40,7 @@ func _physics_process(delta):
 	if cd_bar.value < 100:
 		cd_bar.value += 50 * delta
 	if Input.is_action_just_pressed("sonar") and cd_bar.value >= 100:
+		
 		scan_area(false)
 	if Input.is_action_just_pressed("remote_sonar") and remote_sonar_charge > 0:
 		remote_sonar_charge -= 1
@@ -49,8 +52,8 @@ func _physics_process(delta):
 			$Sprite2D.flip_h = false
 		else:
 			$Sprite2D.flip_h = true
-		velocity.x = xdirection * SPEED
-		velocity.y = ydirection * SPEED
+		velocity.x = xdirection * (SPEED * (1 + speed_coefficient))
+		velocity.y = ydirection * (SPEED * (1 + speed_coefficient))
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.y = move_toward(velocity.y, 0, SPEED)

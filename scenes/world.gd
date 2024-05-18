@@ -36,7 +36,7 @@ func _ready():
 			_quota_label.name = i
 			_quota_label.text = i
 	Global.connect("item_added" ,update_quota )
-	oxygen = Global.player_max_oxygen
+	oxygen = Global.stats["oxygen"]["value"]
 	update_quota()
 
 func _input(event):

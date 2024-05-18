@@ -10,12 +10,13 @@ extends VBoxContainer
 
 
 var elapsed_time
-var extra_mineral = {
+@onready var extra_mineral = {
 	"green" : 0,
 	"red": 0,
 	"blue" : 0
 }
 var gold_earned = 0
+var quota_completed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,9 +25,11 @@ func _ready():
 	var seconds = int(elapsed_time) % 60
 	time_result_label.text = str(str(minutes).pad_zeros(2), ":",str(seconds).pad_zeros(2))
 	max_depth_label.text = str(Global.max_depth, "m")
-	quota_result_label.text = check_quota()
+	check_quota()
+	quota_result_label.text = "completed" if quota_completed else "failed"
 	calc_extra_mineral()
 	gold_earned_label.text = str(gold_earned)
+	Global.money += gold_earned if quota_completed else 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -38,24 +41,25 @@ func check_quota():
 	for i in Global.curr_quota:
 		if  !Global.inventory[i] >= Global.curr_quota[i]:
 			hide_extra_labels()
-			return "failed"
+			quota_completed = false
+			return
 		else:
-			Global.inventory[i] = Global.inventory[i] - Global.curr_quota[i]
+			extra_mineral[i] += Global.inventory[i] - Global.curr_quota[i]
+			Global.inventory[i] = 0
 	gold_earned += 100
-	return "completed"
+
+	quota_completed = true
 
 
 func calc_extra_mineral():
-	for mineral in Global.inventory:
-		extra_mineral[mineral] = Global.inventory[mineral]
-		if Global.inventory[mineral] > 0 :
-			match mineral:
-				"red":
-					gold_earned += 100 * Global.inventory[mineral]
-				"blue":
-					gold_earned += 50 * Global.inventory[mineral]
-				"green":
-					gold_earned += 25 * Global.inventory[mineral]
+	for mineral in extra_mineral:
+		match mineral:
+			"red":
+				gold_earned += 100 * extra_mineral["red"]
+			"blue":
+				gold_earned += 50 * extra_mineral["blue"]
+			"green":
+				gold_earned += 25 * extra_mineral["green"]
 	extra_blue_label.text = str(extra_mineral["blue"])
 	extra_red_label.text = str(extra_mineral["red"])
 	extra_green_label.text = str(extra_mineral["green"])

@@ -2,8 +2,35 @@ extends Node
 
 
 #region player stats
-var player_max_oxygen = 100
-var player_max_hp = 100
+var stats = {
+	"oxygen": {
+		"value": 100,
+		"up_price": 250,
+		"next_value": 110,
+	},
+	"hp": {
+		"value": 100,
+		"up_price": 250,
+		"next_value": 110,
+	},
+	"remote_sonar": {
+		"charge": 3,
+		"next_charge": 4,
+		"range": 0,
+		"next_range": 10,
+		"up_price": 250,
+	},
+	"speed_coefficient": {
+		"value": 0,
+		"up_price": 250,
+		"next_value": 5,
+	},
+	"flag_count": {
+		"value": 10,
+		"up_price": 250,
+		"next_value": 11,
+	},
+}
 
 
 
@@ -21,7 +48,8 @@ var inventory = {
 	"blue" : 0,
 	"green" : 0
 }
-var money = 100
+
+var money = 0
 var curr_quota
 
 signal item_added

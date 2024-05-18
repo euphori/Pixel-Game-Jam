@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bg56wmvqk8h4j"]
+[gd_scene load_steps=20 format=3 uid="uid://bg56wmvqk8h4j"]
 
 [ext_resource type="Script" path="res://HomeScreen.gd" id="1_l0v3e"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="2_5wsn3"]
@@ -6,12 +6,33 @@
 [ext_resource type="Texture2D" uid="uid://cmg3v7t101egc" path="res://assets/UI/border.png" id="2_wvsig"]
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="3_blqmu"]
 [ext_resource type="Texture2D" uid="uid://clc3ow7rvgmsp" path="res://assets/beam.png" id="4_ffi38"]
+[ext_resource type="Texture2D" uid="uid://dgubcdeysf4n3" path="res://assets/UI/icons.png" id="5_5nak2"]
 [ext_resource type="Texture2D" uid="uid://da1y6q4rq7mpu" path="res://assets/UI/sensor_icon.png" id="5_j7xpm"]
 [ext_resource type="Texture2D" uid="uid://2cirhdn06ain" path="res://assets/UI/remote_sensor_icon.png" id="6_2aw6j"]
 [ext_resource type="Texture2D" uid="uid://bl3s7mdotqwfx" path="res://assets/UI/oxygen_icon.png" id="7_jisu6"]
 [ext_resource type="Texture2D" uid="uid://dwla1y4meiyr1" path="res://assets/UI/speed_icon.png" id="8_ean4d"]
 [ext_resource type="Texture2D" uid="uid://5es7o1ubpwfa" path="res://assets/UI/diamond.png" id="9_kg4p2"]
 [ext_resource type="Script" path="res://scenes/ResultScreen.gd" id="10_q8m8g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_viu07"]
+atlas = ExtResource("5_5nak2")
+region = Rect2(62.0522, 29.4312, 11.2158, 12.432)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyey7"]
+atlas = ExtResource("5_5nak2")
+region = Rect2(33.108, 0.110886, 14.3238, 16.3508)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32gr2"]
+atlas = ExtResource("5_5nak2")
+region = Rect2(65.1341, 0.379914, 14.9995, 18.648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jydpq"]
+atlas = ExtResource("5_5nak2")
+region = Rect2(0.136368, 31.0541, 16.4859, 17.567)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlo83"]
+atlas = ExtResource("5_5nak2")
+region = Rect2(30.2677, 29.7006, 17.9724, 19.7291)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_355br"]
 shader = ExtResource("3_blqmu")
@@ -96,12 +117,12 @@ texture = ExtResource("4_ffi38")
 layout_mode = 2
 
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Panel"]
-modulate = Color(0, 0, 0, 1)
 position = Vector2(50, -114)
-scale = Vector2(2, 2)
-texture = ExtResource("6_2aw6j")
+scale = Vector2(5.19763, 5.19763)
+texture = SubResource("AtlasTexture_viu07")
 
 [node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Panel"]
+layout_mode = 0
 offset_top = -76.0
 offset_right = 100.0
 offset_bottom = -56.0
@@ -113,7 +134,8 @@ theme_override_font_sizes/font_size = 12
 text = "Remote Sonar"
 horizontal_alignment = 1
 
-[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Panel"]
+[node name="Description" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/Panel"]
+layout_mode = 0
 offset_top = -56.0
 offset_right = 100.0
 offset_bottom = -4.0
@@ -123,11 +145,12 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 10
 text = "increases
-charge 3 > 4"
+charge 3 > 4
+Range 0% > 10%"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade"]
+[node name="UpSonarButton" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Upgrage"
@@ -155,12 +178,12 @@ texture = ExtResource("4_ffi38")
 layout_mode = 2
 
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/Panel"]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(50, -114)
-scale = Vector2(2, 2)
-texture = ExtResource("6_2aw6j")
+position = Vector2(50, -111)
+scale = Vector2(2.9724, 2.9724)
+texture = SubResource("AtlasTexture_kyey7")
 
 [node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/Panel"]
+layout_mode = 0
 offset_top = -76.0
 offset_right = 100.0
 offset_bottom = -56.0
@@ -169,24 +192,25 @@ size_flags_vertical = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 12
-text = "Remote Sonar"
+text = "Oxygen 
+Increase"
 horizontal_alignment = 1
 
-[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/Panel"]
-offset_top = -56.0
+[node name="Description" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/Panel"]
+layout_mode = 0
+offset_top = -39.0
 offset_right = 100.0
-offset_bottom = -4.0
+offset_bottom = 13.0
 size_flags_horizontal = 0
 size_flags_vertical = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 10
-text = "increases
-charge 3 > 4"
+text = "Capacity 100 > 110"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2"]
+[node name="UpOxygenButton" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Upgrage"
@@ -214,12 +238,12 @@ texture = ExtResource("4_ffi38")
 layout_mode = 2
 
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/Panel"]
-modulate = Color(0, 0, 0, 1)
-position = Vector2(50, -114)
-scale = Vector2(2, 2)
-texture = ExtResource("6_2aw6j")
+position = Vector2(49, -109)
+scale = Vector2(2.92898, 2.92898)
+texture = SubResource("AtlasTexture_32gr2")
 
 [node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/Panel"]
+layout_mode = 0
 offset_top = -76.0
 offset_right = 100.0
 offset_bottom = -56.0
@@ -228,24 +252,26 @@ size_flags_vertical = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 12
-text = "Remote Sonar"
+text = "Speed
+Increase"
 horizontal_alignment = 1
 
-[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/Panel"]
-offset_top = -56.0
-offset_right = 100.0
-offset_bottom = -4.0
+[node name="Description" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/Panel"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -34.0
+offset_right = 98.0
+offset_bottom = 18.0
 size_flags_horizontal = 0
 size_flags_vertical = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 10
-text = "increases
-charge 3 > 4"
+text = "100% > 105%"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3"]
+[node name="UpSpeedButton" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Upgrage"
@@ -274,11 +300,12 @@ layout_mode = 2
 
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4/Panel"]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(50, -114)
-scale = Vector2(2, 2)
-texture = ExtResource("6_2aw6j")
+position = Vector2(49, -114)
+scale = Vector2(2.67342, 2.67342)
+texture = SubResource("AtlasTexture_jydpq")
 
 [node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4/Panel"]
+layout_mode = 0
 offset_top = -76.0
 offset_right = 100.0
 offset_bottom = -56.0
@@ -287,24 +314,25 @@ size_flags_vertical = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 12
-text = "Remote Sonar"
+text = "Health 
+Increase"
 horizontal_alignment = 1
 
-[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4/Panel"]
-offset_top = -56.0
+[node name="Description" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4/Panel"]
+layout_mode = 0
+offset_top = -39.0
 offset_right = 100.0
-offset_bottom = -4.0
+offset_bottom = 13.0
 size_flags_horizontal = 0
 size_flags_vertical = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 10
-text = "increases
-charge 3 > 4"
+text = "HP 100 > 110"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4"]
+[node name="UpHealthButton" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Upgrage"
@@ -333,11 +361,12 @@ layout_mode = 2
 
 [node name="Icon" type="Sprite2D" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Panel"]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(50, -114)
-scale = Vector2(2, 2)
-texture = ExtResource("6_2aw6j")
+position = Vector2(47, -113)
+scale = Vector2(2.55598, 2.55598)
+texture = SubResource("AtlasTexture_mlo83")
 
 [node name="Title" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Panel"]
+layout_mode = 0
 offset_top = -76.0
 offset_right = 100.0
 offset_bottom = -56.0
@@ -346,24 +375,26 @@ size_flags_vertical = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 12
-text = "Remote Sonar"
+text = "flag
+increase
+"
 horizontal_alignment = 1
 
-[node name="Description2" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Panel"]
-offset_top = -56.0
+[node name="Description" type="Label" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/Panel"]
+layout_mode = 0
+offset_top = -37.0
 offset_right = 100.0
-offset_bottom = -4.0
+offset_bottom = 15.0
 size_flags_horizontal = 0
 size_flags_vertical = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
 theme_override_font_sizes/font_size = 10
-text = "increases
-charge 3 > 4"
+text = "Charge 10 > 11"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5"]
+[node name="UpFlagButton" type="Button" parent="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_dhl3i")
 text = "Upgrage"
@@ -632,5 +663,10 @@ position = Vector2(321, 181.5)
 scale = Vector2(81.25, 46.875)
 texture = ExtResource("4_ffi38")
 
+[connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade/UpSonarButton" to="." method="_on_up_sonar_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade2/UpOxygenButton" to="." method="_on_up_oxygen_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade3/UpSpeedButton" to="." method="_on_up_speed_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade4/UpHealthButton" to="." method="_on_up_health_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/Upgrade5/UpFlagButton" to="." method="_on_up_flag_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UpgradeContainer/VBoxContainer/HBoxContainer2/UpgradeContinueButton" to="." method="_on_upgrade_continue_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ResultContainer/ResultScreen/ContinueButton" to="." method="_on_continue_button_pressed"]
