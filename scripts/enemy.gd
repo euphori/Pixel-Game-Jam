@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 
 
-const SPEED = 100.0
+const SPEED = 20.0
 const JUMP_VELOCITY = -400.0
 
 
@@ -45,6 +45,7 @@ func update_context_map(player_position, current_position):
 	#populate interest array using vector dot product
 	for i in range(8):
 		interest_array[i] = vector_to_player.dot(arr[i])
+	
 	for i in range(8):
 		context_map[i] = interest_array[i] - danger_array[i]
 		if i == 0:
@@ -52,60 +53,79 @@ func update_context_map(player_position, current_position):
 		elif context_map[i] > context_map[best_direction_index]:
 			#for some reason subtracting one makes it more accurate 
 			best_direction_index = i - 1
-	
-	
+			
 
-
+		
 #godot functions
 func _physics_process(delta):
-	if Input.is_action_just_pressed("sonar") and is_player_near and !can_jumpscare:
+	if Input.is_action_just_pressed("sonar") and is_player_near and can_jumpscare and state == States.LURK:
 		#state = States.LURK
 		$ScreechAudio.play()
-		$ScreechCD.start(30)
+		$ScreechCD.start(3)
+		state = States.CHASE
+		print(state)
+		
 	
 	if player:
+		if global_position - player.global_position >=  Vector2.RIGHT: 
+			$Sprite2D.flip_h = true
+		else:
+			$Sprite2D.flip_h = false
+	
+		
+		#determines sharpness of turn
+		update_context_map(player.position, position)
+		var sharp_turn = 2.2
+		var steering_force = arr[best_direction_index] - velocity
+		
+		
 		#print("Player Spotted")
 		if state == States.CHASE:
-			if abs(global_position.distance_to(player.global_position)) <= 40:
+			if abs(global_position.distance_to(player.global_position)) <= 40 and can_jumpscare:
 				$AnimationPlayer.play("bite")
 				await $AnimationPlayer.animation_finished
-				state = States.LURK
-			if velocity.x > 0:
-				$Sprite2D.flip_h =false
-			else:
-				$Sprite2D.flip_h = true
-			update_context_map(player.position, position)
-			#determines sharpness of turn
-			var sharp_turn = 2.2
-			var steering_force = arr[best_direction_index] - velocity
+				state = States.HIDE
+				velocity = Vector2(0,0)
+				can_jumpscare = false
+
 			velocity = velocity + ((steering_force * sharp_turn) * delta)
 			position += velocity
 			if velocity > Vector2.ZERO:
 				$AnimationPlayer.play("swim")
-	if state == States.LURK:
-		var dir = global_position - player.global_position 
-		if abs(global_position.distance_to(player.global_position)) <= 150:
-			velocity = dir * SPEED * delta
-		move_and_slide()
-
-
+		if state == States.HIDE:
+			if can_jumpscare:
+				state = States.LURK
+			velocity = velocity + ((steering_force * sharp_turn) * (delta / 7))
+			position -= velocity
+		if state == States.LURK:
+			var distance = abs(global_position.distance_to(player.global_position))
+			if distance > 80:
+				velocity = velocity + ((steering_force * sharp_turn) * delta)
+				position += velocity
+			else:
+				velocity = Vector2.ZERO
+				
+		print(state)
 
 func _on_player_detection_body_entered(body):
-	is_player_near = true
+	is_player_near = true 
+	can_jumpscare = true
 	player = body
 
 
 func _on_player_detection_body_exited(body):
 	is_player_near = false
+	player = null
 
 
 func _on_player_detection_area_entered(area):
-	print("X")
 	$WarningSprite.visible = false
-	state = States.CHASE
-	if !can_jumpscare:
+	if can_jumpscare:
 		$ScreechAudio.play()
-		can_jumpscare = true
+		state = States.CHASE
+		
+	
+
 	
 
 
@@ -114,7 +134,13 @@ func _on_player_detection_area_exited(area):
 
 
 func _on_screech_cd_timeout():
-	can_jumpscare = false
+	if player:
+		if state == States.CHASE:
+			return
+		state = States.LURK
+	else:
+		state = States.INACTIVE
+	can_jumpscare = true
 
 
 func _on_enemy_hitbox_area_entered(area):
