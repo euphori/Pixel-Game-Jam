@@ -8,6 +8,7 @@ const MAX_LENGTH = 2000
 
 @export var damage = 0.5
 @export var enabled = false
+@export var free_mode : bool
 
 var sound_playing = false
 var mineral_pos
@@ -22,29 +23,33 @@ func _ready():
 func _process(delta):
 	if !enabled: return
 	else:
-		if gathering:
-	
-			visible = true
-			if !sound_playing:
-				$AudioStreamPlayer2D.play()
-				sound_playing = true
-			var mouse_pos = get_local_mouse_position()
-			var max_cast_to = global_position.direction_to(mineral_pos) * MAX_LENGTH
-			ray_cast.target_position = max_cast_to
-			if ray_cast.is_colliding():
-
-				#print(ray_cast.get_collider().is_in_group("mineral"))
-				end.global_position = ray_cast.get_collision_point()
-				if is_instance_valid(ray_cast.get_collider()):
-					ray_cast.get_collider().health -= damage
+		if gathering or free_mode:
+			if Input.is_action_pressed("laser"):
+				visible = true
+				if !sound_playing:
+					$AudioStreamPlayer2D.play()
+					sound_playing = true
+				var mouse_pos = get_local_mouse_position()
+				print(mouse_pos)
+				var max_cast_to = global_position.direction_to(mouse_pos) * MAX_LENGTH
+				#if !free_mode:
+					#max_cast_to = global_position.direction_to(mineral_pos) * MAX_LENGTH
+				#else:
+					#max_cast_to = global_position.direction_to(mouse_pos) * MAX_LENGTH
+				ray_cast.target_position = max_cast_to
+				if ray_cast.is_colliding():
+					#print(ray_cast.get_collider().is_in_group("mineral"))
+					end.global_position = ray_cast.get_collision_point()
+					if is_instance_valid(ray_cast.get_collider()):
+						if ray_cast.get_collider().is_in_group("minerals"):
+							ray_cast.get_collider().health -= damage
+				else:
+					gathering = false
+					end.global_position = ray_cast.target_position
+					
+				beam.rotation = ray_cast.target_position.angle()
+				beam.region_rect.end.x = end.position.length()
 			else:
-
-				gathering = false
-				#end.global_position = ray_cast.target_position
-				
-			beam.rotation = ray_cast.target_position.angle()
-			beam.region_rect.end.x = end.position.length()
-		else:
-			visible = false
-			$AudioStreamPlayer2D.stop()
-			sound_playing = false
+				visible = false
+				$AudioStreamPlayer2D.stop()
+				sound_playing = false

@@ -50,8 +50,10 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	curr_depth = abs(int($StartingLocation.global_position.y - player.global_position.y) / 10)
-	#print(curr_depth)
+	if $StartingLocation.global_position.y - player.global_position.y > 0:
+		curr_depth = 0
+	else:
+		curr_depth = abs(int($StartingLocation.global_position.y - player.global_position.y) / 10)
 	meter_arrow.position.y = max(1,32 * curr_depth / 50)
 	if curr_depth > Global.max_depth:
 		Global.max_depth = curr_depth
@@ -88,10 +90,10 @@ func update_quota():
 
 
 func load_world():
-	if Global.curr_mode == "explore":
+	if Global.curr_mode == "explore" :
 		tilemap.clear()
 		cave_generator.generate_world()
-	else:
+	elif !cave_generator.active:
 		cave_generator.tile_map.clear()
 
 

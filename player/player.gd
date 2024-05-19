@@ -15,6 +15,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sonar = preload("res://scenes/sonar_light.tscn")
 var flag = preload("res://scenes/flag.tscn")
 var caution_played = false
+var placed = false
 
 @onready var cd_bar = $"../UI/CanvasLayer/MarginContainer/VBoxContainer2/ProgressBar"
 @onready var remote_charge_label = $"../UI/CanvasLayer/MarginContainer/HBoxContainer/SystemInfo/RemoteSonarLabel"
@@ -26,6 +27,7 @@ var hurt_sound = preload("res://assets/sounds/sfx/grunt1-84540.mp3")
 
 
 func _ready():
+	
 	remote_charge_label.text = str("Remote Sonar (r): ", remote_sonar_charge, "x")
 	flag_charge_label.text = str("Flags (f): ", flag_charge, "x")
 
@@ -37,10 +39,11 @@ func _input(event):
 
 
 func _physics_process(delta):
-	# Add the gravity.
+
+	#$RayCast2D.enabled = false
 	if get_parent().name != "SampleWorld":
 		if cd_bar.value < 100:
-			cd_bar.value += 50 * delta
+			cd_bar.value += 100 * delta
 	if Input.is_action_just_pressed("sonar") and cd_bar.value >= 100:
 		
 		scan_area(false)
@@ -98,7 +101,7 @@ func place_flag():
 
 
 
-
+	
 func _on_player_hurtbox_area_entered(area):
 	
 	health -= randi_range(15,25)

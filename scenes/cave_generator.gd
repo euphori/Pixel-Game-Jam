@@ -1,16 +1,19 @@
 extends Node
 
-
+@export var active : bool
 @export var map_size = Vector2(128,128)
 @export var noise_height_texture = NoiseTexture2D
 var tile_map : TileMap
 var noise : Noise
+@onready var tiles = $"../../Tiles"
 
 
 func _ready():
 	noise = noise_height_texture.noise
 	tile_map = get_parent()
-	#generate_world()
+	if active:
+		tiles.clear()
+		generate_world()
 	
 
 func clear():

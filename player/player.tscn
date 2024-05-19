@@ -206,4 +206,7 @@ shape = SubResource("RectangleShape2D_7w7ve")
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 bus = &"LowPass"
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 14)
+
 [connection signal="area_entered" from="PlayerHurtbox" to="." method="_on_player_hurtbox_area_entered"]

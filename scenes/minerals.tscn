@@ -84,20 +84,20 @@ func _process(delta):
 	
 	$Label.visible = player_near
 	
-	if Input.is_action_pressed(\"gather\") and player != null and player_near:
-		player.get_node(\"LaserBeam\").gathering = true
-		if !sfx_playing:
-			$AudioStreamPlayer2D.play()
-			sfx_playing = true
-		player.get_node(\"LaserBeam\").mineral_pos = global_position 
-	if Input.is_action_just_released(\"gather\") and player != null and player_near:
-		player.get_node(\"LaserBeam\").gathering = false
-		$AudioStreamPlayer2D.stop()
-		sfx_playing = false
-	if player != null and !player_near:
+	#if Input.is_action_pressed(\"gather\") and player != null and player_near:
+		#player.get_node(\"LaserBeam\").gathering = true
+		#if !sfx_playing:
+			#$AudioStreamPlayer2D.play()
+			#sfx_playing = true
+		#player.get_node(\"LaserBeam\").mineral_pos = global_position 
+	#if Input.is_action_just_released(\"gather\") and player != null and player_near:
 		#player.get_node(\"LaserBeam\").gathering = false
-		$AudioStreamPlayer2D.stop()
-		sfx_playing = false
+		#$AudioStreamPlayer2D.stop()
+		#sfx_playing = false
+	#if player != null and !player_near:
+		##player.get_node(\"LaserBeam\").gathering = false
+		#$AudioStreamPlayer2D.stop()
+		#sfx_playing = false
 	
 	if health == 0 :
 		visible = false
@@ -162,6 +162,7 @@ func _on_player_detection_area_exited(area):
 size = Vector2(16, 14)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1j8wc"]
+blend_mode = 1
 light_mode = 2
 
 [node name="Minerals" type="StaticBody2D" groups=["mineral", "minimap_objects"]]
