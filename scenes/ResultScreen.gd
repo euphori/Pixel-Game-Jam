@@ -41,9 +41,7 @@ func _ready():
 	var seconds = int(elapsed_time) % 60
 	time_result_label.text = str(str(minutes).pad_zeros(2), ":",str(seconds).pad_zeros(2))
 	max_depth_label.text = str(Global.max_depth, "m")
-
 	gold_earned_label.text = str(gold_earned)
-	Global.money += gold_earned if quota_completed else 0
 	initialize_screen()
 	#for i in mineral_container.get_children():
 		#i.hide()
@@ -64,24 +62,24 @@ func check_quota():
 			extra_mineral[i] += Global.inventory[i] - Global.curr_quota[i]
 			Global.inventory[i] = 0
 	gold_earned += 100
-
 	quota_completed = true
 
 
 func calc_extra_mineral():
 	for mineral in extra_mineral:
-		match mineral:
-			"white" : 
-				gold_earned += 10 * extra_mineral["white"]
-			"green" : 
-				gold_earned += 25 * extra_mineral["green"]
-			"blue" : 
-				gold_earned += 50 * extra_mineral["blue"]
-			"orange" : 
-				gold_earned += 200 * extra_mineral["orange"]
-			"purple" : 
-				gold_earned += 100 * extra_mineral["orange"]
 		for i in extra_mineral[mineral]:
+			match mineral:
+				"white" : 
+					gold_earned += 10 * extra_mineral["white"]
+				"green" : 
+					gold_earned += 25 * extra_mineral["green"]
+				"blue" : 
+					gold_earned += 50 * extra_mineral["blue"]
+				"orange" : 
+					gold_earned += 200 * extra_mineral["orange"]
+				"purple" : 
+					gold_earned += 100 * extra_mineral["orange"]
+				
 			var icon = mineral_icons[mineral].duplicate()
 			icon.show()
 			mineral_container.add_child(icon)
@@ -94,6 +92,8 @@ func show_container():
 	sfx.stream = load("res://assets/sounds/sfx/click-button-140881.mp3")
 	sfx.play()
 	await get_tree().create_timer(0.50).timeout
+	
+	
 func initialize_screen():
 	time_container.visible = true
 	await show_container()
@@ -110,3 +110,4 @@ func initialize_screen():
 	gold_earned_label.text = str(gold_earned)
 	earned_container.show()
 	$ContinueButton.show()
+	Global.money += gold_earned if quota_completed else 0

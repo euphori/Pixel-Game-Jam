@@ -20,7 +20,6 @@ func _ready():
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral/ResultLabel.text = str(Global.inventory["red"]/2)
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral2/ResultLabel.text = str(Global.inventory["blue"]/2)
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral3/ResultLabel.text = str(Global.inventory["green"]/2)
-	update_upgrades()
 	
 
 
@@ -115,6 +114,7 @@ func _on_browse_shop_button_pressed():
 	result_screen.visible = false
 	upgrade_screen.visible = true
 	menu.visible = false
+	update_upgrades()
 
 
 func _on_exit_button_pressed():
