@@ -46,6 +46,9 @@ func update_context_map(player_position, current_position):
 	for i in range(8):
 		interest_array[i] = vector_to_player.dot(arr[i])
 	
+	if state == States.HIDE:
+		process_wall_direction()
+	
 	for i in range(8):
 		context_map[i] = interest_array[i] - danger_array[i]
 		if i == 0:
@@ -55,13 +58,24 @@ func update_context_map(player_position, current_position):
 			best_direction_index = i - 1
 			
 
-		
+func process_wall_direction():
+	var distances = $RaycastDetection.distances
+	var closest_direction_index = 0
+	for i in range(8):
+		if distances[i] == 0:
+			continue
+		if distances[i] < distances[closest_direction_index]:
+			closest_direction_index = i
+			
+	interest_array[closest_direction_index] += 5
+	print(closest_direction_index)
+
 #godot functions
 func _physics_process(delta):
 	if Input.is_action_just_pressed("sonar") and is_player_near and can_jumpscare and state == States.LURK:
 		#state = States.LURK
 		$ScreechAudio.play()
-		$ScreechCD.start(3)
+		$ScreechCD.start(5)
 		state = States.CHASE
 		print(state)
 		
@@ -81,6 +95,7 @@ func _physics_process(delta):
 		
 		#print("Player Spotted")
 		if state == States.CHASE:
+			print("Chase")
 			if abs(global_position.distance_to(player.global_position)) <= 40 and can_jumpscare:
 				$AnimationPlayer.play("bite")
 				await $AnimationPlayer.animation_finished
@@ -93,29 +108,32 @@ func _physics_process(delta):
 			if velocity > Vector2.ZERO:
 				$AnimationPlayer.play("swim")
 		if state == States.HIDE:
+			print("Hide")
 			if can_jumpscare:
 				state = States.LURK
-			velocity = velocity + ((steering_force * sharp_turn) * (delta / 7))
-			position -= velocity
+			velocity = velocity + ((steering_force * sharp_turn) * (delta / 3))
+			position += velocity
 		if state == States.LURK:
+			print("Lurk")
 			var distance = abs(global_position.distance_to(player.global_position))
 			if distance > 80:
 				velocity = velocity + ((steering_force * sharp_turn) * delta)
 				position += velocity
 			else:
 				velocity = Vector2.ZERO
-				
-		print(state)
 
 func _on_player_detection_body_entered(body):
 	is_player_near = true 
 	can_jumpscare = true
 	player = body
+	$RaycastDetection.enable_collisions()
+	state = States.LURK
 
 
 func _on_player_detection_body_exited(body):
 	is_player_near = false
 	player = null
+	$RaycastDetection.enabled = false
 
 
 func _on_player_detection_area_entered(area):
@@ -134,9 +152,12 @@ func _on_player_detection_area_exited(area):
 
 
 func _on_screech_cd_timeout():
+	print("TIMEOUT")
 	if player:
+		print("HAS PLAYER")
 		if state == States.CHASE:
 			return
+		print("LURKING")
 		state = States.LURK
 	else:
 		state = States.INACTIVE
@@ -145,3 +166,6 @@ func _on_screech_cd_timeout():
 
 func _on_enemy_hitbox_area_entered(area):
 	pass
+
+
+
