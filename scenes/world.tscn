@@ -390,7 +390,7 @@ script = ExtResource("4_55vh8")
 
 [node name="BGM" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("5_t1c2x")
-volume_db = 10.0
+volume_db = 1.189
 
 [node name="EnvironmentMonsterSound" type="Node2D" parent="."]
 position = Vector2(432, 286)

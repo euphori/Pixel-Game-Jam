@@ -16,6 +16,7 @@ func _ready():
 	upgrade_screen.visible = false
 	menu.visible = false
 	$BGM.stream = bgm[randi_range(0,2)]
+	$BGM.volume_db -= 18
 	$BGM.play()
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral/ResultLabel.text = str(Global.inventory["red"]/2)
 	#$CanvasLayer/MarginContainer/ResultScreen/VBoxContainer/Mineral2/ResultLabel.text = str(Global.inventory["blue"]/2)
