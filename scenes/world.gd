@@ -23,7 +23,7 @@ var quota
 var player_near_exit = false
 var curr_depth 
 var quota_colors = []
-var player_dead = false
+var death_screen_played = false
 
 func _ready():
 	if !Global.first_time:
@@ -61,9 +61,8 @@ func _process(delta):
 	if curr_depth > Global.max_depth:
 		Global.max_depth = curr_depth
 	oxygen -= .40 * delta
-	oxygen_label.text = str("Oxygen: " , int(oxygen), "%")
+	oxygen_label.text = str("Oxygen: " , max(0,int(oxygen)), "%")
 	if oxygen <= 25 and !oxygen_warning_player.is_playing():
-		print("X")
 		oxygen_warning_player.play("oxygen_warning")
 		if !player.caution_played:
 			player.get_node("CautionAudio").play()
@@ -73,11 +72,14 @@ func _process(delta):
 		if !player.caution_played:
 			player.get_node("CautionAudio").play()
 			player.caution_played = true
-	if oxygen <= 0 and !player_dead or player.health <= 0 and !player_dead:
-		player_dead = true
+	if oxygen <= 0 or player.health <= 0:
+		$UI/CanvasLayer/Glitch.visible = false
+		player.is_dead = true
 		death_screen.visible = true
-		death_screen.get_node("AnimationPlayer").play("death")
-	
+		
+		if !death_screen_played:
+			death_screen.get_node("AnimationPlayer").play("death")
+		death_screen_played = true
 
 func update_quota():
 	#if data == "green":
@@ -90,6 +92,10 @@ func update_quota():
 	print("Inventory: ", Global.inventory)
 	for label in quota_colors:
 		label.text = str( Global.inventory[label.name],"/",quota[label.name], " ", label.name)
+		if Global.inventory[label.name] < quota[label.name]:
+			label.modulate = Color.RED
+		else:
+			label.modulate = Color.WHITE
 
 
 func load_world():
@@ -106,6 +112,7 @@ func _on_exit_body_entered(body):
 
 
 func _on_death_continue_button_pressed():
+	Global.time_end = Time.get_unix_time_from_datetime_string(Time.get_datetime_string_from_system())
 	get_tree().change_scene_to_file("res://scenes/home_screen.tscn")
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8oih3k4462w4"]
+[gd_scene load_steps=17 format=3 uid="uid://c8oih3k4462w4"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_gc2q2"]
 [ext_resource type="Script" path="res://scenes/EnemyRaycastDetection.gd" id="2_58v25"]
@@ -42,9 +42,50 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EnemyHitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-27, 5.5)]
+}
+
+[sub_resource type="Animation" id="Animation_3gg0g"]
+resource_name = "swim"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
 
 [sub_resource type="Animation" id="Animation_0lh04"]
-resource_name = "bite"
+resource_name = "bite_right"
 length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -85,11 +126,34 @@ tracks/2/keys = {
 "update": 1,
 "values": [true, false, true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EnemyHitbox/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(23, 5.5)]
+}
 
-[sub_resource type="Animation" id="Animation_3gg0g"]
-resource_name = "swim"
-length = 0.6
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_qkxgj"]
+resource_name = "bite_left"
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -97,16 +161,68 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [6, 7, 8, 9, 10, 11, 7]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.419893,
+"stream": ExtResource("5_oqmh7")
+}],
+"times": PackedFloat32Array(0.2)
+}
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EnemyHitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EnemyHitbox/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-27, 5.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v4ncu"]
 _data = {
 "RESET": SubResource("Animation_ybiut"),
-"bite": SubResource("Animation_0lh04"),
+"bite_left": SubResource("Animation_qkxgj"),
+"bite_right": SubResource("Animation_0lh04"),
 "swim": SubResource("Animation_3gg0g")
 }
 
@@ -146,6 +262,7 @@ rotation = 2.35619
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_ld86r")
 texture = ExtResource("2_leubu")
+flip_h = true
 hframes = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -183,7 +300,7 @@ collision_layer = 64
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
-position = Vector2(18.5, 5.5)
+position = Vector2(-27, 5.5)
 shape = SubResource("RectangleShape2D_rypgy")
 disabled = true
 
@@ -194,6 +311,8 @@ stream = ExtResource("7_alw3t")
 
 [node name="LurkAudioCD" type="Timer" parent="."]
 
+[node name="AttackCD" type="Timer" parent="."]
+
 [connection signal="area_entered" from="PlayerDetection" to="." method="_on_player_detection_area_entered"]
 [connection signal="area_exited" from="PlayerDetection" to="." method="_on_player_detection_area_exited"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
@@ -201,3 +320,4 @@ stream = ExtResource("7_alw3t")
 [connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_area_entered"]
 [connection signal="timeout" from="ScreechCD" to="." method="_on_screech_cd_timeout"]
 [connection signal="timeout" from="LurkAudioCD" to="." method="_on_lurk_audio_cd_timeout"]
+[connection signal="timeout" from="AttackCD" to="." method="_on_attack_cd_timeout"]

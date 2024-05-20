@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 const SPEED = 20.0
 const JUMP_VELOCITY = -400.0
-
+const LURK_SPEED_MULT = 2
 var raycast_detection
 
 var player
@@ -39,6 +39,7 @@ enum States{
 
 var state = States.INACTIVE
 var wall_direction_index = 0
+var can_attack = true
 #custom functions
 func update_context_map(player_position, current_position):
 	#function normalizes vector automatically
@@ -82,10 +83,10 @@ func move_within_wall():
 
 #godot functions
 func _physics_process(delta):
-	if Input.is_action_just_pressed("sonar") and is_player_near and can_jumpscare and state == States.LURK:
+	if Input.is_action_just_pressed("sonar") and is_player_near and state == States.LURK:
 		#state = States.LURK
 		$ScreechAudio.play()
-		$ScreechCD.start(5)
+		$ScreechCD.start(30)
 		state = States.CHASE
 		
 	
@@ -103,15 +104,21 @@ func _physics_process(delta):
 		
 		
 		#print("Player Spotted")
-		if state == States.CHASE:
-			if abs(global_position.distance_to(player.global_position)) <= 40:
-				$AnimationPlayer.play("bite")
+		if state == States.CHASE and !player.is_dead:
+			if abs(global_position.distance_to(player.global_position)) <= 40  and can_attack:
+				if global_position - player.global_position >=  Vector2.RIGHT: 
+					$AnimationPlayer.play("bite_left")
+				else:
+					$AnimationPlayer.play("bite_right")
+				
 				await $AnimationPlayer.animation_finished
-				state = States.HIDE
+				$AttackCD.start(3)
+				can_attack = false
 				velocity = Vector2(0,0)
 				can_jumpscare = false
 				process_wall_direction()
-
+			elif abs(global_position.distance_to(player.global_position)) >= 120:
+				state = States.HIDE
 			velocity = velocity + ((steering_force * sharp_turn) * delta)
 			position += velocity
 			if velocity > Vector2.ZERO:
@@ -120,7 +127,7 @@ func _physics_process(delta):
 			if can_jumpscare:
 				state = States.LURK
 			velocity = velocity + ((steering_force * sharp_turn) * (delta / 3))
-			position += velocity
+			position += velocity 
 		if state == States.LURK:
 			if not playing_lurk_sound:
 				playing_lurk_sound = true
@@ -129,13 +136,12 @@ func _physics_process(delta):
 			var distance = abs(global_position.distance_to(player.global_position))
 			if distance > 80:
 				velocity = velocity + ((steering_force * sharp_turn) * delta)
-				position += velocity
+				position += velocity * LURK_SPEED_MULT
 			else:
 				velocity = Vector2.ZERO
 
 func _on_player_detection_body_entered(body):
 	is_player_near = true 
-	can_jumpscare = true
 	player = body
 	state = States.LURK
 	if !raycast_detection:
@@ -153,7 +159,7 @@ func _on_player_detection_body_exited(body):
 func _on_player_detection_area_entered(area):
 	$WarningSprite.visible = false
 	if can_jumpscare:
-		can_jumpscare =false
+		can_jumpscare = false
 		$ScreechAudio.play()
 		state = States.CHASE
 		
@@ -185,3 +191,7 @@ func _on_enemy_hitbox_area_entered(area):
 
 func _on_lurk_audio_cd_timeout():
 	playing_lurk_sound = false
+
+
+func _on_attack_cd_timeout():
+	can_attack = true

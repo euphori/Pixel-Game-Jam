@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cgj2eaw3tqc7f"]
+[gd_scene load_steps=11 format=3 uid="uid://cgj2eaw3tqc7f"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_wafra"]
 [ext_resource type="Texture2D" uid="uid://bu4q50ks347k4" path="res://assets/UI/0f63801b54e9393c8ebec2708e6d06e1.jpg" id="2_7tpo5"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="3_8kerf"]
+[ext_resource type="FontFile" uid="uid://4rp8ixlmsfu4" path="res://assets/fonts/PixelTandysoft-0rJG.ttf" id="3_17xf0"]
+[ext_resource type="Texture2D" uid="uid://dm5lhb6s63qoa" path="res://assets/characters/cover_art_2d.png" id="3_mah6a"]
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="4_ijpcr"]
 [ext_resource type="AudioStream" uid="uid://c63uklb30k8f1" path="res://assets/sounds/music/One Man Symphony - Wreckage (Free) - 07 Wreckage (Area Investigation 03) - Loops.mp3" id="5_71haw"]
 [ext_resource type="FontFile" uid="uid://eonv58ncp6tt" path="res://assets/fonts/retro-pixel-arcade.ttf" id="6_cnlcs"]
@@ -33,10 +35,18 @@ position = Vector2(321, 183)
 scale = Vector2(1.07742, 0.855914)
 texture = ExtResource("2_7tpo5")
 
+[node name="Cover2" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(325, 184)
+scale = Vector2(0.74, 0.74)
+texture = ExtResource("3_mah6a")
+
 [node name="Menu" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 90.0
+offset_right = -78.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -44,6 +54,11 @@ theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 45
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 45
+
+[node name="CRT" type="ColorRect" parent="CanvasLayer/Menu"]
+material = SubResource("ShaderMaterial_qkeft")
+layout_mode = 2
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu"]
 layout_mode = 2
@@ -55,7 +70,7 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_fonts/font = ExtResource("3_17xf0")
 theme_override_font_sizes/font_size = 25
 text = "Start"
 flat = true
@@ -63,8 +78,9 @@ alignment = 2
 
 [node name="SettingsButton" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_fonts/font = ExtResource("3_17xf0")
 theme_override_font_sizes/font_size = 25
 text = "Settings"
 flat = true
@@ -72,8 +88,9 @@ alignment = 2
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/Menu/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_fonts/font = ExtResource("3_17xf0")
 theme_override_font_sizes/font_size = 25
 text = "Exit"
 flat = true
@@ -90,18 +107,83 @@ size_flags_horizontal = 6
 theme_override_constants/separation = 85
 
 [node name="Label" type="Label" parent="CanvasLayer/Menu/HBoxContainer/VBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.741176, 0, 0, 1)
 theme_override_fonts/font = ExtResource("6_cnlcs")
 theme_override_font_sizes/font_size = 30
-text = "Watery Graves"
+text = "The Diver"
 
-[node name="Instructions" type="MarginContainer" parent="CanvasLayer"]
+[node name="Settings" type="MarginContainer" parent="CanvasLayer"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 45
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Settings"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 56
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Settings/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Settings/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 85
+
+[node name="Label" type="Label" parent="CanvasLayer/Settings/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("3_17xf0")
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Settings/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_17xf0")
+theme_override_font_sizes/font_size = 15
+text = "Audio"
+
+[node name="AudioSlider" type="HSlider" parent="CanvasLayer/Settings/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+min_value = -50.0
+max_value = 50.0
+
+[node name="SettingsBackButton" type="Button" parent="CanvasLayer/Settings/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_17xf0")
+text = "Back"
+
+[node name="Instructions" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 89.0
+offset_top = -18.0
+offset_right = -79.0
+offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 15
@@ -138,7 +220,7 @@ R- Remote Sensor
 Space - Suit Sensor
 E or left click - Gathering Minerals
 
-Good luck!"
+"
 autowrap_mode = 2
 
 [node name="StartButton" type="Button" parent="CanvasLayer/Instructions"]
@@ -152,19 +234,14 @@ text = "Play!"
 flat = true
 alignment = 2
 
-[node name="CRT" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_qkeft")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_71haw")
 autoplay = true
 bus = &"LowPass"
 
 [connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="value_changed" from="CanvasLayer/Settings/VBoxContainer/VBoxContainer/AudioSlider" to="." method="_on_audio_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Settings/VBoxContainer/SettingsBackButton" to="." method="_on_settings_back_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Instructions/StartButton" to="." method="_on_start_button_pressed"]

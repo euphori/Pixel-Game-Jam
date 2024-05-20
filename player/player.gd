@@ -23,7 +23,7 @@ var caution_played = false
 @onready var glitch = $"../UI/CanvasLayer/Glitch"
 
 var hurt_sound = preload("res://assets/sounds/sfx/grunt1-84540.mp3")
-
+var is_dead = false
 
 func _ready():
 	remote_charge_label.text = str("Remote Sonar (r): ", remote_sonar_charge, "x")
@@ -104,8 +104,12 @@ func _on_player_hurtbox_area_entered(area):
 	health -= randi_range(15,25)
 	if health <= 25:
 		caution_played = false
-		glitch.visible = true
+		if health >0:
+			glitch.visible = true
+	if health <= 0:
+		is_dead = true
+		glitch.visible = false
 	$SFX.stream = hurt_sound
 	$SFX.play()
 	$BloodParticles.emitting = true
-	health_label.text = str("Health: " , health,"%")
+	health_label.text = str("Health: " ,max(0,health),"%")
