@@ -1,9 +1,20 @@
 extends Node2D
 
 
-var raycasts = [RayCast2D,RayCast2D,RayCast2D,RayCast2D,RayCast2D,RayCast2D,RayCast2D,RayCast2D]
+@onready var raycasts = [
+	$RayCastUp,
+	$RayCastUpRight,
+	$RayCastRight,
+	$RayCastDownRight,
+	$RayCastDown,
+	$RayCastDownLeft,
+	$RayCastLeft,
+	$RayCastUpLeft
+]
+
 var enabled = false
 var distances = [0,0,0,0,0,0,0,0]
+var collision_count = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,14 +32,6 @@ func _process(delta):
 				distances[i] = distance
 			else:
 				distances[i] = 0
-
-func enable_collisions():
-	raycasts[0] = $RayCastUp
-	raycasts[1] = $RayCastUpRight
-	raycasts[2] = $RayCastRight
-	raycasts[3] = $RayCastDownRight
-	raycasts[4] = $RayCastDown
-	raycasts[5] = $RayCastDownLeft
-	raycasts[6] = $RayCastLeft
-	raycasts[7] = $RayCastUpLeft
-	enabled = true
+				
+		collision_count = distances.size() - distances.count(0)
+	
