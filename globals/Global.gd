@@ -1,6 +1,6 @@
 extends Node
 
-
+var first_time = true
 #region player stats
 var stats = {
 	"oxygen": {

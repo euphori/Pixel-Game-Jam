@@ -26,6 +26,9 @@ var quota_colors = []
 var player_dead = false
 
 func _ready():
+	if !Global.first_time:
+		$BeginnerHint.queue_free()
+	Global.first_time = false
 	load_world()
 	$UI/CanvasLayer/DifficultyLabel.text = str("Current difficulty: ", Global.curr_difficulty)
 	$MineralSpawner.spawn_minerals()

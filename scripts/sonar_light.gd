@@ -19,6 +19,7 @@ func _ready():
 	add_child(_ripple)
 	$Timer.start(timer_length)
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if !remove_after_timeout:
