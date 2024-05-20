@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8oih3k4462w4"]
+[gd_scene load_steps=18 format=3 uid="uid://c8oih3k4462w4"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_gc2q2"]
 [ext_resource type="Script" path="res://scenes/EnemyRaycastDetection.gd" id="2_58v25"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://6iaubvtwjvxt" path="res://assets/UI/warning_icon.png" id="4_mnb1e"]
 [ext_resource type="AudioStream" uid="uid://c4hs2jemk737c" path="res://assets/sounds/sfx/monster/monster-bite-44538.mp3" id="5_oqmh7"]
 [ext_resource type="AudioStream" uid="uid://cha54g6i84q3b" path="res://assets/sounds/sfx/lurking-horror-monster-143278.mp3" id="7_alw3t"]
+[ext_resource type="AudioStream" uid="uid://cqj5744tssxab" path="res://assets/sounds/sfx/heart-beat-137135.mp3" id="8_tjxfv"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ld86r"]
 light_mode = 2
@@ -312,6 +313,11 @@ stream = ExtResource("7_alw3t")
 [node name="LurkAudioCD" type="Timer" parent="."]
 
 [node name="AttackCD" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_tjxfv")
+stream_paused = true
+bus = &"LowPass"
 
 [connection signal="area_entered" from="PlayerDetection" to="." method="_on_player_detection_area_entered"]
 [connection signal="area_exited" from="PlayerDetection" to="." method="_on_player_detection_area_exited"]

@@ -25,7 +25,6 @@ var type
 	\"blue\" : Color.BLUE,
 	\"orange\" : Color.ORANGE,
 	\"purple\" : Color.PURPLE
-	
 	} 
 
 var mineral_sprites = {
@@ -69,6 +68,7 @@ func _ready():
 		mineral_rarity_weight[\"orange\"] += 5
 		mineral_rarity_weight[\"blue\"] -= 10
 		mineral_rarity_weight[\"green\"] -= 30
+		mineral_rarity_weight[\"white\"] -= 20
 	elif position.y >= 700:
 		mineral_rarity_weight[\"purple\"] += 25
 		mineral_rarity_weight[\"orange\"] += 10
@@ -79,8 +79,8 @@ func _ready():
 		mineral_rarity_weight[\"purple\"] += 10
 		mineral_rarity_weight[\"orange\"] += 40
 		mineral_rarity_weight[\"blue\"] -= 20
-		mineral_rarity_weight[\"green\"] -= 30
-		mineral_rarity_weight[\"white\"] -= 30
+		mineral_rarity_weight[\"green\"] -= 40
+		mineral_rarity_weight[\"white\"] -= 40
 	generate_type()
 	if type == \"orange\":
 		$Sprite2D.scale = Vector2(1.5,1.5)
@@ -93,6 +93,7 @@ func _process(delta):
 
 	if Input.is_action_pressed(\"gather\") and player != null and player_near:
 		player.get_node(\"LaserBeam\").gathering = true
+		health -= 0.5
 		if !sfx_playing:
 			$AudioStreamPlayer2D.play()
 			sfx_playing = true
@@ -138,8 +139,10 @@ func generate_type():
 		if rng < mineral_rarity_weight[i]:
 			type = i
 			update_visual()
-			break
+			return
 		rng -= mineral_rarity_weight[i]
+	type = \"green\"
+	update_visual()
 
 
 

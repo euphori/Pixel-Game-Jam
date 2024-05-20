@@ -85,8 +85,9 @@ func move_within_wall():
 func _physics_process(delta):
 	if Input.is_action_just_pressed("sonar") and is_player_near and state == States.LURK:
 		#state = States.LURK
-		$ScreechAudio.play()
-		$ScreechCD.start(30)
+		if can_jumpscare:
+			$ScreechAudio.play()
+			$ScreechCD.start(60)
 		state = States.CHASE
 		
 	
@@ -106,6 +107,7 @@ func _physics_process(delta):
 		#print("Player Spotted")
 		if state == States.CHASE and !player.is_dead:
 			if abs(global_position.distance_to(player.global_position)) <= 40  and can_attack:
+				$AudioStreamPlayer.play()
 				if global_position - player.global_position >=  Vector2.RIGHT: 
 					$AnimationPlayer.play("bite_left")
 				else:
@@ -124,11 +126,13 @@ func _physics_process(delta):
 			if velocity > Vector2.ZERO:
 				$AnimationPlayer.play("swim")
 		if state == States.HIDE:
+			$AudioStreamPlayer.stop()
 			if can_jumpscare:
 				state = States.LURK
 			velocity = velocity + ((steering_force * sharp_turn) * (delta / 3))
 			position += velocity 
 		if state == States.LURK:
+			$AudioStreamPlayer.stop()
 			if not playing_lurk_sound:
 				playing_lurk_sound = true
 				$LurkAudio.play()

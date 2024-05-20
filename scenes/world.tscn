@@ -800,7 +800,7 @@ size_flags_horizontal = 10
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_k8tbx")
 theme_override_font_sizes/font_size = 12
-text = "Mineral qouta
+text = "Mineral quota
 "
 
 [node name="RedProgress" type="ProgressBar" parent="UI/CanvasLayer/MarginContainer/HBoxContainer/Quota"]
