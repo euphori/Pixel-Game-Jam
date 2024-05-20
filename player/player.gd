@@ -26,6 +26,7 @@ var hurt_sound = preload("res://assets/sounds/sfx/grunt1-84540.mp3")
 var is_dead = false
 
 func _ready():
+	$BubbleTimer.start(2)
 	remote_charge_label.text = str("Remote Sonar (r): ", remote_sonar_charge, "x")
 	flag_charge_label.text = str("Flags (f): ", flag_charge, "x")
 
@@ -113,3 +114,8 @@ func _on_player_hurtbox_area_entered(area):
 	$SFX.play()
 	$BloodParticles.emitting = true
 	health_label.text = str("Health: " ,max(0,health),"%")
+
+
+func _on_bubble_timer_timeout():
+	$AirBubbles.play()
+	$BubbleTimer.start(randi_range(2,10))

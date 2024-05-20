@@ -23,10 +23,9 @@ func _process(delta):
 	if !enabled: return
 	else:
 		if gathering:
-	
 			visible = true
 			if !sound_playing:
-				$AudioStreamPlayer2D.volume_db -= 8
+				$AudioStreamPlayer2D.volume_db -= 5
 				$AudioStreamPlayer2D.play()
 				sound_playing = true
 			var mouse_pos = get_local_mouse_position()
