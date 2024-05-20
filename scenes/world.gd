@@ -27,6 +27,7 @@ var player_dead = false
 
 func _ready():
 	load_world()
+	$MineralSpawner.spawn_minerals()
 	Global.reset_run_stats()
 	quota = Global.generate_quota()
 	Global.time_start = Time.get_unix_time_from_datetime_string(Time.get_datetime_string_from_system())

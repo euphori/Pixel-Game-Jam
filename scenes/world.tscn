@@ -8,13 +8,13 @@
 [ext_resource type="Script" path="res://scripts/AudioManager.gd" id="4_55vh8"]
 [ext_resource type="AudioStream" uid="uid://j2pgow54j01f" path="res://assets/sounds/music/underwater-loop-amb-6182.mp3" id="5_t1c2x"]
 [ext_resource type="TileSet" uid="uid://cca7qhhrgivpt" path="res://resources/tileset.tres" id="5_unjsp"]
-[ext_resource type="PackedScene" path="res://scenes/cave_generator.tscn" id="6_3eeta"]
+[ext_resource type="PackedScene" uid="uid://ll64vi85def2" path="res://scenes/cave_generator.tscn" id="6_3eeta"]
 [ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="6_8p36n"]
-[ext_resource type="PackedScene" uid="uid://dl7l8fxtlh7u1" path="res://scenes/minerals.tscn" id="6_f3hpj"]
 [ext_resource type="Script" path="res://scenes/EnvMonsterSound.gd" id="7_s06vd"]
 [ext_resource type="FastNoiseLite" uid="uid://0u4mw4v5ym3q" path="res://resources/noise.tres" id="7_v3xas"]
 [ext_resource type="AudioStream" uid="uid://b5sm3255g4nww" path="res://assets/sounds/sfx/monster/monster-screech-90961.mp3" id="8_uuoaj"]
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="9_htnd5"]
+[ext_resource type="Script" path="res://scenes/MineralSpawner.gd" id="10_ccv8q"]
 [ext_resource type="Texture2D" uid="uid://dv8svak3q8kuy" path="res://assets/UI/ruler.png" id="13_2pbm7"]
 [ext_resource type="Texture2D" uid="uid://cmg3v7t101egc" path="res://assets/UI/border.png" id="13_4ennn"]
 [ext_resource type="Texture2D" uid="uid://dmen0uick0vjw" path="res://assets/UI/arrow.png" id="13_8w4ov"]
@@ -316,77 +316,162 @@ position = Vector2(376, 1607)
 [node name="Enemy5" parent="." instance=ExtResource("3_gp852")]
 position = Vector2(263, 240)
 
-[node name="Minerals" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(331, 281)
+[node name="MineralSpawner" type="Node2D" parent="."]
+script = ExtResource("10_ccv8q")
 
-[node name="Minerals2" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(330, 411)
+[node name="Marker2D" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(300, 266)
 
-[node name="Minerals3" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(700, 330)
+[node name="Marker2D2" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(335, 282)
 
-[node name="Minerals4" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(659, 618)
+[node name="Marker2D3" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(413, 333)
 
-[node name="Minerals5" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(519, 602)
+[node name="Marker2D4" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(326, 407)
 
-[node name="Minerals6" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(425, 520)
+[node name="Marker2D5" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(418, 520)
 
-[node name="Minerals7" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(541, 793)
+[node name="Marker2D6" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(328, 521)
+rotation = 0.86151
 
-[node name="Minerals8" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(709, 889)
+[node name="Marker2D7" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(461, 535)
 
-[node name="Minerals9" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(343, 761)
+[node name="Marker2D8" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(511, 597)
 
-[node name="Minerals10" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(266, 922)
+[node name="Marker2D9" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(590, 617)
 
-[node name="Minerals11" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(587, 1226)
+[node name="Marker2D10" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(345, 632)
 
-[node name="Minerals12" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(428, 1274)
+[node name="Marker2D11" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(453, 698)
 
-[node name="Minerals13" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(356, 1369)
+[node name="Marker2D12" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1078, 264)
 
-[node name="Minerals14" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(538, 1468)
+[node name="Marker2D13" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(857, 389)
 
-[node name="Minerals15" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(645, 1579)
+[node name="Marker2D14" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1055, 522)
 
-[node name="Minerals16" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(407, 1659)
+[node name="Marker2D15" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1107, 470)
 
-[node name="Minerals17" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(270, 1709)
+[node name="Marker2D16" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1142, 453)
 
-[node name="Minerals18" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(973, 1674)
+[node name="Marker2D17" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1050, 676)
 
-[node name="Minerals19" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(1045, 1290)
+[node name="Marker2D18" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1154, 852)
 
-[node name="Minerals20" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(943, 1275)
+[node name="Marker2D19" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1200, 852)
 
-[node name="Minerals21" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(1047, 1050)
+[node name="Marker2D20" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1056, 1044)
 
-[node name="Minerals22" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(1191, 856)
+[node name="Marker2D21" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1099, 1046)
 
-[node name="Minerals23" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(1100, 466)
+[node name="Marker2D22" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(959, 1031)
 
-[node name="Minerals24" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(865, 395)
+[node name="Marker2D23" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(934, 1014)
+
+[node name="Marker2D24" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1021, 1047)
+
+[node name="Marker2D25" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1130, 1034)
+
+[node name="Marker2D26" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1020, 1287)
+
+[node name="Marker2D27" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1052, 1287)
+
+[node name="Marker2D28" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1081, 1285)
+
+[node name="Marker2D29" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(993, 1270)
+
+[node name="Marker2D30" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1118, 1283)
+
+[node name="Marker2D31" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(267, 913)
+
+[node name="Marker2D32" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(526, 1218)
+
+[node name="Marker2D33" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(571, 1221)
+
+[node name="Marker2D34" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(473, 1223)
+
+[node name="Marker2D35" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(651, 1160)
+
+[node name="Marker2D36" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(498, 1206)
+
+[node name="Marker2D37" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(276, 1701)
+
+[node name="Marker2D38" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(135, 1682)
+
+[node name="Marker2D39" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(171, 1697)
+
+[node name="Marker2D40" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(319, 1685)
+
+[node name="Marker2D41" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(376, 1668)
+
+[node name="Marker2D42" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(957, 1668)
+
+[node name="Marker2D43" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(997, 1669)
+
+[node name="Marker2D44" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(903, 1655)
+
+[node name="Marker2D45" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(747, 1497)
+
+[node name="Marker2D46" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(779, 1495)
+
+[node name="Marker2D47" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(704, 1495)
+
+[node name="Marker2D48" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(826, 1466)
+
+[node name="Marker2D49" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(182, 946)
+
+[node name="Marker2D50" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(150, 951)
+
+[node name="Marker2D51" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(303, 916)
 
 [node name="AudioManager" type="Node" parent="."]
 script = ExtResource("4_55vh8")

@@ -17,57 +17,92 @@ var player_near = false
 var player
 var sfx_playing = false
 var minimap_icon = \"mineral\"
-
-@export var type = \"red\"
+var detected = false
+var type
 @export var color = {
-	\"red\": Color.ORANGE_RED,
+	\"white\" : Color.WHITE_SMOKE,
+	\"green\" : Color.GREEN,
 	\"blue\" : Color.BLUE,
-	\"green\" : Color.SEA_GREEN
+	\"orange\" : Color.ORANGE,
+	\"purple\" : Color.PURPLE
+	
 	} 
 
-var mineral_rarity_weight = {
-	\"red\" : 10,
-	\"blue\" : 20,
-	\"green\" : 70
+var mineral_sprites = {
+	\"blue\" : preload(\"res://assets/environment/minerals/blue.png\"),
+	\"green\" : preload(\"res://assets/environment/minerals/green.png\"),
+	\"orange\" : preload(\"res://assets/environment/minerals/orange.png\"),
+	\"purple\" : preload(\"res://assets/environment/minerals/purple.png\"),
+	\"white\" : preload(\"res://assets/environment/minerals/white.png\"),
+	
 }
 
+var mineral_rarity_weight = {
+	\"white\" : 65,
+	\"green\" : 60,
+	\"blue\" : 40,
+	\"orange\" : 5,
+	\"purple\" : 15
+}
+
+var drop_ammount = {
+	\"white\" : 15,
+	\"green\" : 15,
+	\"blue\" : 20,
+	\"orange\" : 50,
+	\"purple\" : 25
+}
 
 var drop = preload(\"res://scenes/drop.tscn\")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Label.visible = false
+	
 	if position.y > 200:
-		mineral_rarity_weight[\"blue\"] += 20
-		mineral_rarity_weight[\"green\"] -= 20
+		mineral_rarity_weight[\"blue\"] += 10
 	elif position.y >=400:
-		mineral_rarity_weight[\"blue\"] += 30
-		mineral_rarity_weight[\"green\"] -= 30
-		mineral_rarity_weight[\"red\"] += 20
+		mineral_rarity_weight[\"blue\"] += 20
+		mineral_rarity_weight[\"purple\"] += 10
 	elif position.y >= 600:
-		mineral_rarity_weight[\"red\"] += 40
+		mineral_rarity_weight[\"purple\"] += 20
+		mineral_rarity_weight[\"orange\"] += 5
 		mineral_rarity_weight[\"blue\"] -= 10
 		mineral_rarity_weight[\"green\"] -= 30
+	elif position.y >= 700:
+		mineral_rarity_weight[\"purple\"] += 25
+		mineral_rarity_weight[\"orange\"] += 10
+		mineral_rarity_weight[\"blue\"] -= 10
+		mineral_rarity_weight[\"green\"] -= 30
+		mineral_rarity_weight[\"white\"] -= 30
+	elif position.y >= 900:
+		mineral_rarity_weight[\"purple\"] += 10
+		mineral_rarity_weight[\"orange\"] += 40
+		mineral_rarity_weight[\"blue\"] -= 20
+		mineral_rarity_weight[\"green\"] -= 30
+		mineral_rarity_weight[\"white\"] -= 30
 	generate_type()
-		
-	
+	if type == \"orange\":
+		$Sprite2D.scale = Vector2(1.5,1.5)
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
 	$Label.visible = player_near
-	
+
 	if Input.is_action_pressed(\"gather\") and player != null and player_near:
+		player.get_node(\"LaserBeam\").gathering = true
 		if !sfx_playing:
 			$AudioStreamPlayer2D.play()
 			sfx_playing = true
-		player.get_node(\"LaserBeam\").mineral_pos = global_position
-		player.get_node(\"LaserBeam\").gathering = true
-	if Input.is_action_just_released(\"gather\")  and player != null and player_near:
+		player.get_node(\"LaserBeam\").mineral_pos = global_position 
+	if Input.is_action_just_released(\"gather\") and player != null and player_near:
 		player.get_node(\"LaserBeam\").gathering = false
 		$AudioStreamPlayer2D.stop()
 		sfx_playing = false
 	if player != null and !player_near:
-		player.get_node(\"LaserBeam\").gathering = false
+		#player.get_node(\"LaserBeam\").gathering = false
 		$AudioStreamPlayer2D.stop()
 		sfx_playing = false
 	
@@ -77,10 +112,11 @@ func _process(delta):
 		
 
 func update_visual():
-	$Sprite2D.modulate = color[type]
-
+	$Sprite2D.texture = mineral_sprites[type]
+	$Tag.modulate = color[type]
+	
 func drop_mineral():
-	for i in 15:
+	for i in drop_ammount[type]:
 		await get_tree().create_timer(randf_range(0.025,.05)).timeout
 		var _drop = drop.instantiate()
 		_drop.color = color[type]
@@ -115,13 +151,25 @@ func _on_player_detection_body_entered(body):
 
 func _on_player_detection_body_exited(body):
 	player_near = false
+	player.get_node(\"LaserBeam\").gathering = false
+
+
+
+func _on_player_detection_area_entered(area):
+	detected = true
+	$Tag.visible = false
+
+
+func _on_player_detection_area_exited(area):
+	if detected:
+		$Tag.visible = true
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_urxvj"]
 size = Vector2(16, 14)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1j8wc"]
-light_mode = 2
+blend_mode = 1
 
 [node name="Minerals" type="StaticBody2D" groups=["mineral", "minimap_objects"]]
 material = SubResource("CanvasItemMaterial_vl4ln")
@@ -160,6 +208,9 @@ bus = &"LowPass"
 visible = false
 modulate = Color(0.270588, 0.619608, 0.811765, 1)
 texture = ExtResource("6_64utw")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 9)
 
 [connection signal="area_entered" from="PlayerDetection" to="." method="_on_player_detection_area_entered"]
 [connection signal="area_exited" from="PlayerDetection" to="." method="_on_player_detection_area_exited"]
