@@ -37,7 +37,6 @@ scale = Vector2(1.07742, 0.855914)
 texture = ExtResource("2_7tpo5")
 
 [node name="Cover2" type="Sprite2D" parent="CanvasLayer"]
-visible = false
 position = Vector2(325, 184)
 scale = Vector2(0.74, 0.74)
 texture = ExtResource("3_mah6a")
