@@ -6,7 +6,7 @@ func _ready():
 	$CanvasLayer/Instructions.visible = false
 	$CanvasLayer/Menu.visible = true
 	$CanvasLayer/Settings.visible = false
-
+	$CanvasLayer/Sprite2D.visible = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_wafra"]
 [ext_resource type="Texture2D" uid="uid://bu4q50ks347k4" path="res://assets/UI/0f63801b54e9393c8ebec2708e6d06e1.jpg" id="2_7tpo5"]
-[ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="3_8kerf"]
 [ext_resource type="FontFile" uid="uid://4rp8ixlmsfu4" path="res://assets/fonts/PixelTandysoft-0rJG.ttf" id="3_17xf0"]
 [ext_resource type="Texture2D" uid="uid://dm5lhb6s63qoa" path="res://assets/characters/cover_art_2d.png" id="3_mah6a"]
 [ext_resource type="Shader" path="res://shaders/chromatic_aberration.gdshader" id="4_ijpcr"]
@@ -16,6 +15,8 @@ shader = ExtResource("4_ijpcr")
 shader_parameter/r_displacement = Vector2(1, 0)
 shader_parameter/g_displacement = Vector2(0, 0)
 shader_parameter/b_displacement = Vector2(-1, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aeew1"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -36,6 +37,7 @@ scale = Vector2(1.07742, 0.855914)
 texture = ExtResource("2_7tpo5")
 
 [node name="Cover2" type="Sprite2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(325, 184)
 scale = Vector2(0.74, 0.74)
 texture = ExtResource("3_mah6a")
@@ -194,45 +196,47 @@ theme_override_constants/margin_bottom = 15
 [node name="Instructions" type="VBoxContainer" parent="CanvasLayer/Instructions"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 30
 alignment = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Instructions/Instructions"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("6_cnlcs")
-theme_override_font_sizes/font_size = 20
-text = "How to play"
+theme_override_fonts/font = ExtResource("3_17xf0")
+theme_override_font_sizes/font_size = 30
+text = "Contract"
 
-[node name="Label2" type="Label" parent="CanvasLayer/Instructions/Instructions"]
+[node name="Label2" type="RichTextLabel" parent="CanvasLayer/Instructions/Instructions"]
 layout_mode = 2
 size_flags_vertical = 2
-theme_override_fonts/font = ExtResource("6_cnlcs")
-theme_override_font_sizes/font_size = 12
-text = "Navigate through the caves using your sensors (space button)
+theme_override_fonts/normal_font = ExtResource("3_17xf0")
+bbcode_enabled = true
+text = "This Agreement is made on this [Date], between [Client Name], hereinafter referred to as \"Client,\" and [Diver's Name], hereinafter referred to as [color=red]\"THe Diver.\"[/color]
 
-Collect Minerals for your daily quota
+The Diver will collect minerals from an underwater cave at [Location].
+Diver must fulfill a quota of [specified amount] of minerals per dive.
 
-Controls:
-WASD - Movement
-F- Place Flag
-R- Remote Sensor
-Space - Suit Sensor
-E or left click - Gathering Minerals
-
-"
+The Client is not responsible for any injuries or death occurring during the dive.
+The Diver undertakes the expedition at their own risk."
+fit_content = true
 autowrap_mode = 2
 
-[node name="StartButton" type="Button" parent="CanvasLayer/Instructions"]
+[node name="Panel" type="Panel" parent="CanvasLayer/Instructions"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_aeew1")
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Instructions/Panel"]
+layout_mode = 2
+offset_left = 396.0
+offset_top = 323.0
+offset_right = 534.0
+offset_bottom = 363.0
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("3_8kerf")
+theme_override_colors/font_color = Color(0.603922, 0.117647, 0, 1)
+theme_override_fonts/font = ExtResource("3_17xf0")
 theme_override_font_sizes/font_size = 25
-text = "Play!"
+text = "AGree"
 flat = true
-alignment = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_71haw")
@@ -244,4 +248,4 @@ bus = &"LowPass"
 [connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="value_changed" from="CanvasLayer/Settings/VBoxContainer/VBoxContainer/AudioSlider" to="." method="_on_audio_slider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/Settings/VBoxContainer/SettingsBackButton" to="." method="_on_settings_back_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Instructions/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Instructions/Panel/StartButton" to="." method="_on_start_button_pressed"]
