@@ -313,44 +313,54 @@ position = Vector2(1165, 711)
 [node name="Enemy4" parent="." instance=ExtResource("3_gp852")]
 position = Vector2(376, 1607)
 
-[node name="Minerals" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(331, 281)
+[node name="Enemy5" parent="." instance=ExtResource("3_gp852")]
+position = Vector2(263, 240)
 
-[node name="Minerals2" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(330, 411)
+[node name="MineralSpawner" type="Node2D" parent="."]
+script = ExtResource("10_ccv8q")
 
-[node name="Minerals3" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(700, 330)
+[node name="Marker2D" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(300, 266)
 
-[node name="Minerals4" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(659, 618)
+[node name="Marker2D2" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(335, 282)
 
-[node name="Minerals5" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(519, 602)
+[node name="Marker2D3" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(413, 333)
 
-[node name="Minerals6" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(425, 520)
+[node name="Marker2D4" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(326, 407)
 
-[node name="Minerals7" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(541, 793)
+[node name="Marker2D5" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(418, 520)
 
-[node name="Minerals8" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(709, 889)
+[node name="Marker2D6" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(328, 521)
+rotation = 0.86151
 
-[node name="Minerals9" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(343, 761)
+[node name="Marker2D7" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(461, 535)
 
-[node name="Minerals10" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(266, 922)
+[node name="Marker2D8" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(511, 597)
 
-[node name="Minerals11" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(587, 1226)
+[node name="Marker2D9" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(590, 617)
 
-[node name="Minerals12" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(428, 1274)
+[node name="Marker2D10" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(345, 632)
 
-[node name="Minerals13" parent="." instance=ExtResource("6_f3hpj")]
-position = Vector2(356, 1369)
+[node name="Marker2D11" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(453, 698)
+
+[node name="Marker2D12" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1078, 264)
+
+[node name="Marker2D13" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(857, 389)
+
+[node name="Marker2D14" type="Marker2D" parent="MineralSpawner"]
+position = Vector2(1055, 522)
 
 [node name="Marker2D15" type="Marker2D" parent="MineralSpawner"]
 position = Vector2(1107, 470)
@@ -468,7 +478,7 @@ script = ExtResource("4_55vh8")
 
 [node name="BGM" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("5_t1c2x")
-volume_db = 1.189
+volume_db = 10.0
 
 [node name="EnvironmentMonsterSound" type="Node2D" parent="."]
 position = Vector2(432, 286)

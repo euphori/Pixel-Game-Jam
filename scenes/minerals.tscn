@@ -170,6 +170,7 @@ size = Vector2(16, 14)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1j8wc"]
 blend_mode = 1
+light_mode = 2
 
 [node name="Minerals" type="StaticBody2D" groups=["mineral", "minimap_objects"]]
 material = SubResource("CanvasItemMaterial_vl4ln")
