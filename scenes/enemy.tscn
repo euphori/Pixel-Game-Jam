@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8oih3k4462w4"]
+[gd_scene load_steps=16 format=3 uid="uid://c8oih3k4462w4"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_gc2q2"]
 [ext_resource type="Script" path="res://scenes/EnemyRaycastDetection.gd" id="2_58v25"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://btn732jyioli8" path="res://assets/sounds/sfx/monster/2021-09-24_-_Jump_Scare_E_-_www.FesliyanStudios.com.mp3" id="3_pordr"]
 [ext_resource type="Texture2D" uid="uid://6iaubvtwjvxt" path="res://assets/UI/warning_icon.png" id="4_mnb1e"]
 [ext_resource type="AudioStream" uid="uid://c4hs2jemk737c" path="res://assets/sounds/sfx/monster/monster-bite-44538.mp3" id="5_oqmh7"]
+[ext_resource type="AudioStream" uid="uid://cha54g6i84q3b" path="res://assets/sounds/sfx/lurking-horror-monster-143278.mp3" id="7_alw3t"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ld86r"]
 light_mode = 2
@@ -188,9 +189,15 @@ disabled = true
 
 [node name="ScreechCD" type="Timer" parent="."]
 
+[node name="LurkAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_alw3t")
+
+[node name="LurkAudioCD" type="Timer" parent="."]
+
 [connection signal="area_entered" from="PlayerDetection" to="." method="_on_player_detection_area_entered"]
 [connection signal="area_exited" from="PlayerDetection" to="." method="_on_player_detection_area_exited"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 [connection signal="area_entered" from="EnemyHitbox" to="." method="_on_enemy_hitbox_area_entered"]
 [connection signal="timeout" from="ScreechCD" to="." method="_on_screech_cd_timeout"]
+[connection signal="timeout" from="LurkAudioCD" to="." method="_on_lurk_audio_cd_timeout"]

@@ -109,5 +109,7 @@ func initialize_screen():
 	await show_container()
 	gold_earned_label.text = str(gold_earned)
 	earned_container.show()
+	sfx.stream = load("res://assets/sounds/sfx/coin-donation-2-180438.mp3")
+	sfx.play()
 	$ContinueButton.show()
 	Global.money += gold_earned if quota_completed else 0

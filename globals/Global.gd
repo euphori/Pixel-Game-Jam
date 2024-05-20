@@ -38,7 +38,7 @@ var stats = {
 #endregion
 
 var curr_mode = "main"
-var curr_difficulty = 3
+var curr_difficulty = 1
 
 var max_depth = 0
 var time_start = 0
@@ -62,7 +62,7 @@ signal flag_placed
 
 func generate_quota():
 	#index 0-red,1-blue, 2-green
-	var mineral_value = [4,2,1]
+	var mineral_value = [1,2,3,8,5]
 	#amount of minerals given to the quota
 	var quota = {
 		"white" : 0,
@@ -72,16 +72,16 @@ func generate_quota():
 		"purple" : 0
 	}
 	# algo that decides randomly what color to require based on diffculty
-	var diff_val = curr_difficulty
+	var diff_val = min(3 * curr_difficulty, 25)
 	while diff_val > 0:
-		var rng = randi_range(0,2)
-		
+		var rng = randi_range(0,4)
 		if (diff_val - mineral_value[rng]) >= 0:
-			diff_val = diff_val - mineral_value[rng]
-			quota[quota.keys()[rng]] += 1
-	
+			if !quota[quota.keys()[rng]] > 3:
+				diff_val = diff_val - mineral_value[rng]
+				quota[quota.keys()[rng]] += 1
+			
+	print(quota)
 	curr_quota = quota
-	#print(curr_quota)
 	return quota
 		
 		

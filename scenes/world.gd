@@ -27,6 +27,7 @@ var player_dead = false
 
 func _ready():
 	load_world()
+	$UI/CanvasLayer/DifficultyLabel.text = str("Current difficulty: ", Global.curr_difficulty)
 	$MineralSpawner.spawn_minerals()
 	Global.reset_run_stats()
 	quota = Global.generate_quota()

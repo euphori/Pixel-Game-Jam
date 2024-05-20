@@ -107,7 +107,7 @@ func _on_up_flag_button_pressed():
 
 func _on_play_main_button_pressed():
 	Global.curr_mode = "main"
-	Global.curr_difficulty += 5
+	Global.curr_difficulty = min(Global.curr_difficulty + 1,10)
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 

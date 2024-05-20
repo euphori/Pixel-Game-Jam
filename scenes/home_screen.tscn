@@ -625,9 +625,12 @@ horizontal_alignment = 2
 [node name="GoldEarnedLabel" type="Label" parent="CanvasLayer/ResultContainer/ResultScreen/VBoxContainer/EarnedContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.945098, 0.792157, 0.172549, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
+theme_override_font_sizes/font_size = 24
 text = "100"
 horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="ContinueButton" type="Button" parent="CanvasLayer/ResultContainer/ResultScreen"]
 visible = false
@@ -793,8 +796,8 @@ size_flags_horizontal = 2
 size_flags_vertical = 10
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_dhl3i")
-theme_override_font_sizes/font_size = 18
-text = "Browse Shop"
+theme_override_font_sizes/font_size = 24
+text = "$Browse Shop$"
 flat = true
 alignment = 2
 

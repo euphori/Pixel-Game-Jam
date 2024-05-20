@@ -28,6 +28,7 @@ var danger_array = [0,0,0,0,0,0,0,0]
 var context_map = [0,0,0,0,0,0,0,0]
 var best_direction_index = 0
 
+var playing_lurk_sound = false
 
 enum States{
 	LURK,
@@ -103,7 +104,7 @@ func _physics_process(delta):
 		
 		#print("Player Spotted")
 		if state == States.CHASE:
-			if abs(global_position.distance_to(player.global_position)) <= 40 and can_jumpscare:
+			if abs(global_position.distance_to(player.global_position)) <= 40:
 				$AnimationPlayer.play("bite")
 				await $AnimationPlayer.animation_finished
 				state = States.HIDE
@@ -121,6 +122,10 @@ func _physics_process(delta):
 			velocity = velocity + ((steering_force * sharp_turn) * (delta / 3))
 			position += velocity
 		if state == States.LURK:
+			if not playing_lurk_sound:
+				playing_lurk_sound = true
+				$LurkAudio.play()
+				$LurkAudioCD.start(randi_range(5,15))
 			var distance = abs(global_position.distance_to(player.global_position))
 			if distance > 80:
 				velocity = velocity + ((steering_force * sharp_turn) * delta)
@@ -148,6 +153,7 @@ func _on_player_detection_body_exited(body):
 func _on_player_detection_area_entered(area):
 	$WarningSprite.visible = false
 	if can_jumpscare:
+		can_jumpscare =false
 		$ScreechAudio.play()
 		state = States.CHASE
 		
@@ -175,3 +181,7 @@ func _on_enemy_hitbox_area_entered(area):
 
 
 
+
+
+func _on_lurk_audio_cd_timeout():
+	playing_lurk_sound = false

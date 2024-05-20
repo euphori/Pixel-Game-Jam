@@ -17,6 +17,7 @@ func spawn_minerals():
 	for marker in get_children():
 		var _mineral = mineral.instantiate()
 		_mineral.global_position = marker.global_position
-		var rng = randi_range(0,2)
-		if rng > 0:
+		
+		var rng = randi_range(0,min(Global.curr_difficulty, 3))
+		if rng == 0 or rng == 1 :
 			get_parent().add_child(_mineral)
