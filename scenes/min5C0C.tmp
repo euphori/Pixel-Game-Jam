@@ -1,0 +1,224 @@
+[gd_scene load_steps=11 format=3 uid="uid://dl7l8fxtlh7u1"]
+
+[ext_resource type="Texture2D" uid="uid://bkw7abpevcw6k" path="res://assets/environment/minerals/orange.png" id="2_7i8rn"]
+[ext_resource type="PackedScene" uid="uid://g1pu4lgm81wp" path="res://areas/mineral_hurtbox.tscn" id="2_40qf6"]
+[ext_resource type="PackedScene" uid="uid://627nt1c8gtnj" path="res://areas/player_detection.tscn" id="3_yybpb"]
+[ext_resource type="FontFile" uid="uid://blbll0wbm4msk" path="res://assets/fonts/PixeloidSans-mLxMm.ttf" id="4_xseur"]
+[ext_resource type="AudioStream" uid="uid://bdgqj4tqacm6h" path="res://assets/sounds/sfx/mining/dropping-rocks-5996.mp3" id="5_p6i7w"]
+[ext_resource type="Texture2D" uid="uid://bc3g2w6bba1v3" path="res://assets/UI/crystal icon.png" id="6_64utw"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vl4ln"]
+
+[sub_resource type="GDScript" id="GDScript_i254u"]
+script/source = "extends StaticBody2D
+
+var health = 100
+var player_near = false
+var player
+var sfx_playing = false
+var minimap_icon = \"mineral\"
+var detected = false
+var type
+@export var color = {
+	\"white\" : Color.WHITE_SMOKE,
+	\"green\" : Color.GREEN,
+	\"blue\" : Color.BLUE,
+	\"orange\" : Color.ORANGE,
+	\"purple\" : Color.PURPLE
+	} 
+
+var mineral_sprites = {
+	\"blue\" : preload(\"res://assets/environment/minerals/blue.png\"),
+	\"green\" : preload(\"res://assets/environment/minerals/green.png\"),
+	\"orange\" : preload(\"res://assets/environment/minerals/orange.png\"),
+	\"purple\" : preload(\"res://assets/environment/minerals/purple.png\"),
+	\"white\" : preload(\"res://assets/environment/minerals/white.png\"),
+	
+}
+
+var mineral_rarity_weight = {
+	\"white\" : 65,
+	\"green\" : 60,
+	\"blue\" : 40,
+	\"orange\" : 5,
+	\"purple\" : 15
+}
+
+var drop_ammount = {
+	\"white\" : 15,
+	\"green\" : 15,
+	\"blue\" : 20,
+	\"orange\" : 50,
+	\"purple\" : 25
+}
+
+var drop = preload(\"res://scenes/drop.tscn\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$Label.visible = false
+	
+	if position.y > 200:
+		mineral_rarity_weight[\"blue\"] += 10
+	elif position.y >=400:
+		mineral_rarity_weight[\"blue\"] += 20
+		mineral_rarity_weight[\"purple\"] += 10
+	elif position.y >= 600:
+		mineral_rarity_weight[\"purple\"] += 20
+		mineral_rarity_weight[\"orange\"] += 5
+		mineral_rarity_weight[\"blue\"] -= 10
+		mineral_rarity_weight[\"green\"] -= 30
+		mineral_rarity_weight[\"white\"] -= 20
+	elif position.y >= 700:
+		mineral_rarity_weight[\"purple\"] += 25
+		mineral_rarity_weight[\"orange\"] += 10
+		mineral_rarity_weight[\"blue\"] -= 10
+		mineral_rarity_weight[\"green\"] -= 30
+		mineral_rarity_weight[\"white\"] -= 30
+	elif position.y >= 900:
+		mineral_rarity_weight[\"purple\"] += 10
+		mineral_rarity_weight[\"orange\"] += 40
+		mineral_rarity_weight[\"blue\"] -= 20
+		mineral_rarity_weight[\"green\"] -= 40
+		mineral_rarity_weight[\"white\"] -= 40
+	generate_type()
+	if type == \"orange\":
+		$Sprite2D.scale = Vector2(1.5,1.5)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	$Label.visible = player_near
+
+	if Input.is_action_pressed(\"gather\") and player != null and player_near:
+		player.get_node(\"LaserBeam\").gathering = true
+		health -= 0.5
+		if !sfx_playing:
+			$AudioStreamPlayer2D.play()
+			sfx_playing = true
+		player.get_node(\"LaserBeam\").mineral_pos = global_position 
+	if Input.is_action_just_released(\"gather\") and player != null and player_near:
+		player.get_node(\"LaserBeam\").gathering = false
+		$AudioStreamPlayer2D.stop()
+		sfx_playing = false
+	if player != null and !player_near:
+		#player.get_node(\"LaserBeam\").gathering = false
+		$AudioStreamPlayer2D.stop()
+		sfx_playing = false
+	
+	if health == 0 :
+		visible = false
+		drop_mineral()
+		
+
+func update_visual():
+	$Sprite2D.texture = mineral_sprites[type]
+	$Tag.modulate = color[type]
+	
+func drop_mineral():
+	for i in drop_ammount[type]:
+		await get_tree().create_timer(randf_range(0.025,.05)).timeout
+		var _drop = drop.instantiate()
+		_drop.color = color[type]
+		_drop.global_position = global_position
+		get_tree().get_root().add_child(_drop)
+	Global.inventory[type] += 1
+	remove_from_group(\"minimap_objects\")
+	Global.emit_signal(\"item_added\")
+	queue_free()
+	
+
+
+func generate_type():
+	var sum_of_weight = 0
+	for i in mineral_rarity_weight:
+		sum_of_weight += mineral_rarity_weight[i]
+	var rng = randi_range(0,sum_of_weight)
+	for i in mineral_rarity_weight:
+		if rng < mineral_rarity_weight[i]:
+			type = i
+			update_visual()
+			return
+		rng -= mineral_rarity_weight[i]
+	type = \"green\"
+	update_visual()
+
+
+
+
+func _on_player_detection_body_entered(body):
+	player = body
+	player_near = true
+
+
+func _on_player_detection_body_exited(body):
+	player_near = false
+	player.get_node(\"LaserBeam\").gathering = false
+
+
+
+func _on_player_detection_area_entered(area):
+	detected = true
+	$Tag.visible = false
+
+
+func _on_player_detection_area_exited(area):
+	if detected:
+		$Tag.visible = true
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urxvj"]
+size = Vector2(16, 14)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1j8wc"]
+blend_mode = 1
+light_mode = 2
+
+[node name="Minerals" type="StaticBody2D" groups=["mineral", "minimap_objects"]]
+material = SubResource("CanvasItemMaterial_vl4ln")
+collision_layer = 8
+collision_mask = 32
+script = SubResource("GDScript_i254u")
+
+[node name="MineralHurtbox" parent="." instance=ExtResource("2_40qf6")]
+collision_layer = 8
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_urxvj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_1j8wc")
+texture = ExtResource("2_7i8rn")
+
+[node name="PlayerDetection" parent="." instance=ExtResource("3_yybpb")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -13.0
+offset_right = 114.0
+offset_bottom = 7.0
+scale = Vector2(0.25, 0.25)
+theme_override_fonts/font = ExtResource("4_xseur")
+text = "Gather(left_mouse)"
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_p6i7w")
+bus = &"LowPass"
+
+[node name="Tag" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.270588, 0.619608, 0.811765, 1)
+texture = ExtResource("6_64utw")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 9)
+
+[connection signal="area_entered" from="PlayerDetection" to="." method="_on_player_detection_area_entered"]
+[connection signal="area_exited" from="PlayerDetection" to="." method="_on_player_detection_area_exited"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+
+[editable path="MineralHurtbox"]

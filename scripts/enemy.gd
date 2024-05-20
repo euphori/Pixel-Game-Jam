@@ -5,14 +5,14 @@ extends CharacterBody2D
 
 const SPEED = 20.0
 const JUMP_VELOCITY = -400.0
-const LURK_SPEED_MULT = 2
+const LURK_SPEED_MULT = 1.5
 var raycast_detection
 
 var player
 var is_player_near = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var can_jumpscare = false
+var can_jumpscare = true
 
 #direction vector array
 #corresponds to up,       upper right,         right,    downward right,      down,     downward left,     left,         upper left
@@ -119,7 +119,7 @@ func _physics_process(delta):
 				velocity = Vector2(0,0)
 				can_jumpscare = false
 				process_wall_direction()
-			elif abs(global_position.distance_to(player.global_position)) >= 120:
+			elif abs(global_position.distance_to(player.global_position)) >= 90:
 				state = States.HIDE
 			velocity = velocity + ((steering_force * sharp_turn) * delta)
 			position += velocity
@@ -127,7 +127,7 @@ func _physics_process(delta):
 				$AnimationPlayer.play("swim")
 		if state == States.HIDE:
 			$AudioStreamPlayer.stop()
-			if can_jumpscare:
+			if abs(global_position.distance_to(player.global_position)) >= 110:
 				state = States.LURK
 			velocity = velocity + ((steering_force * sharp_turn) * (delta / 3))
 			position += velocity 
@@ -138,7 +138,7 @@ func _physics_process(delta):
 				$LurkAudio.play()
 				$LurkAudioCD.start(randi_range(5,15))
 			var distance = abs(global_position.distance_to(player.global_position))
-			if distance > 80:
+			if distance > 130:
 				velocity = velocity + ((steering_force * sharp_turn) * delta)
 				position += velocity * LURK_SPEED_MULT
 			else:
@@ -163,9 +163,10 @@ func _on_player_detection_body_exited(body):
 func _on_player_detection_area_entered(area):
 	$WarningSprite.visible = false
 	if can_jumpscare:
-		can_jumpscare = false
 		$ScreechAudio.play()
-		state = States.CHASE
+	state = States.CHASE
+	can_jumpscare = false
+		
 		
 	
 

@@ -18,3 +18,4 @@ func _on_timer_timeout():
 
 func _on_player_detection_body_entered(body):
 	$AudioStreamPlayer2D.play()
+	queue_free()
