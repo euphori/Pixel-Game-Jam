@@ -27,7 +27,7 @@ var danger_array = [0,0,0,0,0,0,0,0]
 #decides which direction AI goes to
 var context_map = [0,0,0,0,0,0,0,0]
 var best_direction_index = 0
-
+var discovered = false
 var playing_lurk_sound = false
 
 enum States{
@@ -132,13 +132,14 @@ func _physics_process(delta):
 			velocity = velocity + ((steering_force * sharp_turn) * (delta / 3))
 			position += velocity 
 		if state == States.LURK:
+			$WarningSprite.visible = false
 			$AudioStreamPlayer.stop()
 			if not playing_lurk_sound:
 				playing_lurk_sound = true
 				$LurkAudio.play()
 				$LurkAudioCD.start(randi_range(5,15))
 			var distance = abs(global_position.distance_to(player.global_position))
-			if distance > 130:
+			if distance > 400:
 				velocity = velocity + ((steering_force * sharp_turn) * delta)
 				position += velocity * LURK_SPEED_MULT
 			else:
@@ -162,10 +163,12 @@ func _on_player_detection_body_exited(body):
 
 func _on_player_detection_area_entered(area):
 	$WarningSprite.visible = false
+	discovered = true
 	if can_jumpscare:
 		$ScreechAudio.play()
+		can_jumpscare = false
 	state = States.CHASE
-	can_jumpscare = false
+	
 		
 		
 	
@@ -174,7 +177,8 @@ func _on_player_detection_area_entered(area):
 
 
 func _on_player_detection_area_exited(area):
-	$WarningSprite.visible = true
+	if discovered and !state == States.LURK:
+		$WarningSprite.visible = true
 
 
 func _on_screech_cd_timeout():

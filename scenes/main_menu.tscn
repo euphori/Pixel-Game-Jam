@@ -239,6 +239,7 @@ flat = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_71haw")
+volume_db = 8.0
 autoplay = true
 bus = &"LowPass"
 

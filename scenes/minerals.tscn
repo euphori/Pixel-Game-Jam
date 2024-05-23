@@ -40,8 +40,8 @@ var mineral_rarity_weight = {
 	\"white\" : 65,
 	\"green\" : 60,
 	\"blue\" : 40,
-	\"orange\" : 5,
-	\"purple\" : 15
+	\"orange\" : 2,
+	\"purple\" : 10
 }
 
 var drop_ammount = {
@@ -58,30 +58,37 @@ var drop = preload(\"res://scenes/drop.tscn\")
 func _ready():
 	$Label.visible = false
 	
-	if position.y > 200:
-		mineral_rarity_weight[\"blue\"] += 10
-	elif position.y >=400:
-		mineral_rarity_weight[\"blue\"] += 20
-		mineral_rarity_weight[\"purple\"] += 10
-	elif position.y >= 600:
+	if global_position.y >= 1500:
+		mineral_rarity_weight[\"purple\"] = 30
+		mineral_rarity_weight[\"orange\"] = 25
+		mineral_rarity_weight[\"blue\"] = 25
+		mineral_rarity_weight[\"green\"] =15
+		mineral_rarity_weight[\"white\"] = 15
+	elif global_position.y >= 1000:
+		mineral_rarity_weight[\"purple\"] = 30
+		mineral_rarity_weight[\"orange\"] = 10
+		mineral_rarity_weight[\"blue\"] = 30
+		mineral_rarity_weight[\"green\"] = 15
+		mineral_rarity_weight[\"white\"] = 15
+	elif global_position.y >= 700:
+		mineral_rarity_weight[\"purple\"] = 30
+		mineral_rarity_weight[\"orange\"] = 15
+		mineral_rarity_weight[\"blue\"] = 30
+		mineral_rarity_weight[\"green\"] = 10
+		mineral_rarity_weight[\"white\"] = 10
+	elif global_position.y >= 600:
 		mineral_rarity_weight[\"purple\"] += 20
 		mineral_rarity_weight[\"orange\"] += 5
 		mineral_rarity_weight[\"blue\"] -= 10
-		mineral_rarity_weight[\"green\"] -= 30
-		mineral_rarity_weight[\"white\"] -= 20
-	elif position.y >= 700:
-		mineral_rarity_weight[\"purple\"] += 25
-		mineral_rarity_weight[\"orange\"] += 10
-		mineral_rarity_weight[\"blue\"] -= 10
-		mineral_rarity_weight[\"green\"] -= 30
-		mineral_rarity_weight[\"white\"] -= 30
-	elif position.y >= 900:
-		mineral_rarity_weight[\"purple\"] += 10
-		mineral_rarity_weight[\"orange\"] += 40
-		mineral_rarity_weight[\"blue\"] -= 20
-		mineral_rarity_weight[\"green\"] -= 40
-		mineral_rarity_weight[\"white\"] -= 40
+		mineral_rarity_weight[\"green\"] -= 15
+		mineral_rarity_weight[\"white\"] -= 15
+
+	
+	
+	
+	
 	generate_type()
+	print(\"GP: \" , global_position.y , \"   TYPE: \"  ,type)
 	if type == \"orange\":
 		$Sprite2D.scale = Vector2(1.5,1.5)
 
@@ -93,7 +100,7 @@ func _process(delta):
 
 	if Input.is_action_pressed(\"gather\") and player != null and player_near:
 		player.get_node(\"LaserBeam\").gathering = true
-		health -= 0.5
+		#health -= 0.5
 		if !sfx_playing:
 			$AudioStreamPlayer2D.play()
 			sfx_playing = true
@@ -201,7 +208,7 @@ offset_right = 114.0
 offset_bottom = 7.0
 scale = Vector2(0.25, 0.25)
 theme_override_fonts/font = ExtResource("4_xseur")
-text = "Gather(left_mouse)"
+text = "Gather(E)"
 horizontal_alignment = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

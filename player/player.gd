@@ -38,7 +38,8 @@ func _input(event):
 
 
 func _physics_process(delta):
-	# Add the gravity.
+	if is_dead:
+		return
 	if get_parent().name != "SampleWorld":
 		if cd_bar.value < 100:
 			cd_bar.value += 65 * delta

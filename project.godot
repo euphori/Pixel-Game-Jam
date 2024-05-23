@@ -91,6 +91,7 @@ flag={
 2d_physics/layer_6="Laser"
 2d_physics/layer_7="EnemyHitbox"
 2d_physics/layer_8="PlayerHurtbox"
+2d_physics/layer_9="Sonar"
 
 [rendering]
 

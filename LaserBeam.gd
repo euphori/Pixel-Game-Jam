@@ -35,7 +35,8 @@ func _process(delta):
 
 				#print(ray_cast.get_collider().is_in_group("mineral"))
 				end.global_position = ray_cast.get_collision_point()
-
+				if is_instance_valid(ray_cast.get_collider()):
+					ray_cast.get_collider().health -= damage
 			else:
 
 				gathering = false
